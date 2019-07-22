@@ -24,17 +24,15 @@
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/scss/black-dashboard.scss",
+              "src/assets/css/nucleo-icons.css"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -88,7 +86,6 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
