@@ -22,7 +22,6 @@ Created using IcoMoon - icomoon.io
   display: inline-block;
   font: normal normal normal 1em/1 'Nucleo';
   vertical-align: middle;
-  speak: none;
   text-transform: none;
   /* Better Font Rendering */
   -webkit-font-smoothing: antialiased;
@@ -59,7 +58,7 @@ Created using IcoMoon - icomoon.io
 }
 
 .tim-icons-lg {
-  font-size: 1.2em;
+  font-size: 2.2em;
 }
 
 /* absolute units */

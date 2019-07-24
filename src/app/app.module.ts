@@ -7,12 +7,15 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from "./app.component";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
+import { AccountService } from './services/account.service';
+import { BaseService } from './services/base.service';
+import { BotService } from './services/bot.service';
+import { LogService } from './services/log.service';
 
 @NgModule({
   imports: [
@@ -25,8 +28,8 @@ import { ComponentsModule } from "./components/components.module";
     AppRoutingModule,
     ToastrModule.forRoot()
   ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
-  providers: [],
+  declarations: [AppComponent, AdminLayoutComponent],
+  providers: [AccountService, BaseService, BotService, LogService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
