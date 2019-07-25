@@ -1,3 +1,6 @@
-<div class="content">
-  <app-bot-card [bot]="bots[0]"></app-bot-card>
+<div *ngIf="bots" class="content">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutAlign="flex-start">
+    <app-bot-card *ngFor="let bot of bots" fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)"
+      fxFlex.lt-sm="100%" [bot]="bot"></app-bot-card>
+  </div>
 </div>

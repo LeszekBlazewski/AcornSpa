@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { ToastrModule } from 'ngx-toastr';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from "./app.component";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
@@ -26,6 +27,7 @@ import { LogService } from './services/log.service';
     NgbModule,
     RouterModule,
     AppRoutingModule,
+    FlexLayoutModule,
     ToastrModule.forRoot()
   ],
   declarations: [AppComponent, AdminLayoutComponent],

@@ -1,5 +1,5 @@
 export interface Log {
-    botId: Number;
-    status: String;
+    botId: number;
+    status: string;
     date: Date;
 }

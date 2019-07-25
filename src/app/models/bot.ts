@@ -1,6 +1,6 @@
 import { BotOrder } from '../enums/bot-order.enum';
 
 export interface Bot {
-    botId: Number,
+    botId: number,
     botOrder: BotOrder
 }

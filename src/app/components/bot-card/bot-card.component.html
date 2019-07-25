@@ -1,17 +1,21 @@
-<div *ngIf="bot" class=" row">
-    <div class=" col-md-3">
-        <div class=" card card-chart">
-            <div class=" card-header ">
-                <h3 class=" card-title ">
-                    <i class="tim-icons icon-badge tim-icons-lg"></i>
-                    BotID: {{ bot.botId }}
-                </h3>
-            </div>
-            <div class=" card-body">
-                <!-- <h4>
-                    Status: {{bot.botOrder | enumAsString : BotOrder}}
-                </h4> -->
-            </div>
+<div *ngIf="bot && currentLog">
+    <div class="card card-chart">
+        <div class=" card-header ">
+            <h3 class=" card-title ">
+                <i class="tim-icons icon-badge tim-icons-lg"></i>
+                BotID: {{ bot.botId }}
+            </h3>
+        </div>
+        <div class=" card-body">
+            <h4>
+                Status: {{BotOrders[bot.botOrder]}}
+            </h4>
+            <h4>
+                Log date: {{currentLog.date | date:'d-MMM-y: H:m'}}
+            </h4>
+            <h4>
+                Latest log: {{currentLog.status}}
+            </h4>
         </div>
     </div>
 </div>
