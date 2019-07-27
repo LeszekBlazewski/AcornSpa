@@ -7,10 +7,11 @@ import { FooterComponent } from "./footer/footer.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { BotCardComponent } from './bot-card/bot-card.component';
+import { BotAccountListComponent } from './bot-account-list/bot-account-list.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule],
-  declarations: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent],
+  declarations: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, BotAccountListComponent],
   exports: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent],
 })
 export class ComponentsModule { }
