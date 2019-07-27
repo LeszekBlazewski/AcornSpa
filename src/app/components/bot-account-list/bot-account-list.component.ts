@@ -18,7 +18,7 @@ export class BotAccountListComponent implements OnInit {
   ngOnInit() {
   }
 
-  private getImageUrl(accountRegion: Region): String {
+  public getImageUrl(accountRegion: Region): String {
     let urlOfIcon = '//opgg-static.akamaized.net/css3/sprite/images/';
     switch (accountRegion) {
       case Region.Eune:
