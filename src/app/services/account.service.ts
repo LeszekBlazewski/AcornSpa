@@ -13,7 +13,7 @@ export class AccountService {
     constructor(private baseService: BaseService) { }
 
     public getAccountsForBot(botId: number): Observable<Account[]> {
-        const url = this.ACCOUNT_API_URL + '/bot/' + botId.toString();
+        const url = this.ACCOUNT_API_URL + 'bot/' + botId.toString();
         return this.baseService.get(url);
     }
 

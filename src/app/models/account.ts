@@ -8,5 +8,5 @@ export interface Account {
     birthDate: Date;
     region: Region;
     level: Number;
-    experience: Number;
+    expPercentage: Number;
 }
