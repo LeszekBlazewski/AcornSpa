@@ -9,6 +9,7 @@ import { Log } from 'src/app/models/log';
 import { timer, Subscription } from 'rxjs';
 import { switchMap } from "rxjs/operators";
 import { Account } from 'src/app/models/account';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-bot-card',
@@ -25,6 +26,10 @@ export class BotCardComponent implements OnInit {
 
   BotOrders = BotOrder;
 
+  selectedBotOrder: BotOrder;
+
+  keys = Object.keys(BotOrder).filter(k => typeof BotOrder[k as any] === "number");
+
   currentLog: Log;
 
   constructor(private botService: BotService, private logService: LogService, private accountService: AccountService) { }
@@ -38,6 +43,7 @@ export class BotCardComponent implements OnInit {
 
     this.accountService.getAccountsForBot(this.bot.botId)
       .subscribe(accountsForBot => this.accountsForBot = accountsForBot);
+
   }
 
   ngOnDestroy() {
@@ -53,8 +59,19 @@ export class BotCardComponent implements OnInit {
     this.pollingSubscriptions.push(timer(0, 1000).pipe(
       switchMap(() => this.logService.getLatestLogForBot(this.bot.botId))
     ).subscribe(log => this.currentLog = log));
-
-
   }
 
+  private changeBotStatus() {
+
+    let newBot = <Bot>{};
+
+    newBot.botId = this.bot.botId;
+    newBot.botOrder = this.selectedBotOrder;
+
+    this.botService.updateBotData(newBot)
+      .subscribe(acceptedBotOrder =>
+        this.bot.botOrder = acceptedBotOrder
+      ), ((error: HttpErrorResponse) =>
+        console.log(error.message));
+  }
 }

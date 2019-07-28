@@ -20,6 +20,18 @@
                 Account list
             </h4>
             <app-bot-account-list *ngIf="accountsForBot" [accounts]="accountsForBot"></app-bot-account-list>
+            <div class="d-flex">
+                <button class="btn btn-primary flex-fill">Config</button>
+                <button class="btn btn-primary flex-fill">Accounts</button>
+            </div>
+            <div class="d-flex">
+                <div class="flex-grow-1">
+                    <ng-select [searchable]="false" [(ngModel)]="selectedBotOrder" [items]="keys"
+                        placeholder="Choose action">
+                    </ng-select>
+                </div>
+                <button class="btn btn-success align-button-execute" (click)="changeBotStatus()">Execute</button>
+            </div>
         </div>
     </div>
 </div>
