@@ -6,10 +6,11 @@ import { AccountService } from 'src/app/services/account.service';
 import { BotOrder } from 'src/app/enums/bot-order.enum';
 import { Log } from 'src/app/models/log';
 
-import { timer, Subscription } from 'rxjs';
-import { switchMap } from "rxjs/operators";
+import { timer, Subscription, Subject } from 'rxjs';
+import { switchMap, debounce, debounceTime } from "rxjs/operators";
 import { Account } from 'src/app/models/account';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-bot-card',
@@ -22,27 +23,46 @@ export class BotCardComponent implements OnInit {
 
   pollingSubscriptions: Subscription[] = [];
 
+  emptyBotStatusSubject = new Subject();
+
   accountsForBot: Account[];
 
   BotOrders = BotOrder;
-
-  selectedBotOrder: BotOrder;
 
   keys = Object.keys(BotOrder).filter(k => typeof BotOrder[k as any] === "number");
 
   currentLog: Log;
 
-  constructor(private botService: BotService, private logService: LogService, private accountService: AccountService) { }
+  updateStatusForm: FormGroup;
+
+  submitted = false;
+
+  constructor(private botService: BotService,
+    private logService: LogService,
+    private accountService: AccountService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     //this.createSubscriptions();
 
+    // REMOVE SECTION
     // REMOVE THIS (TEMP FOR NOT KILLIING DATABSE)
     this.logService.getLatestLogForBot(this.bot.botId)
       .subscribe(log => this.currentLog = log);
 
+    // remove this it is already in create subscriptions
+    this.emptyBotStatusSubject.pipe(
+      debounceTime(3000)
+    ).subscribe(() => this.submitted = false);
+
+    //  END OF REMOVE
+
     this.accountService.getAccountsForBot(this.bot.botId)
       .subscribe(accountsForBot => this.accountsForBot = accountsForBot);
+
+    this.updateStatusForm = this.formBuilder.group({
+      botStatus: [null, Validators.required]
+    })
 
   }
 
@@ -59,19 +79,36 @@ export class BotCardComponent implements OnInit {
     this.pollingSubscriptions.push(timer(0, 1000).pipe(
       switchMap(() => this.logService.getLatestLogForBot(this.bot.botId))
     ).subscribe(log => this.currentLog = log));
+
+    this.pollingSubscriptions.push(this.emptyBotStatusSubject.pipe(
+      debounceTime(3000)
+    ).subscribe(() => this.submitted = false));
+
   }
 
-  private changeBotStatus() {
+  get botStatus() { return this.updateStatusForm.get('botStatus'); }
+
+  updateBotStatus() {
+
+    this.submitted = true;
+    this.emptyBotStatusSubject.next();
+
+    // stop here if form is invalid
+    if (this.updateStatusForm.invalid)
+      return;
 
     let newBot = <Bot>{};
 
     newBot.botId = this.bot.botId;
-    newBot.botOrder = this.selectedBotOrder;
+    newBot.botOrder = this.f.botStatus.value;
 
     this.botService.updateBotData(newBot)
       .subscribe(acceptedBotOrder =>
         this.bot.botOrder = acceptedBotOrder
       ), ((error: HttpErrorResponse) =>
         console.log(error.message));
+
   }
+
+  get f() { return this.updateStatusForm.controls; }
 }

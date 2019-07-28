@@ -26,11 +26,21 @@
             </div>
             <div class="d-flex">
                 <div class="flex-grow-1">
-                    <ng-select [searchable]="false" [(ngModel)]="selectedBotOrder" [items]="keys"
-                        placeholder="Choose action">
-                    </ng-select>
+                    <form [formGroup]="updateStatusForm" (ngSubmit)="updateBotStatus()">
+                        <ng-select [searchable]="false" [items]="keys" placeholder="Choose action"
+                            formControlName="botStatus">
+                        </ng-select>
+                        <div *ngIf="submitted && f.botStatus.errors">
+                            <ngb-alert [type]="'danger'" *ngIf="f.botStatus.errors.required" [dismissible]="false"
+                                class="mt-2">
+                                <span>
+                                    <b> Choose action first !</b>
+                                </span>
+                            </ngb-alert>
+                        </div>
+                    </form>
                 </div>
-                <button class="btn btn-success align-button-execute" (click)="changeBotStatus()">Execute</button>
+                <button class="btn btn-success align-button-execute" (click)="updateBotStatus()">Execute</button>
             </div>
         </div>
     </div>
