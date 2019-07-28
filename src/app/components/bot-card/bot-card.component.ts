@@ -7,10 +7,11 @@ import { BotOrder } from 'src/app/enums/bot-order.enum';
 import { Log } from 'src/app/models/log';
 
 import { timer, Subscription, Subject } from 'rxjs';
-import { switchMap, debounce, debounceTime } from "rxjs/operators";
+import { switchMap, debounceTime } from "rxjs/operators";
 import { Account } from 'src/app/models/account';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-bot-card',
@@ -40,7 +41,8 @@ export class BotCardComponent implements OnInit {
   constructor(private botService: BotService,
     private logService: LogService,
     private accountService: AccountService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     //this.createSubscriptions();
@@ -86,8 +88,6 @@ export class BotCardComponent implements OnInit {
 
   }
 
-  get botStatus() { return this.updateStatusForm.get('botStatus'); }
-
   updateBotStatus() {
 
     this.submitted = true;
@@ -111,4 +111,9 @@ export class BotCardComponent implements OnInit {
   }
 
   get f() { return this.updateStatusForm.controls; }
+  get botStatus() { return this.updateStatusForm.get('botStatus'); }
+
+  openConfigModal(content) {
+    this.modalService.open(content, { windowClass: 'content', size: 'lg' });
+  }
 }
