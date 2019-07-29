@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Bot } from 'src/app/models/bot';
 import { BotService } from 'src/app/services/bot.service';
 import { LogService } from 'src/app/services/log.service';
@@ -12,6 +12,8 @@ import { Account } from 'src/app/models/account';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfigModalComponent } from "../config-modal/config-modal.component";
+
 
 @Component({
   selector: 'app-bot-card',
@@ -113,7 +115,8 @@ export class BotCardComponent implements OnInit {
   get f() { return this.updateStatusForm.controls; }
   get botStatus() { return this.updateStatusForm.get('botStatus'); }
 
-  openConfigModal(content) {
-    this.modalService.open(content, { windowClass: 'content', size: 'lg' });
+  openConfigModal() {
+    const modalRef = this.modalService.open(ConfigModalComponent)
+    modalRef.componentInstance.botId = this.bot.botId;
   }
 }

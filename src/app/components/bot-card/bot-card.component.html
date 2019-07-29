@@ -21,7 +21,7 @@
             </h4>
             <app-bot-account-list *ngIf="accountsForBot" [accounts]="accountsForBot"></app-bot-account-list>
             <div class="d-flex">
-                <button class="btn btn-primary flex-fill">Config</button>
+                <button class="btn btn-primary flex-fill" (click)="openConfigModal()">Config</button>
                 <button class="btn btn-primary flex-fill">Accounts</button>
             </div>
             <div class="d-flex">

@@ -17,6 +17,7 @@ import { AccountService } from './services/account.service';
 import { BaseService } from './services/base.service';
 import { BotService } from './services/bot.service';
 import { LogService } from './services/log.service';
+import { ConfigService } from "./services/config.service";
 
 @NgModule({
   imports: [
@@ -31,7 +32,7 @@ import { LogService } from './services/log.service';
     ToastrModule.forRoot()
   ],
   declarations: [AppComponent, AdminLayoutComponent],
-  providers: [AccountService, BaseService, BotService, LogService],
+  providers: [AccountService, BaseService, BotService, LogService, ConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

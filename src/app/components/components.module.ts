@@ -15,6 +15,7 @@ import { ConfigModalComponent } from './config-modal/config-modal.component';
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule, NgSelectModule, FormsModule, ReactiveFormsModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, BotAccountListComponent, ConfigModalComponent],
-  exports: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent],
+  exports: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, ConfigModalComponent],
+  entryComponents: [ConfigModalComponent]
 })
 export class ComponentsModule { }

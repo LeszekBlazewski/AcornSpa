@@ -1,93 +1,62 @@
-<ng-template #configTemplate let-modal>
-    <div class="card">
-        <div class="modal-header card-header">
-            <h4 class="modal-title card-title">Edit config</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class=" card-body">
-                <form>
-                    <div class=" row">
-                        <div class=" col-md-5 pr-md-1">
-                            <div class=" form-group">
-                                <label>ID</label>
-                                <input class=" form-control" disabled="true" type="text" value="" />
-                            </div>
-                        </div>
-                        <div class=" col-md-3 px-md-1">
-                            <div class=" form-group">
-                                <label> Username </label>
-                                <input class=" form-control" placeholder="Username" type="text" value="michael23" />
-                            </div>
-                        </div>
-                        <div class=" col-md-4 pl-md-1">
-                            <div class=" form-group">
-                                <label for="exampleInputEmail1"> Email address </label>
-                                <input class=" form-control" placeholder="mike@email.com" type="email" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" row">
-                        <div class=" col-md-6 pr-md-1">
-                            <div class=" form-group">
-                                <label> First Name </label>
-                                <input class=" form-control" placeholder="Company" type="text" value="Mike" />
-                            </div>
-                        </div>
-                        <div class=" col-md-6 pl-md-1">
-                            <div class=" form-group">
-                                <label> Last Name </label>
-                                <input class=" form-control" placeholder="Last Name" type="text" value="Andrew" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" row">
-                        <div class=" col-md-12">
-                            <div class=" form-group">
-                                <label> Address </label>
-                                <input class=" form-control" placeholder="Home Address" type="text"
-                                    value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" row">
-                        <div class=" col-md-4 pr-md-1">
-                            <div class=" form-group">
-                                <label> City </label>
-                                <input class=" form-control" placeholder="City" type="text" value="Mike" />
-                            </div>
-                        </div>
-                        <div class=" col-md-4 px-md-1">
-                            <div class=" form-group">
-                                <label> Country </label>
-                                <input class=" form-control" placeholder="Country" type="text" value="Andrew" />
-                            </div>
-                        </div>
-                        <div class=" col-md-4 pl-md-1">
-                            <div class=" form-group">
-                                <label> Postal Code </label>
-                                <input class=" form-control" placeholder="ZIP Code" type="number" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" row">
-                        <div class=" col-md-8">
-                            <div class=" form-group">
-                                <label> About Me </label>
-                                <textarea class=" form-control" cols="80" placeholder="Here can be your description"
-                                    rows="4" value="Mike">
-                      Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.
-                      </textarea>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class=" card-footer">
-                <button class=" btn btn-fill btn-danger" type="submit">Save</button>
-            </div>
-        </div>
+<div class="card card-fill" *ngIf="configForm">
+    <div class="modal-header">
+        <h4>Edit config</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
-</ng-template>
+    <div class="modal-body">
+        <form [formGroup]="configForm" (ngSubmit)="submitForm()">
+            <div class="form-row">
+                <div class="form-group col-md-2 pr-md-1">
+                    <label>Bot ID</label>
+                    <input class="form-control" formControlName="botId" />
+                </div>
+                <div class="form-group col-md-5 px-md-1">
+                    <label> Queue type </label>
+                    <ng-select [searchable]="false" formControlName="queueType" class="form-control"
+                        placeholder="Choose queue type" [clearable]="false">
+                    </ng-select>
+                </div>
+                <div class="form-group col-md-5 pl-md-1">
+                    <label> AI configuration</label>
+                    <ng-select [searchable]="false" formControlName="aiConfiguration" class="form-control"
+                        placeholder="Choose AI config" [clearable]="false">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label> Config path </label>
+                    <input class="form-control" formControlName="configPath" placeholder="Config path" type="text" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3 pr-md-1">
+                    <label> No action timeout </label>
+                    <input class=" form-control" type="number" formControlName="NoActionTimeout" />
+                </div>
+                <div class="form-check col-md-4 checkbox-position">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="closeBrowser"
+                            formControlName="closeBrowser" />
+                        <label class="custom-control-label" for="closeBrowser">Close Browser</label>
+                    </div>
+                    <div class="custom-control custom-checkbox mt-2">
+                        <input type="checkbox" class="custom-control-input" id="overWriteConfig"
+                            formControlName="overWriteConfig" />
+                        <label class="custom-control-label" for="overWriteConfig">Overwrite config</label>
+                    </div>
+                </div>
+                <div class="col-md-5 mt-3">
+                    <div class="d-flex">
+                        <button class="btn btn-danger mr-2 d-flex justify-content-center"
+                            (click)="activeModal.dismiss()">Cancel</button>
+                        <button class="btn btn-primary d-flex justify-content-center" ngbAutofocus>Save</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
