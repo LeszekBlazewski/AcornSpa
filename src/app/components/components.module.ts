@@ -11,11 +11,12 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
 import { BotCardComponent } from './bot-card/bot-card.component';
 import { BotAccountListComponent } from './bot-account-list/bot-account-list.component';
 import { ConfigModalComponent } from './config-modal/config-modal.component';
+import { ToastrNotificationComponent } from './toastr-notification/toastr-notification.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule, NgSelectModule, FormsModule, ReactiveFormsModule],
-  declarations: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, BotAccountListComponent, ConfigModalComponent],
-  exports: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, ConfigModalComponent],
-  entryComponents: [ConfigModalComponent]
+  declarations: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, BotAccountListComponent, ConfigModalComponent, ToastrNotificationComponent],
+  exports: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, ConfigModalComponent, ToastrNotificationComponent],
+  entryComponents: [ConfigModalComponent, ToastrNotificationComponent]
 })
 export class ComponentsModule { }

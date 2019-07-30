@@ -106,9 +106,9 @@ export class BotCardComponent implements OnInit {
 
     this.botService.updateBotData(newBot)
       .subscribe(acceptedBotOrder =>
-        this.bot.botOrder = acceptedBotOrder
-      ), ((error: HttpErrorResponse) =>
-        console.log(error.message));
+        this.bot.botOrder = acceptedBotOrder,
+        (error: HttpErrorResponse) =>
+          console.log(error.message));
 
   }
 

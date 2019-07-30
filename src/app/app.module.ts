@@ -18,6 +18,7 @@ import { BaseService } from './services/base.service';
 import { BotService } from './services/bot.service';
 import { LogService } from './services/log.service';
 import { ConfigService } from "./services/config.service";
+import { NotificationService } from "./services/notification.service";
 
 @NgModule({
   imports: [
@@ -29,10 +30,13 @@ import { ConfigService } from "./services/config.service";
     RouterModule,
     AppRoutingModule,
     FlexLayoutModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      maxOpened: 10,
+
+    })
   ],
   declarations: [AppComponent, AdminLayoutComponent],
-  providers: [AccountService, BaseService, BotService, LogService, ConfigService],
+  providers: [AccountService, BaseService, BotService, LogService, ConfigService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

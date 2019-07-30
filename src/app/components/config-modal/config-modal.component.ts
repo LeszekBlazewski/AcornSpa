@@ -7,6 +7,7 @@ import { AiConfig } from 'src/app/enums/ai-config.enum';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-config-modal',
@@ -27,7 +28,10 @@ export class ConfigModalComponent implements OnInit {
 
   queueKeys = Object.keys(QueueType).filter(k => typeof QueueType[k as any] === "number");
 
-  constructor(private configService: ConfigService, public activeModal: NgbActiveModal, private formBuilder: FormBuilder) { }
+  constructor(private configService: ConfigService,
+    private notificationService: NotificationService,
+    public activeModal: NgbActiveModal,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
 
@@ -53,15 +57,16 @@ export class ConfigModalComponent implements OnInit {
 
   submitForm() {
 
-
     if (this.configForm.invalid) {
       return;
     }
 
-    //TODO display toastr with information !
     this.configService.updateConfig(this.config)
-      .subscribe(response => console.log(response)
-      ), ((error: HttpErrorResponse) =>
-        console.log(error.message));
+      .subscribe(() =>
+        this.notificationService.showSuccessToastr('Config has been successfully updated !', ''),
+        (error: HttpErrorResponse) =>
+          this.notificationService.showErrorToastr("Config hasn't been saved. Is the API running ?", 'Whoop !'));
+
+    this.activeModal.close();
   }
 }
