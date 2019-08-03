@@ -16,7 +16,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class ConfigModalComponent implements OnInit {
 
-  @Input() botId: number;
+  @Input() inputBotId: number;
 
   configForm: FormGroup;
 
@@ -28,6 +28,8 @@ export class ConfigModalComponent implements OnInit {
 
   queueKeys = Object.keys(QueueType).filter(k => typeof QueueType[k as any] === "number");
 
+  aiConfigurationKeys = Object.keys(AiConfig).filter(k => typeof AiConfig[k as any] === "number");
+
   constructor(private configService: ConfigService,
     private notificationService: NotificationService,
     public activeModal: NgbActiveModal,
@@ -35,7 +37,7 @@ export class ConfigModalComponent implements OnInit {
 
   ngOnInit() {
 
-    this.configService.getConfig(this.botId)
+    this.configService.getConfig(this.inputBotId)
       .subscribe(data => this.config = data,
         error => console.log(error),
         () => this.initializeConfigForm());
@@ -43,13 +45,13 @@ export class ConfigModalComponent implements OnInit {
 
   private initializeConfigForm() {
     this.configForm = this.formBuilder.group({
-      botId: [{ value: this.config.botId, disabled: true }, Validators.required],
+      botId: [{ value: this.config.botId, disabled: true }],
       queueType: [this.QueueTypes[this.config.queueType], Validators.required],
       aiConfiguration: [this.AiConfigs[this.config.aiConfig], Validators.required],
-      configPath: [this.config.path, Validators.required],
-      closeBrowser: [this.config.closeBrowser, Validators.requiredTrue],
-      overWriteConfig: [this.config.overwriteConfig, Validators.requiredTrue],
-      NoActionTimeout: [this.config.noActionTimeout, Validators.required]
+      path: [this.config.path, Validators.required],
+      closeBrowser: [this.config.closeBrowser],
+      overWriteConfig: [this.config.overwriteConfig],
+      noActionTimeout: [this.config.noActionTimeout, Validators.required]
     })
   }
 
@@ -60,6 +62,8 @@ export class ConfigModalComponent implements OnInit {
     if (this.configForm.invalid) {
       return;
     }
+
+    this.config = this.configForm.getRawValue();
 
     this.configService.updateConfig(this.config)
       .subscribe(() =>

@@ -1,3 +1,5 @@
 export enum AiConfig {
-    Follow
+    Follow,
+    Laner,
+    LanerLite
 }

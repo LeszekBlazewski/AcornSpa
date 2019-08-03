@@ -117,6 +117,6 @@ export class BotCardComponent implements OnInit {
 
   openConfigModal() {
     const modalRef = this.modalService.open(ConfigModalComponent)
-    modalRef.componentInstance.botId = this.bot.botId;
+    modalRef.componentInstance.inputBotId = this.bot.botId;
   }
 }

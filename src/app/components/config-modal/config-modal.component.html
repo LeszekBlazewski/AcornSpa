@@ -10,31 +10,36 @@
             <div class="form-row">
                 <div class="form-group col-md-2 pr-md-1">
                     <label>Bot ID</label>
-                    <input class="form-control" formControlName="botId" />
+                    <input class="form-control" formControlName="botId" type="text" />
                 </div>
                 <div class="form-group col-md-5 px-md-1">
                     <label> Queue type </label>
-                    <ng-select [searchable]="false" formControlName="queueType" class="form-control"
-                        placeholder="Choose queue type" [clearable]="false">
+                    <ng-select [searchable]="false" formControlName="queueType" [clearable]="false" [items]="queueKeys">
                     </ng-select>
                 </div>
                 <div class="form-group col-md-5 pl-md-1">
                     <label> AI configuration</label>
-                    <ng-select [searchable]="false" formControlName="aiConfiguration" class="form-control"
-                        placeholder="Choose AI config" [clearable]="false">
+                    <ng-select [searchable]="false" formControlName="aiConfiguration" [clearable]="false"
+                        [items]="aiConfigurationKeys">
                     </ng-select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label> Config path </label>
-                    <input class="form-control" formControlName="configPath" placeholder="Config path" type="text" />
+                    <input class="form-control" formControlName="path" placeholder="Config path" type="text" />
+                    <div *ngIf="form.path.invalid" class="invalid-feedback">
+                        <div *ngIf="form.path.errors.required">Config is required</div>
+                    </div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3 pr-md-1">
                     <label> No action timeout </label>
-                    <input class=" form-control" type="number" formControlName="NoActionTimeout" />
+                    <input class=" form-control" type="number" formControlName="noActionTimeout" />
+                    <div *ngIf="form.noActionTimeout.invalid" class="invalid-feedback">
+                        <div *ngIf="form.noActionTimeout.errors.required">Please provide valid value</div>
+                    </div>
                 </div>
                 <div class="form-check col-md-4 checkbox-position">
                     <div class="custom-control custom-checkbox">
@@ -55,7 +60,6 @@
                         <button class="btn btn-primary d-flex justify-content-center" ngbAutofocus>Save</button>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>

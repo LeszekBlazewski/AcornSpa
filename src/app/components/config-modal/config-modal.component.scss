@@ -1,3 +1,16 @@
 .card-fill {
     height: 100%;
 }
+
+.custom-checkbox .custom-control-input:not(:checked)~.custom-control-label::before {
+    border: 2px solid;
+    border-color: #e14eca;
+}
+
+.invalid-feedback {
+    display: block;
+}
+
+.card form label + .form-control {
+    margin-bottom: 0px;
+}

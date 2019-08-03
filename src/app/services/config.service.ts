@@ -19,6 +19,6 @@ export class ConfigService {
     }
 
     public updateConfig(config: Config): Observable<any> {
-        return this.baseService.put(this.LOG_API_URL + config.botId.toString(), config);
+        return this.baseService.put(this.LOG_API_URL, config);
     }
 }
