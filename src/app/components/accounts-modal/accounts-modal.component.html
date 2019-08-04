@@ -1,0 +1,71 @@
+<div class="card card-fill">
+    <div class="modal-header">
+        <h4>Account list</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <table class="table">
+            <thead class=" text-primary">
+                <tr class="text-center">
+                    <th scope="col">ID</th>
+                    <th scope="col">Login</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Birth date</th>
+                    <th scope="col">Region</th>
+                    <th scope="col">Level</th>
+                    <th scope="col">Experience</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" *ngFor="let account of accounts">
+                    <td class="number-size">{{ account.accountId}}<i class="tim-icons icon-single-02"></i></td>
+                    <td>{{ account.login}}</td>
+                    <td>{{ account.password}}</td>
+                    <td>{{ account.birthDate | date:'dd-MM-y'}}</td>
+                    <td><img [src]="getImageUrl(account.region)" class="mr-2 mb-1"
+                            style="width: 20px">{{Regions[account.region]}}</td>
+                    <td class="text-center">{{account.level}}</td>
+                    <td>
+                        <ngb-progressbar class="text-center" type="primary" [value]="account.expPercentage"
+                            [striped]="true" [animated]="true">
+                            <span class="progress-text font-weight-bold">{{account.expPercentage}}%</span>
+                        </ngb-progressbar>
+                    </td>
+                    <td class="text-center"><i class="tim-icons icon-pencil tim-icons-md pr-2" placement="top"
+                            ngbTooltip="Edit account" (click)="openEditAccountModal()" style="cursor: pointer"></i>
+                        <i class="tim-icons icon-simple-remove tim-icons-md" placement="top" ngbTooltip="Remove account"
+                            (click)="openDeleteAccountModal(deleteTemplate,account.accountId)"
+                            style="cursor: pointer"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary mr-2" ngbAutofocus>Add new account</button>
+        <button class="btn btn-danger" (click)="activeModal.dismiss()">Close</button>
+    </div>
+</div>
+
+<ng-template #deleteTemplate let-modal>
+    <div class="card card-no-marign">
+        <div class="modal-header">
+            <h4>Account deletion</h4>
+            <button type="button" class="close" aria-label="Close button" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h4><strong>Are you sure you want to delete selected account ?</strong></h4>
+            <span class="text-danger">This operation can not be undone.</span>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary mr-2" (click)="modal.dismiss()">Cancel</button>
+            <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('delete')"
+                ngbAutofocus>Confirm</button>
+        </div>
+    </div>
+</ng-template>
