@@ -27,11 +27,11 @@
             <div class="d-flex">
                 <div class="flex-grow-1">
                     <form [formGroup]="updateStatusForm" (ngSubmit)="updateBotStatus()">
-                        <ng-select [searchable]="false" [items]="keys" placeholder="Choose action"
+                        <ng-select [searchable]="false" [items]="botOrderKeys" placeholder="Choose action"
                             formControlName="botStatus">
                         </ng-select>
-                        <div *ngIf="submitted && f.botStatus.errors">
-                            <ngb-alert [type]="'danger'" *ngIf="f.botStatus.errors.required" [dismissible]="false"
+                        <div *ngIf="submitted && form.botStatus.errors">
+                            <ngb-alert [type]="'danger'" *ngIf="form.botStatus.errors.required" [dismissible]="false"
                                 class="mt-2">
                                 <span>
                                     <b> Choose action first !</b>

@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigModalComponent } from "../config-modal/config-modal.component";
+import { NotificationService } from 'src/app/services/notification.service';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class BotCardComponent implements OnInit {
 
   BotOrders = BotOrder;
 
-  keys = Object.keys(BotOrder).filter(k => typeof BotOrder[k as any] === "number");
+  botOrderKeys = Object.keys(BotOrder).filter(k => typeof BotOrder[k as any] === "number");
 
   currentLog: Log;
 
@@ -44,7 +45,8 @@ export class BotCardComponent implements OnInit {
     private logService: LogService,
     private accountService: AccountService,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private notificationService: NotificationService) { }
 
   ngOnInit() {
     //this.createSubscriptions();
@@ -99,21 +101,24 @@ export class BotCardComponent implements OnInit {
     if (this.updateStatusForm.invalid)
       return;
 
-    let newBot = <Bot>{};
-
-    newBot.botId = this.bot.botId;
-    newBot.botOrder = this.f.botStatus.value;
+    let newBot = <Bot>{
+      botId: this.bot.botId,
+      botOrder: this.form.botStatus.value
+    };
 
     this.botService.updateBotData(newBot)
-      .subscribe(acceptedBotOrder =>
-        this.bot.botOrder = acceptedBotOrder,
+      .subscribe(acceptedBotOrder => {
+        this.notificationService.showSuccessToastr('Action executed successfully !', '');
+        this.submitted = false;
+        this.updateStatusForm.reset();
+        this.bot.botOrder = acceptedBotOrder;
+      },
         (error: HttpErrorResponse) =>
-          console.log(error.message));
+          this.notificationService.showErrorToastr("Action not executed. Is the API running ?", 'Whoop !'));
 
   }
 
-  get f() { return this.updateStatusForm.controls; }
-  get botStatus() { return this.updateStatusForm.get('botStatus'); }
+  get form() { return this.updateStatusForm.controls; }
 
   openConfigModal() {
     const modalRef = this.modalService.open(ConfigModalComponent)
