@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <!-- <div class="form-group col-md-6">
                     <label>Birthdate</label>
                     <div class="input-group">
                         <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="birthDate"
@@ -55,7 +55,7 @@
                                 type="button"></button>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group col-md-6">
                     <label>Region</label>
                     <ng-select [searchable]="false" formControlName="region" [clearable]="false" [items]="regionKeys">
@@ -69,9 +69,9 @@
             </div>
         </form>
     </div>
-    <ng-template #footerTemplate>
+    <!-- <ng-template #footerTemplate>
         <hr class="my-0">
         <button class="btn btn-info btn-sm m-2 float-left" (click)="form.birthDate.value = today">Today</button>
         <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
-    </ng-template>
+    </ng-template> -->
 </div>
