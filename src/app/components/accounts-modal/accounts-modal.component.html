@@ -1,6 +1,6 @@
 <div class="card card-fill">
     <div class="modal-header">
-        <h4>Account list</h4>
+        <h4>Account list for BotID:{{referencedBotId}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -30,12 +30,13 @@
                     <td class="text-center">{{account.level}}</td>
                     <td>
                         <ngb-progressbar class="text-center" type="primary" [value]="account.expPercentage"
-                            [striped]="true" [animated]="true">
+                            [striped]="true">
                             <span class="progress-text font-weight-bold">{{account.expPercentage}}%</span>
                         </ngb-progressbar>
                     </td>
                     <td class="text-center"><i class="tim-icons icon-pencil tim-icons-md pr-2" placement="top"
-                            ngbTooltip="Edit account" (click)="openEditAccountModal()" style="cursor: pointer"></i>
+                            ngbTooltip="Edit account" (click)="openSpecificAccountModal(account)"
+                            style="cursor: pointer"></i>
                         <i class="tim-icons icon-simple-remove tim-icons-md" placement="top" ngbTooltip="Remove account"
                             (click)="openDeleteAccountModal(deleteTemplate,account.accountId)"
                             style="cursor: pointer"></i>
@@ -45,7 +46,7 @@
         </table>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary mr-2" ngbAutofocus>Add new account</button>
+        <button class="btn btn-primary mr-2" ngbAutofocus (click)="openSpecificAccountModal()">Add new account</button>
         <button class="btn btn-danger" (click)="activeModal.dismiss()">Close</button>
     </div>
 </div>

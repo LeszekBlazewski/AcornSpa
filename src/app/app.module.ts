@@ -9,7 +9,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from "./app.component";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
@@ -36,7 +36,7 @@ import { NotificationService } from "./services/notification.service";
     })
   ],
   declarations: [AppComponent, AdminLayoutComponent],
-  providers: [AccountService, BaseService, BotService, LogService, ConfigService, NotificationService],
+  providers: [AccountService, BaseService, BotService, LogService, ConfigService, NotificationService, { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

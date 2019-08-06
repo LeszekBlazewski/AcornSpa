@@ -2,6 +2,7 @@ import { Component, OnInit, Input, TemplateRef } from '@angular/core';
 import { AccountService } from 'src/app/services/account.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AccountEditModalComponent } from "../account-edit-modal/account-edit-modal.component";
 import { Account } from 'src/app/models/account';
 import { Region } from 'src/app/enums/region.enum';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -20,6 +21,8 @@ export class AccountsModalComponent implements OnInit {
   ) { }
 
   @Input() accounts: Account[];
+
+  @Input() referencedBotId: number;
 
   Regions = Region;
 
@@ -44,9 +47,12 @@ export class AccountsModalComponent implements OnInit {
     return urlOfIcon;
   }
 
-  openEditAccountModal() {
-    const modalRef = this.modalService.open(AccountsModalComponent)
-    //modalRef.componentInstance.account = this.accountsForBot;
+  openSpecificAccountModal(account: Account) {
+    const modalRef = this.modalService.open(AccountEditModalComponent);
+
+    modalRef.componentInstance.account = account;
+
+    modalRef.componentInstance.referencedBotId = this.referencedBotId;
   }
 
   openDeleteAccountModal(template, accountId: number) {

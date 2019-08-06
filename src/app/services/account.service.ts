@@ -17,7 +17,7 @@ export class AccountService {
         return this.baseService.get(url);
     }
 
-    public updateAccounts(account: Account): Observable<any> {
+    public updateAccount(account: Account): Observable<any> {
         const url = this.ACCOUNT_API_URL + account.accountId.toString();
         return this.baseService.put(url, account);
     }
