@@ -1,11 +1,11 @@
 import { Region } from '../enums/region.enum';
 
 export interface Account {
-    accountId: Number;
+    accountId?: Number;
     botId: Number;
-    login: String;
-    password: String;
-    birthDate: Date;
+    login?: String;
+    password?: String;
+    birthDate?: Date;
     region: Region;
     level: Number;
     expPercentage: Number;

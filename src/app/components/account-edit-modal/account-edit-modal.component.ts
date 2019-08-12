@@ -3,7 +3,9 @@ import { Account } from 'src/app/models/account';
 import { AccountService } from 'src/app/services/account.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Region } from 'src/app/enums/region.enum';
-import { NgbCalendar, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationService } from 'src/app/services/notification.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-account-edit-modal',
@@ -24,20 +26,23 @@ export class AccountEditModalComponent implements OnInit {
 
   regionKeys = Object.keys(Region).filter(k => typeof Region[k as any] === "number");
 
-  today = this.calendar.getToday();
+  todayDate: Date;
+
+  submitted: Boolean = false;
 
   constructor(private accountService: AccountService,
     private formBuilder: FormBuilder,
-    private calendar: NgbCalendar,
-    public activeModal: NgbActiveModal) { }
+    public activeModal: NgbActiveModal,
+    private notificationService: NotificationService) { }
 
   ngOnInit() {
 
     this.account != null ? this.isNewAccount = false : this.isNewAccount = true;
 
+    this.todayDate = new Date();
+
     if (this.isNewAccount) {
-      this.account = <Account>{};
-      this.account.botId = this.referencedBotId;
+      this.createEmptyAccount();
     }
 
     this.initializeAccountEditForm();
@@ -46,7 +51,7 @@ export class AccountEditModalComponent implements OnInit {
   private initializeAccountEditForm() {
     this.accountEditForm = this.formBuilder.group({
       accountId: [{ value: this.account.accountId, disabled: true }],
-      botId: [this.account.botId, Validators.required],
+      botId: [{ value: this.account.botId, disabled: this.isNewAccount ? true : false }],
       login: [this.account.login, Validators.required],
       password: [this.account.password, Validators.required],
       birthDate: [this.account.birthDate, Validators.required],
@@ -60,18 +65,41 @@ export class AccountEditModalComponent implements OnInit {
 
   submitForm() {
 
+    this.submitted = true;
+
     if (this.accountEditForm.invalid)
       return;
 
     this.account = this.accountEditForm.getRawValue();
 
-
     // TODO ADD PROPER NOTIFICATIONS FOR SUCCESS/ERROR request !
-    if (this.isNewAccount)
-      this.accountService.addAccount(this.account);
-    else
-      this.accountService.updateAccount(this.account);
-
+    if (this.isNewAccount) {
+      this.accountService.addAccount(this.account).subscribe(() =>
+        this.notificationService.showSuccessToastr('Account has been successfully added !', ''),
+        (error: HttpErrorResponse) =>
+          this.notificationService.showErrorToastr("Account hasn't been saved. Is the API running ?", 'Whoop !'));
+    }
+    else {
+      this.accountService.updateAccount(this.account).subscribe(() =>
+        this.notificationService.showSuccessToastr('Account has been successfully updated !', ''),
+        (error: HttpErrorResponse) =>
+          this.notificationService.showErrorToastr("Account hasn't been updated. Is the API running ?", 'Whoop !'));
+    }
     this.activeModal.close();
+  }
+
+  private createEmptyAccount() {
+    this.account = <Account>{
+      botId: this.referencedBotId,
+      region: this.Regions.Eune,
+      level: 1,
+      expPercentage: 0,
+    }
+  }
+
+  setTodayDate() {
+    this.accountEditForm.patchValue({
+      birthDate: this.todayDate
+    });
   }
 }
