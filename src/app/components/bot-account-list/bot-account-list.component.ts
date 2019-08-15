@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Account } from 'src/app/models/account';
 import { Region } from 'src/app/enums/region.enum';
+import { IconService } from 'src/app/services/icon.service';
 
 @Component({
   selector: 'app-bot-account-list',
@@ -13,26 +14,13 @@ export class BotAccountListComponent implements OnInit {
 
   Regions = Region;
 
-  constructor() { }
+  constructor(private iconService: IconService) { }
 
   ngOnInit() {
   }
 
-  public getImageUrl(accountRegion: Region): String {
-    let urlOfIcon = '//opgg-static.akamaized.net/css3/sprite/images/';
-    switch (accountRegion) {
-      case Region.Eune:
-        urlOfIcon += 'regionFlag-eune.png';
-        break;
-      case Region.Euw:
-        urlOfIcon += 'regionFlag-euw.png';
-        break;
-      case Region.Na:
-        urlOfIcon += 'regionFlag-na.png';
-      default:
-        urlOfIcon = '';
-    }
-    return urlOfIcon;
+  public getRegionIcon(accountRegion: Region): String {
+    return this.iconService.getRegionIconUrl(accountRegion);
   }
 
 }

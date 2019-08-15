@@ -72,7 +72,6 @@ export class AccountEditModalComponent implements OnInit {
 
     this.account = this.accountEditForm.getRawValue();
 
-    // TODO ADD PROPER NOTIFICATIONS FOR SUCCESS/ERROR request !
     if (this.isNewAccount) {
       this.accountService.addAccount(this.account).subscribe(() =>
         this.notificationService.showSuccessToastr('Account has been successfully added !', ''),

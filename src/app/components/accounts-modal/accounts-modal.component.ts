@@ -6,6 +6,7 @@ import { AccountEditModalComponent } from "../account-edit-modal/account-edit-mo
 import { Account } from 'src/app/models/account';
 import { Region } from 'src/app/enums/region.enum';
 import { HttpErrorResponse } from '@angular/common/http';
+import { IconService } from "src/app/services/icon.service";
 
 @Component({
   selector: 'app-accounts-modal',
@@ -16,6 +17,7 @@ export class AccountsModalComponent implements OnInit {
 
   constructor(private accountService: AccountService,
     private notificationService: NotificationService,
+    private iconService: IconService,
     public activeModal: NgbActiveModal,
     private modalService: NgbModal,
   ) { }
@@ -30,21 +32,8 @@ export class AccountsModalComponent implements OnInit {
 
   }
 
-  public getImageUrl(accountRegion: Region): String {
-    let urlOfIcon = '//opgg-static.akamaized.net/css3/sprite/images/';
-    switch (accountRegion) {
-      case Region.Eune:
-        urlOfIcon += 'regionFlag-eune.png';
-        break;
-      case Region.Euw:
-        urlOfIcon += 'regionFlag-euw.png';
-        break;
-      case Region.Na:
-        urlOfIcon += 'regionFlag-na.png';
-      default:
-        urlOfIcon = '';
-    }
-    return urlOfIcon;
+  public getRegionIcon(accountRegion: Region): String {
+    return this.iconService.getRegionIconUrl(accountRegion);
   }
 
   openSpecificAccountModal(account: Account) {

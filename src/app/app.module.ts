@@ -19,6 +19,7 @@ import { BotService } from './services/bot.service';
 import { LogService } from './services/log.service';
 import { ConfigService } from "./services/config.service";
 import { NotificationService } from "./services/notification.service";
+import { IconService } from "./services/icon.service";
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { NotificationService } from "./services/notification.service";
     })
   ],
   declarations: [AppComponent, AdminLayoutComponent],
-  providers: [AccountService, BaseService, BotService, LogService, ConfigService, NotificationService, { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }],
+  providers: [AccountService, BaseService, BotService, LogService, ConfigService, NotificationService, IconService, { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

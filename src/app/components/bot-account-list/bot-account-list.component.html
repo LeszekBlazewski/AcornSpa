@@ -12,7 +12,7 @@
         <tr class="text-center" *ngFor="let account of accounts; index as i">
             <td class="number-size">{{ i + 1 }}<i class="tim-icons icon-single-02"></i></td>
             <td>{{ account.login}}</td>
-            <td><img [src]="getImageUrl(account.region)" class="mr-2 mb-1"
+            <td><img [src]="getRegionIcon(account.region)" class="mb-1 pull-left"
                     style="width: 20px">{{Regions[account.region]}}</td>
             <td class="text-center">{{account.level}}</td>
             <td>

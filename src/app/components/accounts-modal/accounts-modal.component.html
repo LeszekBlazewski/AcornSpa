@@ -25,7 +25,7 @@
                     <td>{{ account.login}}</td>
                     <td>{{ account.password}}</td>
                     <td>{{ account.birthDate | date:'dd-MM-y'}}</td>
-                    <td><img [src]="getImageUrl(account.region)" class="mr-2 mb-1"
+                    <td><img [src]="getRegionIcon(account.region)" class="pull-left mb-1"
                             style="width: 20px">{{Regions[account.region]}}</td>
                     <td class="text-center">{{account.level}}</td>
                     <td>
