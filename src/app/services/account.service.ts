@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { BaseService } from "./base.service";
 import { Account } from "../models/account"
 
@@ -9,6 +9,8 @@ import { Account } from "../models/account"
 export class AccountService {
 
     private readonly ACCOUNT_API_URL = 'accounts/';
+
+    private assignAccountSubject = new Subject<Account>();
 
     constructor(private baseService: BaseService) { }
 
@@ -29,5 +31,13 @@ export class AccountService {
 
     public addAccount(account: Account): Observable<Account> {
         return this.baseService.post(this.ACCOUNT_API_URL, account);
+    }
+
+    public assignAccountToBot(account: Account) {
+        this.assignAccountSubject.next(account);
+    }
+
+    public getAssignedAccount(): Observable<Account> {
+        return this.assignAccountSubject.asObservable();
     }
 }

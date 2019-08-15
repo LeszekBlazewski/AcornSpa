@@ -65,9 +65,11 @@ export class AccountsModalComponent implements OnInit {
 
   private manageAccounts(accountOperationHelper: AccountOperationHelper) {
 
+    const actionToPerfom = accountOperationHelper.AccountOperation;
+
     const accountWithUpdatedData = accountOperationHelper.Account;
 
-    switch (accountOperationHelper.AccountOperation) {
+    switch (actionToPerfom) {
       case AccountOperation.AddNewAccount:
         this.handleAddNewAccountAction(accountWithUpdatedData);
         break;
@@ -76,6 +78,9 @@ export class AccountsModalComponent implements OnInit {
         break;
       case AccountOperation.DeleteAccount:
         this.handleDeleteAccountAction(accountWithUpdatedData);
+        break;
+      case AccountOperation.AssignToDifferentBotAccount:
+        this.handleAssignAccountToDifferentBot(accountWithUpdatedData);
         break;
     }
   }
@@ -102,9 +107,24 @@ export class AccountsModalComponent implements OnInit {
   private handleDeleteAccountAction(accountToDelete: Account) {
     this.accountService.deleteAccount(accountToDelete.accountId).subscribe(() => {
       this.notificationService.showSuccessToastr('Account has been successfully deleted', '');
-      this.accounts.splice(this.accounts.indexOf(accountToDelete), 1);
+      let accountIndex = this.accounts.findIndex(account => account.accountId == accountToDelete.accountId);
+      this.accounts.splice(accountIndex, 1);
     },
       (error: HttpErrorResponse) =>
         this.notificationService.showErrorToastr('Account deletion failed. Is the API running', 'Whoop !'));
+  }
+
+  private handleAssignAccountToDifferentBot(accountToAssign: Account) {
+    // 1. Update the botId in the database
+    this.accountService.updateAccount(accountToAssign).subscribe(() => {
+      // 2. Remove the account object from array of current accounts for bot
+      let accountIndex = this.accounts.findIndex(account => account.accountId == accountToAssign.accountId);
+      this.accounts.splice(accountIndex, 1);
+      // 3. Assign the account to different bot card
+      this.accountService.assignAccountToBot(accountToAssign);
+      this.notificationService.showSuccessToastr(`Account has been successfully assigned to bot with ID:${accountToAssign.botId} !`, '');
+    },
+      (error: HttpErrorResponse) =>
+        this.notificationService.showErrorToastr("Account hasn't been updated. Is the API running ?", 'Whoop !'));
   }
 }

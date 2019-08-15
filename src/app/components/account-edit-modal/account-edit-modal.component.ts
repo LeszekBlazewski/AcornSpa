@@ -13,7 +13,7 @@ import { AccountOperationHelper } from 'src/app/helpers/account-operation.helper
 })
 export class AccountEditModalComponent implements OnInit {
 
-  isNewAccount: boolean;
+  opeartionToPerform: AccountOperation;
 
   @Input() account: Account
 
@@ -35,11 +35,11 @@ export class AccountEditModalComponent implements OnInit {
 
   ngOnInit() {
 
-    this.account != null ? this.isNewAccount = false : this.isNewAccount = true;
+    this.account != null ? this.opeartionToPerform = AccountOperation.UpdateAccount : this.opeartionToPerform = AccountOperation.AddNewAccount;
 
     this.todayDate = new Date();
 
-    if (this.isNewAccount) {
+    if (this.opeartionToPerform == AccountOperation.AddNewAccount) {
       this.createEmptyAccount();
     }
 
@@ -49,7 +49,7 @@ export class AccountEditModalComponent implements OnInit {
   private initializeAccountEditForm() {
     this.accountEditForm = this.formBuilder.group({
       accountId: [{ value: this.account.accountId, disabled: true }],
-      botId: [{ value: this.account.botId, disabled: this.isNewAccount ? true : false }],
+      botId: [{ value: this.account.botId, disabled: this.opeartionToPerform == AccountOperation.AddNewAccount ? true : false }],
       login: [this.account.login, Validators.required],
       password: [this.account.password, Validators.required],
       birthDate: [this.account.birthDate ? new Date(this.account.birthDate) : null, Validators.required],
@@ -74,12 +74,12 @@ export class AccountEditModalComponent implements OnInit {
 
     newAccount.region = Region[newAccount.region.toString()]; // convert ,,string" enum to numeric value
 
+    if (this.referencedBotId != newAccount.botId)             // check if user requested assign of the account to different bot
+      this.opeartionToPerform = AccountOperation.AssignToDifferentBotAccount;
+
     accountOperationHelper.Account = newAccount;
 
-    if (this.isNewAccount)
-      accountOperationHelper.AccountOperation = AccountOperation.AddNewAccount;
-    else
-      accountOperationHelper.AccountOperation = AccountOperation.UpdateAccount;
+    accountOperationHelper.AccountOperation = this.opeartionToPerform;
 
     this.activeModal.close(accountOperationHelper);
   }

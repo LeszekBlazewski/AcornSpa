@@ -26,7 +26,7 @@ export class BotCardComponent implements OnInit {
 
   @Input() bot: Bot;
 
-  pollingSubscriptions: Subscription[] = [];
+  componenetSubscriptions: Subscription[] = [];
 
   emptyBotStatusSubject = new Subject();
 
@@ -62,6 +62,11 @@ export class BotCardComponent implements OnInit {
       debounceTime(3000)
     ).subscribe(() => this.submitted = false);
 
+    this.componenetSubscriptions.push(this.accountService.getAssignedAccount().subscribe((receivedAccount) => {
+      if (this.bot.botId == receivedAccount.botId)
+        this.accountsForBot.push(receivedAccount);
+    }));
+
     //  END OF REMOVE
 
     this.accountService.getAccountsForBot(this.bot.botId)
@@ -75,23 +80,27 @@ export class BotCardComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.pollingSubscriptions.forEach(subscription => subscription.unsubscribe());
+    this.componenetSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   private createSubscriptions() {
 
-    this.pollingSubscriptions.push(timer(0, 1000).pipe(
+    this.componenetSubscriptions.push(timer(0, 1000).pipe(
       switchMap(() => this.botService.getBot(this.bot.botId))
     ).subscribe(bot => this.bot = bot));
 
-    this.pollingSubscriptions.push(timer(0, 1000).pipe(
+    this.componenetSubscriptions.push(timer(0, 1000).pipe(
       switchMap(() => this.logService.getLatestLogForBot(this.bot.botId))
     ).subscribe(log => this.currentLog = log));
 
-    this.pollingSubscriptions.push(this.emptyBotStatusSubject.pipe(
+    this.componenetSubscriptions.push(this.emptyBotStatusSubject.pipe(
       debounceTime(3000)
     ).subscribe(() => this.submitted = false));
 
+    this.componenetSubscriptions.push(this.accountService.getAssignedAccount().subscribe((receivedAccount) => {
+      if (this.bot.botId == receivedAccount.botId)
+        this.accountsForBot.push(receivedAccount);
+    }));
   }
 
   updateBotStatus() {
