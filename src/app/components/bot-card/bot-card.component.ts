@@ -65,7 +65,8 @@ export class BotCardComponent implements OnInit {
     //  END OF REMOVE
 
     this.accountService.getAccountsForBot(this.bot.botId)
-      .subscribe(accountsForBot => this.accountsForBot = accountsForBot);
+      .subscribe(accountsForBot => this.accountsForBot = accountsForBot,
+        (error: HttpErrorResponse) => this.notificationService.showErrorToastr("Accounts couldn't be fetched. Is the API running ?", 'Whoop !'));
 
     this.updateStatusForm = this.formBuilder.group({
       botStatus: [null, Validators.required]

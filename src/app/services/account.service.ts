@@ -27,7 +27,7 @@ export class AccountService {
         return this.baseService.delete(url);
     }
 
-    public addAccount(account: Account): Observable<any> {
+    public addAccount(account: Account): Observable<Account> {
         return this.baseService.post(this.ACCOUNT_API_URL, account);
     }
 }

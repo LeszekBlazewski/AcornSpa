@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AccountService } from 'src/app/services/account.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -7,6 +7,8 @@ import { Account } from 'src/app/models/account';
 import { Region } from 'src/app/enums/region.enum';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IconService } from "src/app/services/icon.service";
+import { AccountOperation } from 'src/app/enums/account-operation.enum';
+import { AccountOperationHelper } from 'src/app/helpers/account-operation.helper';
 
 @Component({
   selector: 'app-accounts-modal',
@@ -42,16 +44,67 @@ export class AccountsModalComponent implements OnInit {
     modalRef.componentInstance.account = account;
 
     modalRef.componentInstance.referencedBotId = this.referencedBotId;
+
+    modalRef.result.then((accountOperationHelper: AccountOperationHelper) =>
+      this.manageAccounts(accountOperationHelper),
+      (rejectedReason) => { }
+    );
   }
 
-  openDeleteAccountModal(template, accountId: number) {
-    this.modalService.open(template, { size: 'sm' }).result.then((result) => {
-      if (result) {
-        this.accountService.deleteAccount(accountId).subscribe(
-          () => this.notificationService.showSuccessToastr('Account has been successfully deleted', ''),
-          (error: HttpErrorResponse) => this.notificationService.showErrorToastr('Account deletion failed. Is the API running', 'Whoop !')
-        )
-      }
-    });
+  openDeleteAccountModal(template: any, account: Account) {
+    this.modalService.open(template, { size: 'sm' }).result.then(() => {
+
+      const accountOperationHelper = <AccountOperationHelper>{
+        AccountOperation: AccountOperation.DeleteAccount,
+        Account: account
+      };
+      this.manageAccounts(accountOperationHelper)
+    }, (rejectedReason) => { }
+    );
+  }
+
+  private manageAccounts(accountOperationHelper: AccountOperationHelper) {
+
+    const accountWithUpdatedData = accountOperationHelper.Account;
+
+    switch (accountOperationHelper.AccountOperation) {
+      case AccountOperation.AddNewAccount:
+        this.handleAddNewAccountAction(accountWithUpdatedData);
+        break;
+      case AccountOperation.UpdateAccount:
+        this.handleUpdateAccountAction(accountWithUpdatedData);
+        break;
+      case AccountOperation.DeleteAccount:
+        this.handleDeleteAccountAction(accountWithUpdatedData);
+        break;
+    }
+  }
+
+  private handleAddNewAccountAction(newAccount: Account) {
+    this.accountService.addAccount(newAccount).subscribe((insertedAccount) => {
+      this.notificationService.showSuccessToastr('Account has been successfully added !', '');
+      this.accounts.push(insertedAccount);
+    },
+      (error: HttpErrorResponse) =>
+        this.notificationService.showErrorToastr("Account hasn't been saved. Is the API running ?", 'Whoop !'));
+  }
+
+  private handleUpdateAccountAction(updatedAccount: Account) {
+    this.accountService.updateAccount(updatedAccount).subscribe(() => {
+      this.notificationService.showSuccessToastr('Account has been successfully updated !', '');
+      let accountIndex = this.accounts.findIndex(account => account.accountId == updatedAccount.accountId);
+      this.accounts.splice(accountIndex, 1, updatedAccount);
+    },
+      (error: HttpErrorResponse) =>
+        this.notificationService.showErrorToastr("Account hasn't been updated. Is the API running ?", 'Whoop !'));
+  }
+
+  private handleDeleteAccountAction(accountToDelete: Account) {
+    this.accountService.deleteAccount(accountToDelete.accountId).subscribe(() => {
+      this.notificationService.showSuccessToastr('Account has been successfully deleted', '');
+      this.accounts.splice(this.accounts.indexOf(accountToDelete), 1);
+    },
+      (error: HttpErrorResponse) =>
+        this.notificationService.showErrorToastr('Account deletion failed. Is the API running', 'Whoop !'));
   }
 }

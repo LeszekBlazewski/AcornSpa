@@ -1,7 +1,7 @@
 <table class="table">
     <thead class=" text-primary">
         <tr class="text-center">
-            <th scope="col">#</th>
+            <th scope="col">ID</th>
             <th scope="col">Login</th>
             <th scope="col">Region</th>
             <th scope="col">Level</th>
@@ -9,8 +9,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="text-center" *ngFor="let account of accounts; index as i">
-            <td class="number-size">{{ i + 1 }}<i class="tim-icons icon-single-02"></i></td>
+        <tr class="text-center" *ngFor="let account of accounts">
+            <td class="number-size">{{ account.accountId }}<i class="tim-icons icon-single-02"></i></td>
             <td>{{ account.login}}</td>
             <td><img [src]="getRegionIcon(account.region)" class="mb-1 pull-left"
                     style="width: 20px">{{Regions[account.region]}}</td>

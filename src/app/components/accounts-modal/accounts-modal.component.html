@@ -38,8 +38,7 @@
                             ngbTooltip="Edit account" (click)="openSpecificAccountModal(account)"
                             style="cursor: pointer"></i>
                         <i class="tim-icons icon-simple-remove tim-icons-md" placement="top" ngbTooltip="Remove account"
-                            (click)="openDeleteAccountModal(deleteTemplate,account.accountId)"
-                            style="cursor: pointer"></i>
+                            (click)="openDeleteAccountModal(deleteTemplate,account)" style="cursor: pointer"></i>
                     </td>
                 </tr>
             </tbody>
@@ -66,7 +65,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-primary mr-2" (click)="modal.dismiss()">Cancel</button>
-            <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('delete')"
+            <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close()"
                 ngbAutofocus>Confirm</button>
         </div>
     </div>

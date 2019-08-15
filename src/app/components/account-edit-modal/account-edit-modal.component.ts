@@ -1,11 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Account } from 'src/app/models/account';
-import { AccountService } from 'src/app/services/account.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Region } from 'src/app/enums/region.enum';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { NotificationService } from 'src/app/services/notification.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { AccountOperation } from 'src/app/enums/account-operation.enum';
+import { AccountOperationHelper } from 'src/app/helpers/account-operation.helper';
 
 @Component({
   selector: 'app-account-edit-modal',
@@ -30,10 +29,9 @@ export class AccountEditModalComponent implements OnInit {
 
   submitted: Boolean = false;
 
-  constructor(private accountService: AccountService,
+  constructor(
     private formBuilder: FormBuilder,
-    public activeModal: NgbActiveModal,
-    private notificationService: NotificationService) { }
+    public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
 
@@ -54,7 +52,7 @@ export class AccountEditModalComponent implements OnInit {
       botId: [{ value: this.account.botId, disabled: this.isNewAccount ? true : false }],
       login: [this.account.login, Validators.required],
       password: [this.account.password, Validators.required],
-      birthDate: [this.account.birthDate, Validators.required],
+      birthDate: [this.account.birthDate ? new Date(this.account.birthDate) : null, Validators.required],
       region: [this.Regions[this.account.region], Validators.required],
       level: [{ value: this.account.level, disabled: true }],
       expPercentage: [{ value: this.account.expPercentage, disabled: true }]
@@ -70,21 +68,20 @@ export class AccountEditModalComponent implements OnInit {
     if (this.accountEditForm.invalid)
       return;
 
-    this.account = this.accountEditForm.getRawValue();
+    let accountOperationHelper = <AccountOperationHelper>{};
 
-    if (this.isNewAccount) {
-      this.accountService.addAccount(this.account).subscribe(() =>
-        this.notificationService.showSuccessToastr('Account has been successfully added !', ''),
-        (error: HttpErrorResponse) =>
-          this.notificationService.showErrorToastr("Account hasn't been saved. Is the API running ?", 'Whoop !'));
-    }
-    else {
-      this.accountService.updateAccount(this.account).subscribe(() =>
-        this.notificationService.showSuccessToastr('Account has been successfully updated !', ''),
-        (error: HttpErrorResponse) =>
-          this.notificationService.showErrorToastr("Account hasn't been updated. Is the API running ?", 'Whoop !'));
-    }
-    this.activeModal.close();
+    let newAccount: Account = this.accountEditForm.getRawValue();
+
+    newAccount.region = Region[newAccount.region.toString()]; // convert ,,string" enum to numeric value
+
+    accountOperationHelper.Account = newAccount;
+
+    if (this.isNewAccount)
+      accountOperationHelper.AccountOperation = AccountOperation.AddNewAccount;
+    else
+      accountOperationHelper.AccountOperation = AccountOperation.UpdateAccount;
+
+    this.activeModal.close(accountOperationHelper);
   }
 
   private createEmptyAccount() {
