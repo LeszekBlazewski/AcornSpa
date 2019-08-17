@@ -11,15 +11,15 @@ export abstract class AccountEditModalBase<T extends BaseAccount> {
 
   protected accountOperationHelper: AccountOperationHelper<T>;
 
-  protected accountEditForm: FormGroup;
+  public accountEditForm: FormGroup;
 
   protected Regions = Region;
 
-  protected regionKeys = Object.keys(Region).filter(k => typeof Region[k as any] === "number");
+  public regionKeys = Object.keys(Region).filter(k => typeof Region[k as any] === "number");
 
   protected todayDate: Date;
 
-  protected submitted: Boolean = false;
+  public submitted: Boolean = false;
 
   protected abstract createEmptyAccount(): void;
 
@@ -27,14 +27,14 @@ export abstract class AccountEditModalBase<T extends BaseAccount> {
 
   protected abstract initializeAccountEditForm(): void;
 
-  protected get form() { return this.accountEditForm.controls; }
+  public get form() { return this.accountEditForm.controls; }
 
   constructor() {
     this.todayDate = new Date();
     this.accountOperationHelper = <AccountOperationHelper<T>>{};
   }
 
-  protected setTodayDate() {
+  public setTodayDate() {
     this.accountEditForm.patchValue({
       birthDate: this.todayDate
     });

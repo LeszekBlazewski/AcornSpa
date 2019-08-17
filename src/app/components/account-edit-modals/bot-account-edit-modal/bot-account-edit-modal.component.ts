@@ -16,7 +16,7 @@ export class BotAccountEditModalComponent extends AccountEditModalBase<BotAccoun
 
   constructor(
     private formBuilder: FormBuilder,
-    private activeModal: NgbActiveModal) {
+    public activeModal: NgbActiveModal) {
     super();
   }
 

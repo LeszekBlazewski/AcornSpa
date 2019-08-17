@@ -13,7 +13,7 @@ export class AccountEditModalComponent extends AccountEditModalBase<BaseAccount>
 
   constructor(
     private formBuilder: FormBuilder,
-    private activeModal: NgbActiveModal) {
+    public activeModal: NgbActiveModal) {
     super();
   }
 
