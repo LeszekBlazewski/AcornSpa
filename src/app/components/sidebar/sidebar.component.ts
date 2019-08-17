@@ -15,28 +15,15 @@ export const ROUTES: RouteInfo[] = [
     class: ""
   },
   {
-    path: "/icons",
-    title: "Icons",
-    icon: "icon-atom",
+    path: "/freshAccounts",
+    title: "Fresh accounts",
+    icon: "icon-bullet-list-67",
     class: ""
   },
   {
-    path: "/notifications",
-    title: "Notifications",
-    icon: "icon-bell-55",
-    class: ""
-  },
-
-  {
-    path: "/user",
-    title: "User Profile",
-    icon: "icon-single-02",
-    class: ""
-  },
-  {
-    path: "/tables",
-    title: "Table List",
-    icon: "icon-puzzle-10",
+    path: "/readyAccounts",
+    title: "Ready accounts",
+    icon: "icon-single-copy-04",
     class: ""
   }
 ];
