@@ -14,11 +14,12 @@ import { ConfigModalComponent } from './config-modal/config-modal.component';
 import { ToastrNotificationComponent } from './toastr-notification/toastr-notification.component';
 import { AccountsModalComponent } from './accounts-modal/accounts-modal.component';
 import { BotAccountEditModalComponent } from './account-edit-modals/bot-account-edit-modal/bot-account-edit-modal.component';
+import { AccountEditModalComponent } from './account-edit-modals/account-edit-modal/account-edit-modal.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule, NgSelectModule, FormsModule, ReactiveFormsModule],
-  declarations: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, BotAccountListComponent, ConfigModalComponent, ToastrNotificationComponent, BotAccountEditModalComponent, AccountsModalComponent],
+  declarations: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, BotAccountListComponent, ConfigModalComponent, ToastrNotificationComponent, BotAccountEditModalComponent, AccountEditModalComponent, AccountsModalComponent],
   exports: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, ConfigModalComponent, ToastrNotificationComponent],
-  entryComponents: [ConfigModalComponent, ToastrNotificationComponent, AccountsModalComponent, BotAccountEditModalComponent]
+  entryComponents: [ConfigModalComponent, ToastrNotificationComponent, AccountsModalComponent, BotAccountEditModalComponent, AccountEditModalComponent]
 })
 export class ComponentsModule { }
