@@ -1,7 +1,7 @@
 import { AccountOperation } from '../enums/account-operation.enum';
-import { Account } from '../models/account';
+import { BaseAccount } from '../models/baseAccount';
 
-export interface AccountOperationHelper {
+export interface AccountOperationHelper<T extends BaseAccount> {
     AccountOperation: AccountOperation,
-    Account: Account
+    Account: T
 }

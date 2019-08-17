@@ -13,10 +13,10 @@ import { NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from "@ng-bootstrap/n
 
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
-import { AccountService } from './services/account.service';
-import { BaseService } from './services/base.service';
+import { BotAccountService } from './services/bot-account.service';
 import { BotService } from './services/bot.service';
 import { LogService } from './services/log.service';
+import { BaseAccountService } from "./services/base-account.service";
 import { ConfigService } from "./services/config.service";
 import { NotificationService } from "./services/notification.service";
 import { IconService } from "./services/icon.service";
@@ -37,7 +37,7 @@ import { IconService } from "./services/icon.service";
     })
   ],
   declarations: [AppComponent, AdminLayoutComponent],
-  providers: [AccountService, BaseService, BotService, LogService, ConfigService, NotificationService, IconService, { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }],
+  providers: [BotAccountService, BotService, LogService, ConfigService, NotificationService, IconService, BaseAccountService, { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

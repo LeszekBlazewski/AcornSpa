@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Account } from 'src/app/models/account';
+import { BotAccount } from 'src/app/models/account';
 import { Region } from 'src/app/enums/region.enum';
 import { IconService } from 'src/app/services/icon.service';
 
@@ -10,7 +10,7 @@ import { IconService } from 'src/app/services/icon.service';
 })
 export class BotAccountListComponent implements OnInit {
 
-  @Input() accounts: Account[];
+  @Input() accounts: BotAccount[];
 
   Regions = Region;
 

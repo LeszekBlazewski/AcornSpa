@@ -1,12 +1,7 @@
-import { Region } from '../enums/region.enum';
+import { BaseAccount } from './baseAccount';
 
-export interface Account {
-    accountId?: Number;
+export interface BotAccount extends BaseAccount {
     botId: Number;
-    login?: String;
-    password?: String;
-    birthDate?: Date;
-    region: Region;
     level: Number;
     expPercentage: Number;
 }

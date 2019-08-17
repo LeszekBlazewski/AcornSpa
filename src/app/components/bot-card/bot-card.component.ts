@@ -2,13 +2,13 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Bot } from 'src/app/models/bot';
 import { BotService } from 'src/app/services/bot.service';
 import { LogService } from 'src/app/services/log.service';
-import { AccountService } from 'src/app/services/account.service';
+import { BotAccountService } from 'src/app/services/bot-account.service';
 import { BotOrder } from 'src/app/enums/bot-order.enum';
 import { Log } from 'src/app/models/log';
 
 import { timer, Subscription, Subject } from 'rxjs';
 import { switchMap, debounceTime } from "rxjs/operators";
-import { Account } from 'src/app/models/account';
+import { BotAccount } from 'src/app/models/account';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -30,7 +30,7 @@ export class BotCardComponent implements OnInit {
 
   emptyBotStatusSubject = new Subject();
 
-  accountsForBot: Account[];
+  accountsForBot: BotAccount[];
 
   BotOrders = BotOrder;
 
@@ -44,7 +44,7 @@ export class BotCardComponent implements OnInit {
 
   constructor(private botService: BotService,
     private logService: LogService,
-    private accountService: AccountService,
+    private accountService: BotAccountService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private notificationService: NotificationService) { }
