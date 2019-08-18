@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { BotAccountService } from 'src/app/services/bot-account.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BotAccountEditModalComponent } from "../account-edit-modals/bot-account-edit-modal/bot-account-edit-modal.component";
+import { BotAccountEditModalComponent } from "../../account-edit-modals/bot-account-edit-modal/bot-account-edit-modal.component";
 import { BotAccount } from 'src/app/models/account';
 import { Region } from 'src/app/enums/region.enum';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -11,11 +11,11 @@ import { AccountOperation } from 'src/app/enums/account-operation.enum';
 import { AccountOperationHelper } from 'src/app/helpers/account-operation.helper';
 
 @Component({
-  selector: 'app-accounts-modal',
-  templateUrl: './accounts-modal.component.html',
-  styleUrls: ['./accounts-modal.component.scss']
+  selector: 'app-bot-accounts-modal',
+  templateUrl: './bot-accounts-modal.component.html',
+  styleUrls: ['./bot-accounts-modal.component.scss']
 })
-export class AccountsModalComponent implements OnInit {
+export class BotAccountsModalComponent implements OnInit {
 
   constructor(private accountService: BotAccountService,
     private notificationService: NotificationService,

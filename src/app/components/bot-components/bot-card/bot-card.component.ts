@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Bot } from 'src/app/models/bot';
 import { BotService } from 'src/app/services/bot.service';
 import { LogService } from 'src/app/services/log.service';
@@ -12,8 +12,8 @@ import { BotAccount } from 'src/app/models/account';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConfigModalComponent } from "../config-modal/config-modal.component";
-import { AccountsModalComponent } from "../accounts-modal/accounts-modal.component";
+import { ConfigModalComponent } from "../../config-modal/config-modal.component";
+import { BotAccountsModalComponent } from "../../account-components/account-list-components/bot-accounts-modal/bot-accounts-modal.component";
 import { NotificationService } from 'src/app/services/notification.service';
 
 
@@ -137,7 +137,7 @@ export class BotCardComponent implements OnInit {
   }
 
   openAccountsModal() {
-    const modalRef = this.modalService.open(AccountsModalComponent, { size: 'lg' })
+    const modalRef = this.modalService.open(BotAccountsModalComponent, { size: 'lg' })
     modalRef.componentInstance.accounts = this.accountsForBot;
     modalRef.componentInstance.referencedBotId = this.bot.botId;
   }
