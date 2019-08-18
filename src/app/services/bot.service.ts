@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class BotService {
 
-    private readonly BOT_API_URL = environment.botAccountsUrl;
+    private readonly BOT_API_URL = environment.botsUrl;
 
     constructor(private baseService: BaseService) { }
 
