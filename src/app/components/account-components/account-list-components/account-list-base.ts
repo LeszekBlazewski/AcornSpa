@@ -14,7 +14,7 @@ export abstract class AccountListBase<T extends BaseAccount> {
 
     Regions = Region;
 
-    protected abstract openSpecificAccountModal(account: T): void;
+    public abstract openSpecificAccountModal(account: T): void;
 
     protected abstract handleAddNewAccountAction(newAccount: T): void;
 

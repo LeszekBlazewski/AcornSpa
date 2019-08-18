@@ -28,7 +28,7 @@ export class AccountsViewComponent extends AccountListBase<BaseAccount> implemen
   ngOnInit() {
   }
 
-  protected openSpecificAccountModal(account: BaseAccount): void {
+  public openSpecificAccountModal(account: BaseAccount): void {
     const modalRef = this.modalService.open(AccountEditModalComponent);
 
     modalRef.componentInstance.account = account;

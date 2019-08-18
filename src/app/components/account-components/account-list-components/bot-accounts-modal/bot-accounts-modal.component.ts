@@ -33,7 +33,7 @@ export class BotAccountsModalComponent extends AccountListBase<BotAccount> imple
 
   }
 
-  openSpecificAccountModal(account: BotAccount) {
+  public openSpecificAccountModal(account: BotAccount) {
     const modalRef = this.modalService.open(BotAccountEditModalComponent);
 
     modalRef.componentInstance.account = account;

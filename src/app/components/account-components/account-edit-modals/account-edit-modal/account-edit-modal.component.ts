@@ -22,7 +22,7 @@ export class AccountEditModalComponent extends AccountEditModalBase<BaseAccount>
     this.checkIfShouldCreateNewAccount();
   }
 
-  protected submitForm(): void {
+  public submitForm(): void {
 
     if (!this.performSubmitCheck())
       return;
