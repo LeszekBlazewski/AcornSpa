@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BaseService } from "./base.service";
 import { Config } from '../models/config';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -9,16 +10,16 @@ import { Config } from '../models/config';
 })
 export class ConfigService {
 
-    private readonly LOG_API_URL = 'configs/';
+    private readonly CONFIG_API_URL = environment.configsUrl;
 
     constructor(private baseService: BaseService) { }
 
     public getConfig(botId: number): Observable<Config> {
-        const url = this.LOG_API_URL + botId.toString();
+        const url = this.CONFIG_API_URL + botId.toString();
         return this.baseService.get(url);
     }
 
     public updateConfig(config: Config): Observable<any> {
-        return this.baseService.put(this.LOG_API_URL, config);
+        return this.baseService.put(this.CONFIG_API_URL, config);
     }
 }

@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BaseService } from "./base.service";
 import { Bot } from '../models/bot';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Bot } from '../models/bot';
 })
 export class BotService {
 
-    private readonly BOT_API_URL = 'bots/';
+    private readonly BOT_API_URL = environment.botAccountsUrl;
 
     constructor(private baseService: BaseService) { }
 

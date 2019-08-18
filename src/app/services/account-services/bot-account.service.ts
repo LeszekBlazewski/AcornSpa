@@ -3,13 +3,15 @@ import { Observable, Subject } from "rxjs";
 import { BaseService } from "../base.service";
 import { BaseAccountService } from './base-account.service';
 import { BotAccount } from '../../models/account';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class BotAccountService extends BaseAccountService<BotAccount> {
 
-    private ACCOUNT_API_URL: string = "accounts/";
+    private ACCOUNT_API_URL: string = environment.botAccountsUrl;
 
     private assignAccountSubject = new Subject<BotAccount>();
 

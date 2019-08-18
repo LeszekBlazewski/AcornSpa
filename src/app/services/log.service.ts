@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BaseService } from "./base.service";
 import { Log } from '../models/log';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Log } from '../models/log';
 })
 export class LogService {
 
-    private readonly LOG_API_URL = 'logs/';
+    private readonly LOG_API_URL = environment.logsUrl;
 
     constructor(private baseService: BaseService) { }
 
