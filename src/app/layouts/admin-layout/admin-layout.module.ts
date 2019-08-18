@@ -7,7 +7,8 @@ import { FormsModule } from "@angular/forms";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AdminLayoutRoutes } from "./admin-layout.routing";
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
-import { AccountsComponent } from "../../pages/accounts/accounts.component";
+import { FreshAccountsComponent } from "../../pages/account-pages/fresh-accounts/fresh-accounts.component";
+import { ReadyAccountsComponent } from "../../pages/account-pages/ready-accounts/ready-accounts.component";
 import { ComponentsModule } from "../../components/components.module";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -24,7 +25,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
   ],
   declarations: [
     DashboardComponent,
-    AccountsComponent
+    FreshAccountsComponent,
+    ReadyAccountsComponent
   ]
 })
 export class AdminLayoutModule { }

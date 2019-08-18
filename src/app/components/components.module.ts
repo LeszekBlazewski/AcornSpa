@@ -20,7 +20,7 @@ import { AccountsViewComponent } from './account-components/account-list-compone
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule, NgSelectModule, FormsModule, ReactiveFormsModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, BotAccountListComponent, ConfigModalComponent, ToastrNotificationComponent, BotAccountEditModalComponent, AccountEditModalComponent, BotAccountsModalComponent, AccountsViewComponent],
-  exports: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, ConfigModalComponent, ToastrNotificationComponent],
+  exports: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, ConfigModalComponent, ToastrNotificationComponent, AccountsViewComponent],
   entryComponents: [ConfigModalComponent, ToastrNotificationComponent, BotAccountsModalComponent, BotAccountEditModalComponent, AccountEditModalComponent]
 })
 export class ComponentsModule { }

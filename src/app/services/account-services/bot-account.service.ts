@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { BaseService } from "./base.service";
+import { BaseService } from "../base.service";
 import { BaseAccountService } from './base-account.service';
-import { BotAccount } from '../models/account';
+import { BotAccount } from '../../models/account';
 
 @Injectable({
     providedIn: 'root'

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountEditModalBase } from '../account-edit-modal-base.component';
+import { AccountEditModalBase } from '../account-edit-modal-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BaseAccount } from 'src/app/models/baseAccount';

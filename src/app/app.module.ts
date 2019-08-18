@@ -13,14 +13,13 @@ import { NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from "@ng-bootstrap/n
 
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
-import { BotAccountService } from './services/bot-account.service';
+import { BotAccountService } from './services/account-services/bot-account.service';
 import { BotService } from './services/bot.service';
 import { LogService } from './services/log.service';
-import { BaseAccountService } from "./services/base-account.service";
+import { BaseAccountService } from "./services/account-services/base-account.service";
 import { ConfigService } from "./services/config.service";
 import { NotificationService } from "./services/notification.service";
 import { IconService } from "./services/icon.service";
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Bot } from 'src/app/models/bot';
 import { BotService } from 'src/app/services/bot.service';
 import { LogService } from 'src/app/services/log.service';
-import { BotAccountService } from 'src/app/services/bot-account.service';
+import { BotAccountService } from 'src/app/services/account-services/bot-account.service';
 import { BotOrder } from 'src/app/enums/bot-order.enum';
 import { Log } from 'src/app/models/log';
 

@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  baseApiUrl: 'http://localhost:4201/api/'
+  baseApiUrl: 'http://localhost:4201/api/',
+  readyAccountsUrl: 'readyAccounts/',
+  freshAccountsUrl: 'freshAccounts/',
 };
 
 /*

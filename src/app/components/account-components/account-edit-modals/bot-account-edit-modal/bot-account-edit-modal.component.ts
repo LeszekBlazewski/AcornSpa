@@ -3,7 +3,7 @@ import { BotAccount } from 'src/app/models/account';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountOperation } from 'src/app/enums/account-operation.enum';
-import { AccountEditModalBase } from '../account-edit-modal-base.component';
+import { AccountEditModalBase } from '../account-edit-modal-base';
 
 @Component({
   selector: 'app-bot-account-edit-modal',
