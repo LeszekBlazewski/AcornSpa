@@ -1,3 +1,5 @@
 <div class="content">
-    <app-accounts-view [accountApiUrl]="apiUrl"></app-accounts-view>
+    <app-accounts-view [accountApiUrl]="apiUrl" [componentHeader]="componentHeader" [accounts]="accounts"
+        *ngIf="accounts">
+    </app-accounts-view>
 </div>

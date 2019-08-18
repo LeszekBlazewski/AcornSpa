@@ -1,6 +1,6 @@
 <div class="card card-fill">
     <div class="modal-header">
-        <h4>Account list for BotID:{{referencedBotId}}</h4>
+        <h4>{{componentHeader}}:{{referencedBotId}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -52,7 +52,7 @@
 </div>
 
 <ng-template #deleteTemplate let-modal>
-    <div class="card card-no-marign">
+    <div class="card mb-0">
         <div class="modal-header">
             <h4>Account deletion</h4>
             <button type="button" class="close" aria-label="Close button" (click)="modal.dismiss()">

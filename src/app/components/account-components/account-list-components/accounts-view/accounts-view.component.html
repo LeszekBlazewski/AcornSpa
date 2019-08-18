@@ -1,1 +1,65 @@
-<p>accounts-view works!</p>
+<div class="row">
+    <div class=" col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class=" card-title">{{componentHeader}}</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead class=" text-primary">
+                        <tr class="text-center">
+                            <th scope="col">ID</th>
+                            <th scope="col">Login</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Birth date</th>
+                            <th scope="col">Region</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center" *ngFor="let account of accounts">
+                            <td class="number-size">{{ account.accountId}}<i class="tim-icons icon-single-02"></i>
+                            </td>
+                            <td>{{ account.login}}</td>
+                            <td>{{ account.password}}</td>
+                            <td>{{ account.birthDate | date:'dd-MM-y'}}</td>
+                            <td><img [src]="getRegionIcon(account.region)"
+                                    class="icon-align">{{Regions[account.region]}}</td>
+                            <td class="text-center"><i class="tim-icons icon-pencil tim-icons-md pr-2" placement="top"
+                                    ngbTooltip="Edit account" (click)="openSpecificAccountModal(account)"
+                                    style="cursor: pointer"></i>
+                                <i class="tim-icons icon-simple-remove tim-icons-md" placement="top"
+                                    ngbTooltip="Remove account" (click)="openDeleteAccountModal(deleteTemplate,account)"
+                                    style="cursor: pointer"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer d-flex flex-row-reverse">
+                <button class="btn btn-primary ml-2" ngbAutofocus (click)="openSpecificAccountModal(null)">Add new
+                    account</button>
+            </div>
+        </div>
+
+        <ng-template #deleteTemplate let-modal>
+            <div class="card mb-0">
+                <div class="modal-header">
+                    <h4>Account deletion</h4>
+                    <button type="button" class="close" aria-label="Close button" (click)="modal.dismiss()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4><strong>Are you sure you want to delete selected account ?</strong></h4>
+                    <span class="text-danger">This operation can not be undone.</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary mr-2" (click)="modal.dismiss()">Cancel</button>
+                    <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close()"
+                        ngbAutofocus>Confirm</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

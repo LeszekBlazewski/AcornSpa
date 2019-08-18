@@ -140,5 +140,6 @@ export class BotCardComponent implements OnInit {
     const modalRef = this.modalService.open(BotAccountsModalComponent, { size: 'lg' })
     modalRef.componentInstance.accounts = this.accountsForBot;
     modalRef.componentInstance.referencedBotId = this.bot.botId;
+    modalRef.componentInstance.componentHeader = 'Account list for BotID';
   }
 }

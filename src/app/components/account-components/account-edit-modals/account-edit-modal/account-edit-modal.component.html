@@ -1,1 +1,61 @@
-<p>account-edit-modal works!</p>
+<div class="card card-fill" *ngIf="accountEditForm">
+    <div class="modal-header">
+        <h4>Manage account</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="accountEditForm">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Login</label>
+                    <input class="form-control" formControlName="login" placeholder="Login" type="text" />
+                    <div *ngIf="form.login.invalid && submitted" class="invalid-feedback">
+                        <div *ngIf="form.login.errors.required">Login is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Password</label>
+                    <input class="form-control" formControlName="password" placeholder="Password" type="text" />
+                    <div *ngIf="form.password.invalid && submitted" class="invalid-feedback">
+                        <div *ngIf="form.password.errors.required">Password is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Birthdate</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="birthDate"
+                            ngbDatepicker [maxDate]="{year: 2020, month: 12, day: 31}"
+                            [minDate]="{year: 1998, month: 1, day: 1}" [footerTemplate]="footerTemplate"
+                            #d="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary calendar" (click)="d.toggle()"
+                                type="button"></button>
+                        </div>
+                        <div *ngIf="form.birthDate.invalid && submitted" class="invalid-feedback">
+                            <div *ngIf="form.birthDate.errors.required">Birthdate is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Region</label>
+                    <ng-select [searchable]="false" formControlName="region" [clearable]="false" [items]="regionKeys">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="col-md-6"></div>
+                <button class="btn btn-danger mr-2" (click)="activeModal.dismiss()">Cancel</button>
+                <button class="btn btn-success" ngbAutofocus (click)="submitForm()">Save</button>
+            </div>
+        </form>
+    </div>
+    <ng-template #footerTemplate>
+        <hr class="my-0">
+        <button class="btn btn-info btn-sm m-2 float-left" (click)="setTodayDate();d.close()">Today</button>
+        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
+    </ng-template>
+</div>

@@ -10,6 +10,8 @@ export abstract class AccountListBase<T extends BaseAccount> {
 
     @Input() accounts: T[];
 
+    @Input() componentHeader: string;
+
     Regions = Region;
 
     protected abstract openSpecificAccountModal(account: T): void;
