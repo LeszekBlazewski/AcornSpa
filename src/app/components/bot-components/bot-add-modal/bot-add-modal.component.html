@@ -1,0 +1,24 @@
+<div class="card mb-0" *ngIf="addNewBotForm">
+    <div class="modal-header">
+        <h4>Create new bot</h4>
+        <button type="button" class="close" aria-label="Close button" (click)="activeModal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h4 class="text-primary ml-3">Please fill the id which will be assigned to the bot.</h4>
+        <form [formGroup]="addNewBotForm">
+            <div class="form-group col-md-6">
+                <label>Bot ID</label>
+                <input class="form-control" formControlName="botId" placeholder="Provide bot ID" type="text" />
+                <div *ngIf="form.botId.invalid && submitted" class="invalid-feedback">
+                    <div *ngIf="form.botId.errors.required">Bot ID is required</div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer justify-content-end">
+        <button type="button" class="btn btn-outline-primary mr-2" (click)="activeModal.dismiss()">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="createNewBot()" ngbAutofocus>Confirm</button>
+    </div>
+</div>

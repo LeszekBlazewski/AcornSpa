@@ -55,7 +55,7 @@ export class BotCardComponent implements OnInit {
     // REMOVE SECTION
     // REMOVE THIS (TEMP FOR NOT KILLIING DATABSE)
     this.logService.getLatestLogForBot(this.bot.botId)
-      .subscribe(log => this.currentLog = log);
+      .subscribe(log => this.formatLog(log));
 
     // remove this it is already in create subscriptions
     this.emptyBotStatusSubject.pipe(
@@ -141,5 +141,16 @@ export class BotCardComponent implements OnInit {
     modalRef.componentInstance.accounts = this.accountsForBot;
     modalRef.componentInstance.referencedBotId = this.bot.botId;
     modalRef.componentInstance.componentHeader = 'Account list for BotID';
+  }
+
+  private formatLog(receivedLog: Log): void {
+
+    if (receivedLog)
+      this.currentLog = receivedLog;
+    else {
+      this.currentLog = <Log>{
+        status: 'No recent log'
+      }
+    }
   }
 }

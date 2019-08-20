@@ -10,9 +10,20 @@
             <h4>
                 Status: {{BotOrders[bot.botOrder]}}
             </h4>
-            <h4>
-                Log date: {{currentLog.date | date:'dd-MM-y: H:mm'}}
-            </h4>
+            <ng-container *ngIf="this.currentLog.date; then displayDate; else displayNoRecentLog">
+            </ng-container>
+
+            <ng-template #displayDate>
+                <h4>
+                    Log date: {{currentLog.date | date:'dd-MM-y: H:mm'}}
+                </h4>
+            </ng-template>
+            <ng-template #displayNoRecentLog>
+                <h4>
+                    Log date: No recent log
+                </h4>
+            </ng-template>
+
             <h4>
                 Latest log: {{currentLog.status}}
             </h4>

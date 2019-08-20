@@ -23,8 +23,8 @@ export class BotService {
         return this.baseService.get(this.BOT_API_URL);
     }
 
-    public addNewBot(bot: Bot): Observable<any> {
-        return this.baseService.post(this.BOT_API_URL, bot)
+    public addNewBot(bot: Bot): Observable<Bot> {
+        return this.baseService.post(this.BOT_API_URL, bot);
     }
 
     public updateBotData(bot: Bot): Observable<any> {

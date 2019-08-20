@@ -39,7 +39,7 @@ export class ConfigModalComponent implements OnInit {
 
     this.configService.getConfig(this.inputBotId)
       .subscribe(data => this.config = data,
-        error => console.log(error),
+        error => { },
         () => this.initializeConfigForm());
   }
 
