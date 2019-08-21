@@ -6,5 +6,9 @@ export const environment = {
   readyAccountsUrl: 'readyAccounts/',
   freshAccountsUrl: 'freshAccounts/',
   configsUrl: 'configs/',
-  logsUrl: 'logs/'
+  logsUrl: 'logs/',
+  loginUrl: '/login',
+  authenticationUrl: '/users/authenticate',
+  registrationUrl: '/users/register',
+  usersUrl: 'users/',
 };

@@ -17,11 +17,53 @@ import { BotAccountEditModalComponent } from './account-components/account-edit-
 import { AccountEditModalComponent } from './account-components/account-edit-modals/account-edit-modal/account-edit-modal.component';
 import { AccountsViewComponent } from './account-components/account-list-components/accounts-view/accounts-view.component';
 import { BotAddModalComponent } from './bot-components/bot-add-modal/bot-add-modal.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, NgbModule, NgSelectModule, FormsModule, ReactiveFormsModule],
-  declarations: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, BotAccountListComponent, ConfigModalComponent, ToastrNotificationComponent, BotAccountEditModalComponent, AccountEditModalComponent, BotAccountsModalComponent, AccountsViewComponent, BotAddModalComponent],
-  exports: [FooterComponent, NavbarComponent, SidebarComponent, BotCardComponent, ConfigModalComponent, ToastrNotificationComponent, AccountsViewComponent],
-  entryComponents: [ConfigModalComponent, ToastrNotificationComponent, BotAccountsModalComponent, BotAccountEditModalComponent, AccountEditModalComponent, BotAddModalComponent]
+
+  imports: [
+    CommonModule,
+    RouterModule,
+    NgbModule,
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule],
+
+  declarations: [
+    FooterComponent,
+    NavbarComponent,
+    SidebarComponent,
+    BotCardComponent,
+    BotAccountListComponent,
+    ConfigModalComponent,
+    ToastrNotificationComponent,
+    BotAccountEditModalComponent,
+    AccountEditModalComponent,
+    BotAccountsModalComponent,
+    AccountsViewComponent,
+    BotAddModalComponent,
+    RegisterComponent,
+    LoginComponent
+  ],
+
+  exports: [
+    FooterComponent,
+    NavbarComponent,
+    SidebarComponent,
+    BotCardComponent,
+    ConfigModalComponent,
+    ToastrNotificationComponent,
+    AccountsViewComponent
+  ],
+
+  entryComponents: [
+    ConfigModalComponent,
+    ToastrNotificationComponent,
+    BotAccountsModalComponent,
+    BotAccountEditModalComponent,
+    AccountEditModalComponent,
+    BotAddModalComponent
+  ]
 })
 export class ComponentsModule { }
