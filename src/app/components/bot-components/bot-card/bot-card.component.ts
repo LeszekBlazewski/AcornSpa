@@ -44,7 +44,7 @@ export class BotCardComponent implements OnInit {
 
   constructor(private botService: BotService,
     private logService: LogService,
-    private accountService: BotAccountService,
+    private botAccountService: BotAccountService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private notificationService: NotificationService) { }
@@ -62,14 +62,14 @@ export class BotCardComponent implements OnInit {
       debounceTime(3000)
     ).subscribe(() => this.submitted = false);
 
-    this.componenetSubscriptions.push(this.accountService.getAssignedAccount().subscribe((receivedAccount) => {
+    this.componenetSubscriptions.push(this.botAccountService.getAssignedAccount().subscribe((receivedAccount) => {
       if (this.bot.botId == receivedAccount.botId)
         this.accountsForBot.push(receivedAccount);
     }));
 
     //  END OF REMOVE
 
-    this.accountService.getAccountsForBot(this.bot.botId)
+    this.botAccountService.getAccountsForBot(this.bot.botId)
       .subscribe(accountsForBot => this.accountsForBot = accountsForBot,
         (error: HttpErrorResponse) => this.notificationService.showErrorToastr("Accounts couldn't be fetched. Is the API running ?", 'Whoop !'));
 
@@ -97,7 +97,7 @@ export class BotCardComponent implements OnInit {
       debounceTime(3000)
     ).subscribe(() => this.submitted = false));
 
-    this.componenetSubscriptions.push(this.accountService.getAssignedAccount().subscribe((receivedAccount) => {
+    this.componenetSubscriptions.push(this.botAccountService.getAssignedAccount().subscribe((receivedAccount) => {
       if (this.bot.botId == receivedAccount.botId)
         this.accountsForBot.push(receivedAccount);
     }));
@@ -152,5 +152,12 @@ export class BotCardComponent implements OnInit {
         status: 'No recent log'
       }
     }
+  }
+
+  deleteBot() {
+    this.botService.deleteBot(this.bot.botId).subscribe(() => {
+      this.notificationService.showSuccessToastr('Bot has been deleted', '');
+    },
+      (error: HttpErrorResponse) => this.notificationService.showErrorToastr('Bot couldn\'t be deleted', ''));
   }
 }
