@@ -10,9 +10,9 @@
     </thead>
     <tbody>
         <tr class="text-center" *ngFor="let account of accounts">
-            <td class="number-size">{{ account.accountId }}<i class="tim-icons icon-single-02"></i></td>
+            <td class="number-size">{{ account.accountId }}<i class="tim-icons icon-single-02 icon-hide"></i></td>
             <td>{{ account.login}}</td>
-            <td><img [src]="getRegionIcon(account.region)" class="mb-1 pull-left"
+            <td><img [src]="getRegionIcon(account.region)" class="mb-1 pull-left icon-hide"
                     style="width: 20px">{{Regions[account.region]}}</td>
             <td class="text-center">{{account.level}}</td>
             <td>

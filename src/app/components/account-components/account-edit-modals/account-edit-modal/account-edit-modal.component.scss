@@ -30,3 +30,14 @@ button.calendar, button.calendar:active {
     margin: 0;
     padding-left: 1rem;
 }
+
+.test {
+    @media (max-width: 767px) {
+        .col-md-6 {
+            display: none;
+        }
+        button {
+            flex-grow: 1;
+        }
+    }
+}

@@ -1,3 +1,23 @@
+$bigScreenUpperBound: 1439px;
+$bigScreenLowerBound: 959px;
+$MidScreenUpperBoound: 812px;
+$MidScreenLowerBound: 600px;
+$smallScreen: 389px;
+
+
+.icon-hide {
+    @media (min-width:$bigScreenLowerBound) and (max-width: $bigScreenUpperBound){
+        display: none;
+    };
+    @media (min-width:$MidScreenLowerBound) and (max-width: $MidScreenUpperBoound){
+        display: none;
+      };
+    @media (max-width: $smallScreen) and (orientation:portrait) {
+        display: none;
+    };
+}
+
+
 .icon-single-02{
     font-size: 14px;
     padding-bottom: 0.2em;

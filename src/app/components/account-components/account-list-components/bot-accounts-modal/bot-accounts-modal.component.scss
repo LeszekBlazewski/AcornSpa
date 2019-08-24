@@ -1,6 +1,32 @@
-.card-fill {
-    height: 100%;
+$midScreenLowerBound: 810px;
+$midScreenUpperBound: 992px;
+$midScreenIconUpperBound: 663px;
+$mobileColumHideBound: 610px;
+
+::ng-deep .modal-mid-size .modal-dialog {
+    @media (min-width: $midScreenLowerBound) and (max-width: $midScreenUpperBound) {
+        max-width: 800px;
+    }
+
+    @media (max-width: 809px) {
+        width: auto;
+        max-width: 100%;
+        margin: 0.5rem;
+    }
 }
+
+.icon-hide {
+    @media (max-width: $midScreenIconUpperBound) {
+        display: none;
+    }
+}
+
+.mobile-column-hide {
+    @media (max-width: $mobileColumHideBound) {
+        display: none;
+    }
+}
+
 
 .modal-footer {
     justify-content: end !important;
@@ -18,5 +44,5 @@
 .progress-text {
     position: absolute;
     display: block;
-    left: calc(100% - 9.5rem);
+    left: calc(88% - 3.8rem);
 }

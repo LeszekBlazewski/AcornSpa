@@ -1,7 +1,7 @@
-<div class="card card-fill">
+<div class="card mb-0">
     <div class="modal-header">
         <h4>{{componentHeader}}:{{referencedBotId}}</h4>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="activeModal.dismiss()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -11,24 +11,25 @@
                 <tr class="text-center">
                     <th scope="col">ID</th>
                     <th scope="col">Login</th>
-                    <th scope="col">Password</th>
-                    <th scope="col">Birth date</th>
+                    <th scope="col" class="mobile-column-hide">Password</th>
+                    <th scope="col" class="mobile-column-hide">Birth date</th>
                     <th scope="col">Region</th>
                     <th scope="col">Level</th>
-                    <th scope="col">Experience</th>
+                    <th scope="col" class="mobile-column-hide">Experience</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="text-center" *ngFor="let account of accounts">
-                    <td class="number-size">{{ account.accountId}}<i class="tim-icons icon-single-02"></i></td>
+                    <td class="number-size">{{ account.accountId}}<i class="tim-icons icon-single-02 icon-hide "></i>
+                    </td>
                     <td>{{ account.login}}</td>
-                    <td>{{ account.password}}</td>
-                    <td>{{ account.birthDate | date:'dd-MM-y'}}</td>
-                    <td><img [src]="getRegionIcon(account.region)" class="pull-left mb-1"
+                    <td class="mobile-column-hide">{{ account.password}}</td>
+                    <td class="mobile-column-hide">{{ account.birthDate | date:'dd-MM-y'}}</td>
+                    <td><img [src]="getRegionIcon(account.region)" class="pull-left mb-1 icon-hide "
                             style="width: 20px">{{Regions[account.region]}}</td>
                     <td class="text-center">{{account.level}}</td>
-                    <td>
+                    <td class="mobile-column-hide">
                         <ngb-progressbar class="text-center" type="primary" [value]="account.expPercentage"
                             [striped]="true">
                             <span class="progress-text font-weight-bold">{{account.expPercentage}}%</span>

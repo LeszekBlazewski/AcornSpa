@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/login']);
         },
         (error: HttpErrorResponse) => {
-          this.notificationSerice.showErrorToastr(error.error, '');
+          this.notificationSerice.showErrorToastr(error.toString(), '');
           this.loading = false;
         });
   }

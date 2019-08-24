@@ -1,3 +1,5 @@
+$midScreenIconUpperBound: 529px;
+$midScreenColumnHideUpperBound: 510px;
 
 .icon-single-02{
     font-size: 14px;
@@ -10,4 +12,19 @@
 
 .icon-align {
     width: 1.2rem;
+}
+
+.icon-hide {
+    @media (max-width: $midScreenIconUpperBound) {
+        display: none;
+    }
+}
+
+.column-hide {
+    @media (max-width: $midScreenColumnHideUpperBound) {
+        display: none;
+        button {
+            flex-grow: 1;
+        }
+    }
 }

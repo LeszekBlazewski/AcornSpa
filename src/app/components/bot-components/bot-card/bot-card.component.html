@@ -1,14 +1,14 @@
 <div *ngIf="bot && currentLog">
     <div class="card card-chart">
         <div class=" card-header ">
-            <div class="row">
-                <div class="col-sm-6 text-left">
+            <div class="row no-gutters">
+                <div class="col text-left">
                     <h3 class=" card-title ">
                         <i class="tim-icons icon-badge tim-icons-lg"></i>
                         BotID: {{ bot.botId }}
                     </h3>
                 </div>
-                <div class="col-sm-6">
+                <div class="col pull-right">
                     <button type="button" class="close text-danger" aria-label="Close button"
                         (click)="openDeleteBotModal()">
                         <span aria-hidden="true">&times;</span>
@@ -41,26 +41,33 @@
                 Account list
             </h4>
             <app-bot-account-list *ngIf="accountsForBot" [accounts]="accountsForBot"></app-bot-account-list>
-            <div class="d-flex">
-                <button class="btn btn-primary flex-fill" (click)="openConfigModal()">Config</button>
-                <button class="btn btn-primary flex-fill" (click)="openAccountsModal()">Accounts</button>
+            <div class="row no-gutters flex-nowrap">
+                <div class="col mr-1">
+                    <button class="btn btn-primary btn-block" (click)="openConfigModal()">Config</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary btn-block" (click)="openAccountsModal()">Accounts</button>
+                </div>
             </div>
-            <div class="d-flex">
-                <form [formGroup]="updateStatusForm" (ngSubmit)="updateBotStatus()" class="flex-fill">
-                    <ng-select [searchable]="false" [items]="botOrderKeys" formControlName="botStatus"
-                        placeholder="Choose action">
-                    </ng-select>
-                    <div *ngIf="submitted && form.botStatus.errors">
-                        <ngb-alert [type]="'danger'" *ngIf="form.botStatus.errors.required" [dismissible]="false"
-                            class="mt-2">
-                            <span>
-                                <b> Choose action first !</b>
-                            </span>
-                        </ngb-alert>
-                    </div>
-                </form>
-                <button class="btn btn-success align-button-execute flex-fill"
-                    (click)="updateBotStatus()">Execute</button>
+            <div class="row no-gutters flex-nowrap">
+                <div class="col mr-1">
+                    <form [formGroup]="updateStatusForm" (ngSubmit)="updateBotStatus()">
+                        <ng-select [searchable]="false" [items]="botOrderKeys" formControlName="botStatus"
+                            placeholder="Choose action">
+                        </ng-select>
+                        <div *ngIf="submitted && form.botStatus.errors">
+                            <ngb-alert [type]="'danger'" *ngIf="form.botStatus.errors.required" [dismissible]="false"
+                                class="mt-2">
+                                <span>
+                                    <b> Choose action first !</b>
+                                </span>
+                            </ngb-alert>
+                        </div>
+                    </form>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success btn-block mt-0" (click)="updateBotStatus()">Execute</button>
+                </div>
             </div>
         </div>
     </div>
