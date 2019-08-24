@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { BaseService } from "./base.service";
 import { Bot } from '../models/bot';
 import { environment } from 'src/environments/environment';
@@ -11,6 +11,8 @@ import { environment } from 'src/environments/environment';
 export class BotService {
 
     private readonly BOT_API_URL = environment.botsUrl;
+
+    private deleteBotFromArraySubject = new Subject<number>();
 
     constructor(private baseService: BaseService) { }
 
@@ -35,5 +37,13 @@ export class BotService {
     public deleteBot(botId: number): Observable<any> {
         const url = this.BOT_API_URL + botId.toString();
         return this.baseService.delete(url);
+    }
+
+    public notifyBotToDelete(botId: number) {
+        this.deleteBotFromArraySubject.next(botId);
+    }
+
+    public getBotToDelete(): Observable<number> {
+        return this.deleteBotFromArraySubject.asObservable();
     }
 }

@@ -1,0 +1,17 @@
+<div class="card mb-0">
+    <div class="modal-header">
+        <h4>{{modalHeader}}</h4>
+        <button type="button" class="close" aria-label="Close button" (click)="activeModal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h4><strong>{{modalBody}}</strong></h4>
+        <span class="text-danger">This operation can not be undone.</span>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary mr-2" (click)="activeModal.dismiss()">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="activeModal.close()"
+            ngbAutofocus>Confirm</button>
+    </div>
+</div>

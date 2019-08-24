@@ -19,6 +19,7 @@ import { AccountsViewComponent } from './account-components/account-list-compone
 import { BotAddModalComponent } from './bot-components/bot-add-modal/bot-add-modal.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 
 @NgModule({
 
@@ -44,7 +45,8 @@ import { LoginComponent } from './login/login.component';
     AccountsViewComponent,
     BotAddModalComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    DeleteModalComponent
   ],
 
   exports: [
@@ -63,7 +65,8 @@ import { LoginComponent } from './login/login.component';
     BotAccountsModalComponent,
     BotAccountEditModalComponent,
     AccountEditModalComponent,
-    BotAddModalComponent
+    BotAddModalComponent,
+    DeleteModalComponent
   ]
 })
 export class ComponentsModule { }

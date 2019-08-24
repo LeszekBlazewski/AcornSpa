@@ -5,6 +5,7 @@ import { IconService } from 'src/app/services/icon.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountOperationHelper } from 'src/app/helpers/account-operation.helper';
 import { AccountOperation } from 'src/app/enums/account-operation.enum';
+import { DeleteModalComponent } from '../../delete-modal/delete-modal.component';
 
 export abstract class AccountListBase<T extends BaseAccount> {
 
@@ -29,8 +30,15 @@ export abstract class AccountListBase<T extends BaseAccount> {
     constructor(protected iconService: IconService,
         protected modalService: NgbModal) { }
 
-    public openDeleteAccountModal(template: any, account: T) {
-        this.modalService.open(template, { size: 'sm' }).result.then(() => {
+    public openDeleteAccountModal(account: T) {
+
+        const modalReference = this.modalService.open(DeleteModalComponent, { size: 'sm' });
+
+        modalReference.componentInstance.modalHeader = "Account deletion";
+
+        modalReference.componentInstance.modalBody = 'Are you sure you want to delete selected account ?';
+
+        modalReference.result.then(() => {
 
             const accountOperationHelper = <AccountOperationHelper<T>>{
                 AccountOperation: AccountOperation.DeleteAccount,

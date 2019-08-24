@@ -15,6 +15,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigModalComponent } from "../../config-modal/config-modal.component";
 import { BotAccountsModalComponent } from "../../account-components/account-list-components/bot-accounts-modal/bot-accounts-modal.component";
 import { NotificationService } from 'src/app/services/notification.service';
+import { DeleteModalComponent } from '../../delete-modal/delete-modal.component';
 
 
 @Component({
@@ -71,7 +72,7 @@ export class BotCardComponent implements OnInit {
 
     this.botAccountService.getAccountsForBot(this.bot.botId)
       .subscribe(accountsForBot => this.accountsForBot = accountsForBot,
-        (error: HttpErrorResponse) => this.notificationService.showErrorToastr("Accounts couldn't be fetched. Is the API running ?", 'Whoop !'));
+        (error: HttpErrorResponse) => this.notificationService.showErrorToastr(`Accounts for botID:${this.bot.botId} couldn't be fetched. Is the API running ?`, 'Whoop !'));
 
     this.updateStatusForm = this.formBuilder.group({
       botStatus: [null, Validators.required]
@@ -154,10 +155,20 @@ export class BotCardComponent implements OnInit {
     }
   }
 
-  deleteBot() {
-    this.botService.deleteBot(this.bot.botId).subscribe(() => {
-      this.notificationService.showSuccessToastr('Bot has been deleted', '');
-    },
-      (error: HttpErrorResponse) => this.notificationService.showErrorToastr('Bot couldn\'t be deleted', ''));
+  openDeleteBotModal() {
+
+    const modalReference = this.modalService.open(DeleteModalComponent, { size: 'sm' });
+
+    modalReference.componentInstance.modalHeader = "Bot deletion";
+
+    modalReference.componentInstance.modalBody = `Are you sure you want to delete selected bot with ID:${this.bot.botId} ?`;
+
+    modalReference.result.then(() => {
+      this.botService.deleteBot(this.bot.botId).subscribe(() => {
+        this.botService.notifyBotToDelete(this.bot.botId);
+        this.notificationService.showSuccessToastr('Bot has been deleted', '')
+      },
+        (error: HttpErrorResponse) => this.notificationService.showErrorToastr(`Bot couldn't be deleted`, ''));
+    }, (rejectedReason) => { });
   }
 }

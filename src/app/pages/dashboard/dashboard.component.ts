@@ -5,6 +5,7 @@ import { Bot } from 'src/app/models/bot';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BotAddModalComponent } from 'src/app/components/bot-components/bot-add-modal/bot-add-modal.component';
 import { NotificationService } from 'src/app/services/notification.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "app-dashboard",
@@ -14,6 +15,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class DashboardComponent implements OnInit {
 
   bots: Bot[];
+
+  deleteBotFromArraySubscription = new Subscription();
 
   constructor(private botService: BotService,
     private modalService: NgbModal,
@@ -25,6 +28,13 @@ export class DashboardComponent implements OnInit {
       .subscribe(bots =>
         this.bots = bots
       )
+
+    this.deleteBotFromArraySubscription = this.botService.getBotToDelete().subscribe(botId =>
+      this.bots = this.bots.filter(bot => bot.botId != botId))
+  }
+
+  ngOnDestroy() {
+    this.deleteBotFromArraySubscription.unsubscribe();
   }
 
   public openCreateNewBotModal() {
