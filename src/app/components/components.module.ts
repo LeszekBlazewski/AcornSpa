@@ -4,6 +4,7 @@ import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 
 import { FooterComponent } from "./footer/footer.component";
 import { NavbarComponent } from "./navbar/navbar.component";
@@ -17,8 +18,8 @@ import { BotAccountEditModalComponent } from './account-components/account-edit-
 import { AccountEditModalComponent } from './account-components/account-edit-modals/account-edit-modal/account-edit-modal.component';
 import { AccountsViewComponent } from './account-components/account-list-components/accounts-view/accounts-view.component';
 import { BotAddModalComponent } from './bot-components/bot-add-modal/bot-add-modal.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './authentication-components/register/register.component';
+import { LoginComponent } from './authentication-components/login/login.component';
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { DeleteModalComponent } from './delete-modal/delete-modal.component';
     NgbModule,
     NgSelectModule,
     FormsModule,
+    NgxUiLoaderModule,
     ReactiveFormsModule],
 
   declarations: [

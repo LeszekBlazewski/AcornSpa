@@ -19,6 +19,39 @@ import { NotificationService } from "./services/notification.service";
 import { IconService } from "./services/icon.service";
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { NgxUiLoaderModule, NgxUiLoaderConfig, SPINNER } from "ngx-ui-loader";
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: "#ba54f5",
+  bgsOpacity: 0.7,
+  bgsSize: 60,
+  bgsType: "three-strings",
+  blur: 6,
+  delay: 0,
+  fgsColor: "#ba54f5",
+  fgsPosition: "center-center",
+  fgsSize: 60,
+  fgsType: "three-strings",
+  gap: 24,
+  logoPosition: "center-center",
+  logoSize: 120,
+  logoUrl: "",
+  masterLoaderId: "master",
+  overlayBorderRadius: "0",
+  overlayColor: "rgba(40,40,40,0.68)",
+  pbColor: "#ba54f5",
+  pbDirection: "ltr",
+  pbThickness: 3,
+  hasProgressBar: true,
+  text: "",
+  textPosition: "center-center",
+  maxTime: -1,
+  minTime: 500,
+  textColor: "#B24BF3",
+  bgsPosition: "top-center",
+};
+
+
 
 @NgModule({
   imports: [
@@ -30,9 +63,9 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     RouterModule,
     AppRoutingModule,
     FlexLayoutModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     ToastrModule.forRoot({
       maxOpened: 10,
-
     })
   ],
 
