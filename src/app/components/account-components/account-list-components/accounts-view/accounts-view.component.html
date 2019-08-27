@@ -5,6 +5,8 @@
                 <h4 class=" card-title">{{componentHeader}}</h4>
             </div>
             <div class="card-body">
+                <ngx-ui-loader [loaderId]="'loader-bots'" [text]="'Fetching accounts'">
+                </ngx-ui-loader>
                 <table class="table">
                     <thead class=" text-primary">
                         <tr class="text-center">

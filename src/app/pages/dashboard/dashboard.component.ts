@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { BotAddModalComponent } from 'src/app/components/bot-components/bot-add-modal/bot-add-modal.component';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Subscription } from 'rxjs';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: "app-dashboard",
@@ -20,14 +21,21 @@ export class DashboardComponent implements OnInit {
 
   constructor(private botService: BotService,
     private modalService: NgbModal,
-    private notificationService: NotificationService) { }
+    private notificationService: NotificationService,
+    private ngxService: NgxUiLoaderService,
+    private notificationSerice: NotificationService) { }
 
   // TODO implement handling error from API (When we get back 404)
   ngOnInit() {
+    this.ngxService.startBackgroundLoader('loader-bots');
     this.botService.getAllBots()
-      .subscribe(bots =>
-        this.bots = bots
-      )
+      .subscribe(bots => {
+        this.bots = bots;
+        this.ngxService.stopBackgroundLoader('loader-bots');
+      }, (error: HttpErrorResponse) => {
+        this.ngxService.stopBackgroundLoader('loader-bots');
+        this.notificationSerice.showErrorToastr(error.toString(), '');
+      });
 
     this.deleteBotFromArraySubscription = this.botService.getBotToDelete().subscribe(botId =>
       this.bots = this.bots.filter(bot => bot.botId != botId))

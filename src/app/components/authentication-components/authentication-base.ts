@@ -22,7 +22,6 @@ export abstract class AuthenticationBase {
     }
 
     public form: FormGroup;
-    public loading = false;
     public submitted = false;
 
 
@@ -44,11 +43,9 @@ export abstract class AuthenticationBase {
             return;
         }
 
-        this.loading = true;
-
         const user: User = this.form.value;
 
-        this.ngxService.startBackgroundLoader('loader-operation');
+        this.ngxService.startLoader('loader-operation');
         let operationObservable: Observable<any>;
 
         switch (operation) {
@@ -62,14 +59,13 @@ export abstract class AuthenticationBase {
 
         operationObservable.subscribe(
             () => {
-                this.ngxService.stopBackgroundLoader('loader-operation');
+                this.ngxService.stopLoader('loader-operation');
                 this.router.navigate([successNavigationUrl]);
                 this.notificationSerice.showSuccessToastr(successMessage, '');
             },
             (error: HttpErrorResponse) => {
-                this.ngxService.stopBackgroundLoader('loader-operation');
+                this.ngxService.stopLoader('loader-operation');
                 this.notificationSerice.showErrorToastr(error.toString(), '');
-                this.loading = false;
             });
     }
 

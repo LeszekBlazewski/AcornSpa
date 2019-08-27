@@ -10,6 +10,7 @@ import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
 import { FreshAccountsComponent } from "../../pages/account-pages/fresh-accounts/fresh-accounts.component";
 import { ReadyAccountsComponent } from "../../pages/account-pages/ready-accounts/ready-accounts.component";
 import { ComponentsModule } from "../../components/components.module";
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -22,6 +23,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     NgbModule,
     ComponentsModule,
     FlexLayoutModule,
+    NgxUiLoaderModule,
   ],
   declarations: [
     DashboardComponent,

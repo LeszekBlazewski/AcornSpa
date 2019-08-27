@@ -19,7 +19,7 @@ import { NotificationService } from "./services/notification.service";
 import { IconService } from "./services/icon.service";
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
-import { NgxUiLoaderModule, NgxUiLoaderConfig, SPINNER } from "ngx-ui-loader";
+import { NgxUiLoaderModule, NgxUiLoaderConfig } from "ngx-ui-loader";
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: "#ba54f5",
@@ -46,7 +46,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text: "",
   textPosition: "center-center",
   maxTime: -1,
-  minTime: 500,
+  minTime: 300,
   textColor: "#B24BF3",
   bgsPosition: "top-center",
 };
