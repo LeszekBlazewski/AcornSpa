@@ -1,10 +1,13 @@
 <div class="content">
-  <ngx-ui-loader [loaderId]="'loader-bots'" [bgsPosition]="'top-center'">
-  </ngx-ui-loader>
-  <div class="d-flex">
+  <div *ngIf="isDataLoading" class="loader-container">
+    <ngx-ui-loader class="h3" [loaderId]="'loader-bots'" [text]="'Fetching bots...'"
+      [overlayColor]="'rgba(39,41,61,.3)'">
+    </ngx-ui-loader>
+  </div>
+  <div *ngIf="!isDataLoading" class="d-flex">
     <button class="btn btn-primary" (click)="openCreateNewBotModal()">Create new bot</button>
   </div>
-  <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutAlign="flex-start">
+  <div *ngIf="!isDataLoading" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutAlign="flex-start">
     <app-bot-card *ngFor="let bot of bots" fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)"
       fxFlex.lt-sm="100%" [bot]="bot"></app-bot-card>
   </div>

@@ -19,22 +19,29 @@ export class DashboardComponent implements OnInit {
 
   deleteBotFromArraySubscription = new Subscription();
 
+  public isDataLoading: boolean;
+
   constructor(private botService: BotService,
     private modalService: NgbModal,
     private notificationService: NotificationService,
-    private ngxService: NgxUiLoaderService,
-    private notificationSerice: NotificationService) { }
+    private ngxService: NgxUiLoaderService) { }
 
   // TODO implement handling error from API (When we get back 404)
   ngOnInit() {
-    this.ngxService.startBackgroundLoader('loader-bots');
+
+    this.isDataLoading = true;
+    this.ngxService.startLoader('loader-bots');
     this.botService.getAllBots()
       .subscribe(bots => {
-        this.bots = bots;
-        this.ngxService.stopBackgroundLoader('loader-bots');
+        this.ngxService.stopLoader('loader-bots');
+        setTimeout(() => {
+          this.bots = bots;
+          this.isDataLoading = false;
+        }, 1100);
       }, (error: HttpErrorResponse) => {
-        this.ngxService.stopBackgroundLoader('loader-bots');
-        this.notificationSerice.showErrorToastr(error.toString(), '');
+        this.ngxService.stopLoader('loader-get-accounts');
+        setTimeout(() => this.isDataLoading = false, 1100);
+        this.notificationService.showErrorToastr(error.toString(), '');
       });
 
     this.deleteBotFromArraySubscription = this.botService.getBotToDelete().subscribe(botId =>

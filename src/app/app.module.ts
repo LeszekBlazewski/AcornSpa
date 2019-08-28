@@ -38,7 +38,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   logoUrl: "",
   masterLoaderId: "master",
   overlayBorderRadius: "0",
-  overlayColor: "rgba(40,40,40,0.68)",
+  overlayColor: "rgba(39,41,61,.8)",
   pbColor: "#ba54f5",
   pbDirection: "ltr",
   pbThickness: 3,

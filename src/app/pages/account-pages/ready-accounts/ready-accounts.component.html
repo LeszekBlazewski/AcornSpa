@@ -1,5 +1,10 @@
 <div class="content">
+    <div *ngIf="isDataLoading" class="loader-container">
+        <ngx-ui-loader class="h3" [loaderId]="'loader-get-accounts'" [text]="'Fetching ready accounts...'"
+            [overlayColor]="'rgba(39,41,61,.3)'">
+        </ngx-ui-loader>
+    </div>
     <app-accounts-view [accountApiUrl]="apiUrl" [componentHeader]="componentHeader" [accounts]="accounts"
-        *ngIf="accounts">
+        *ngIf="!isDataLoading">
     </app-accounts-view>
 </div>
