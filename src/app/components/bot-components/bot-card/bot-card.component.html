@@ -1,4 +1,4 @@
-<div *ngIf="bot && currentLog">
+<div *ngIf="bot">
     <div class="card card-chart">
         <div class=" card-header ">
             <div class="row no-gutters">
@@ -16,31 +16,54 @@
                 </div>
             </div>
         </div>
-        <div class=" card-body">
+        <div class="card-body">
             <h4>
                 Status: {{BotOrders[bot.botOrder]}}
             </h4>
-            <ng-container *ngIf="this.currentLog.date; then displayDate; else displayNoRecentLog">
-            </ng-container>
+            <div *ngIf="!currentLog else logFetched" class="d-flex justify-content-center">
+                <h2 class="text-center" style="color: #B24BF3">Logs loading...</h2>
+            </div>
+            <ng-template #logFetched>
+                <ng-container *ngIf="currentLog.date; then displayDate; else displayNoRecentLog">
+                </ng-container>
+                <ng-template #displayDate>
+                    <h4>
+                        Log date: {{currentLog.date | date:'dd-MM-y: H:mm'}}
+                    </h4>
+                </ng-template>
+                <ng-template #displayNoRecentLog>
+                    <h4>
+                        Log date: No recent log
+                    </h4>
+                </ng-template>
 
-            <ng-template #displayDate>
                 <h4>
-                    Log date: {{currentLog.date | date:'dd-MM-y: H:mm'}}
+                    Latest log: {{currentLog.status}}
                 </h4>
             </ng-template>
-            <ng-template #displayNoRecentLog>
-                <h4>
-                    Log date: No recent log
-                </h4>
-            </ng-template>
-
-            <h4>
-                Latest log: {{currentLog.status}}
-            </h4>
-            <h4 class="text-center">
+            <div *ngIf="!accountsForBot">
+                <div class="d-flex justify-content-center">
+                    <div id="circle">
+                        <div class="loader">
+                            <div class="loader">
+                                <div class="loader">
+                                    <div class="loader">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-center" style="color: #B24BF3">Accounts loading...</h3>
+            </div>
+            <h4 *ngIf="accountsForBot && accountsForBot.length > 0" class="text-center">
                 Account list
             </h4>
-            <app-bot-account-list *ngIf="accountsForBot" [accounts]="accountsForBot"></app-bot-account-list>
+            <app-bot-account-list *ngIf="accountsForBot && accountsForBot.length > 0" [accounts]="accountsForBot">
+            </app-bot-account-list>
+            <div *ngIf="accountsForBot && accountsForBot.length == 0" class="d-flex justify-content-center">
+                <h3 class="text-danger mt-2">No accounts assigned to bot !</h3>
+            </div>
             <div class="row no-gutters flex-nowrap">
                 <div class="col mr-1">
                     <button class="btn btn-primary btn-block" (click)="openConfigModal()">Config</button>

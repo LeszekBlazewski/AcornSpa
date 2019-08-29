@@ -69,9 +69,9 @@ export class BotCardComponent implements OnInit {
     }));
 
     //  END OF REMOVE
-
     this.botAccountService.getAccountsForBot(this.bot.botId)
-      .subscribe(accountsForBot => this.accountsForBot = accountsForBot,
+      .subscribe(accountsForBot => setTimeout(() =>
+        this.accountsForBot = accountsForBot, 400),
         (error: HttpErrorResponse) => this.notificationService.showErrorToastr(`Accounts for botID:${this.bot.botId} couldn't be fetched. Is the API running ?`, 'Whoop !'));
 
     this.updateStatusForm = this.formBuilder.group({
@@ -161,7 +161,7 @@ export class BotCardComponent implements OnInit {
 
     modalReference.componentInstance.modalHeader = "Bot deletion";
 
-    modalReference.componentInstance.modalBody = `Are you sure you want to delete selected bot with ID:${this.bot.botId} ?`;
+    modalReference.componentInstance.modalBody = `Are you sure you want to delete selected bot with ID:${this.bot.botId} ? Accounts assigned to bot will be returned to fresh accounts list.`;
 
     modalReference.result.then(() => {
       this.botService.deleteBot(this.bot.botId).subscribe(() => {

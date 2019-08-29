@@ -19,6 +19,7 @@ import { NotificationService } from "./services/notification.service";
 import { IconService } from "./services/icon.service";
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgxUiLoaderModule, NgxUiLoaderConfig } from "ngx-ui-loader";
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -55,6 +56,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 
 @NgModule({
   imports: [
+    BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
