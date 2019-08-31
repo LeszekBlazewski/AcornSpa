@@ -12,11 +12,9 @@ export class BaseService {
 
     constructor(private http: HttpClient) { }
 
-    // TODO check security wholes (is this necessary)
     private config = {
         headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            'Content-Type': 'application/json'
         }
     }
 

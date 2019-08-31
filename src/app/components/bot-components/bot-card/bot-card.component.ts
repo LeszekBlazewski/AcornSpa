@@ -51,24 +51,11 @@ export class BotCardComponent implements OnInit {
     private notificationService: NotificationService) { }
 
   ngOnInit() {
-    //this.createSubscriptions();
 
-    // REMOVE SECTION
-    // REMOVE THIS (TEMP FOR NOT KILLIING DATABSE)
-    this.logService.getLatestLogForBot(this.bot.botId)
-      .subscribe(log => this.formatLog(log));
+    this.createSubscriptions();
 
-    // remove this it is already in create subscriptions
-    this.emptyBotStatusSubject.pipe(
-      debounceTime(3000)
-    ).subscribe(() => this.submitted = false);
+    this.botService.getBot(this.bot.botId).subscribe(bot => this.bot = bot);
 
-    this.componenetSubscriptions.push(this.botAccountService.getAssignedAccount().subscribe((receivedAccount) => {
-      if (this.bot.botId == receivedAccount.botId)
-        this.accountsForBot.push(receivedAccount);
-    }));
-
-    //  END OF REMOVE
     this.botAccountService.getAccountsForBot(this.bot.botId)
       .subscribe(accountsForBot => setTimeout(() =>
         this.accountsForBot = accountsForBot, 400),
@@ -85,10 +72,6 @@ export class BotCardComponent implements OnInit {
   }
 
   private createSubscriptions() {
-
-    this.componenetSubscriptions.push(timer(0, 1000).pipe(
-      switchMap(() => this.botService.getBot(this.bot.botId))
-    ).subscribe(bot => this.bot = bot));
 
     this.componenetSubscriptions.push(timer(0, 1000).pipe(
       switchMap(() => this.logService.getLatestLogForBot(this.bot.botId))

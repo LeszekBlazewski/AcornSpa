@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
     private notificationService: NotificationService,
     private ngxService: NgxUiLoaderService) { }
 
-  // TODO implement handling error from API (When we get back 404)
   ngOnInit() {
 
     this.isDataLoading = true;
