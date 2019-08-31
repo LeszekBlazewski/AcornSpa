@@ -24,6 +24,11 @@ export class BotAccountService extends BaseAccountService<BotAccount> {
         return this.baseService.get(url);
     }
 
+    public detachAccountFromBot(accountId: number): Observable<any> {
+        const url = this.ACCOUNT_API_URL + accountId.toString() + '/detach';
+        return this.baseService.post(url, undefined);
+    }
+
 
     public assignAccountToBot(account: BotAccount) {
         this.assignAccountSubject.next(account);

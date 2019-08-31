@@ -67,7 +67,7 @@ export class ConfigModalComponent implements OnInit {
 
     this.configService.updateConfig(this.config)
       .subscribe(() =>
-        this.notificationService.showSuccessToastr('Config has been successfully updated !', ''),
+        this.notificationService.showSuccessToastr('Config has been successfully updated', ''),
         (error: HttpErrorResponse) =>
           this.notificationService.showErrorToastr("Config hasn't been saved. Is the API running ?", 'Whoop !'));
 

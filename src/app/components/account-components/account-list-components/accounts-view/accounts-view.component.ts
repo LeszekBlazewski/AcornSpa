@@ -42,7 +42,7 @@ export class AccountsViewComponent extends AccountListBase<BaseAccount> implemen
   }
   protected handleAddNewAccountAction(newAccount: BaseAccount): void {
     this.baseAccountService.addAccount(newAccount, this.accountApiUrl).subscribe((insertedAccount) => {
-      this.notificationService.showSuccessToastr('Account has been successfully added !', '');
+      this.notificationService.showSuccessToastr('Account has been successfully added', '');
       this.accounts.push(insertedAccount);
     },
       (error: HttpErrorResponse) =>
@@ -50,7 +50,7 @@ export class AccountsViewComponent extends AccountListBase<BaseAccount> implemen
   }
   protected handleUpdateAccountAction(updatedAccount: BaseAccount): void {
     this.baseAccountService.updateAccount(updatedAccount, this.accountApiUrl).subscribe(() => {
-      this.notificationService.showSuccessToastr('Account has been successfully updated !', '');
+      this.notificationService.showSuccessToastr('Account has been successfully updated', '');
       let accountIndex = this.accounts.findIndex(account => account.accountId == updatedAccount.accountId);
       this.accounts.splice(accountIndex, 1, updatedAccount);
     },
@@ -60,11 +60,10 @@ export class AccountsViewComponent extends AccountListBase<BaseAccount> implemen
   protected handleDeleteAccountAction(accountToDelete: BaseAccount): void {
     this.baseAccountService.deleteAccount(accountToDelete.accountId, this.accountApiUrl).subscribe(() => {
       this.notificationService.showSuccessToastr('Account has been successfully deleted', '');
-      let accountIndex = this.accounts.findIndex(account => account.accountId == accountToDelete.accountId);
-      this.accounts.splice(accountIndex, 1);
+      this.removeAccountFromArray(accountToDelete.accountId);
     },
       (error: HttpErrorResponse) =>
-        this.notificationService.showErrorToastr('Account deletion failed. Is the API running', 'Whoop !'));
+        this.notificationService.showErrorToastr('Account deletion failed. Is the API running ?', 'Whoop !'));
   }
 
 }

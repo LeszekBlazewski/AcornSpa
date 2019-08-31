@@ -10,6 +10,7 @@ import { AccountListBase } from '../account-list-base';
 import { IconService } from 'src/app/services/icon.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountOperation } from 'src/app/enums/account-operation.enum';
+import { DeleteModalComponent } from 'src/app/components/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-bot-accounts-modal',
@@ -51,9 +52,27 @@ export class BotAccountsModalComponent extends AccountListBase<BotAccount> imple
     );
   }
 
+  public openDetachAccountModal(accountId: number) {
+    const modalReference = this.modalService.open(DeleteModalComponent, { size: 'sm' });
+
+    modalReference.componentInstance.modalHeader = "Detach account";
+
+    modalReference.componentInstance.modalBody = `Are you sure you want to detach account with ID:${accountId} ?
+    Selected account will be returned to fresh account list.`;
+
+    modalReference.result.then(() => {
+      this.botAccountService.detachAccountFromBot(accountId).subscribe(() => {
+        this.removeAccountFromArray(accountId);
+        this.notificationService.showSuccessToastr('Accunt has been successfully detached', '');
+      },
+        (error: HttpErrorResponse) => this.notificationService.showErrorToastr(error.error, 'Whoop !'))
+    }, (rejectedReason) => { }
+    );
+  }
+
   protected handleAddNewAccountAction(newAccount: BotAccount) {
     this.botAccountService.addAccount(newAccount).subscribe((insertedAccount) => {
-      this.notificationService.showSuccessToastr('Account has been successfully added !', '');
+      this.notificationService.showSuccessToastr('Account has been successfully added', '');
       this.accounts.push(insertedAccount);
     },
       (error: HttpErrorResponse) =>
@@ -62,7 +81,7 @@ export class BotAccountsModalComponent extends AccountListBase<BotAccount> imple
 
   protected handleUpdateAccountAction(updatedAccount: BotAccount) {
     this.botAccountService.updateAccount(updatedAccount).subscribe(() => {
-      this.notificationService.showSuccessToastr('Account has been successfully updated !', '');
+      this.notificationService.showSuccessToastr('Account has been successfully updated', '');
       let accountIndex = this.accounts.findIndex(account => account.accountId == updatedAccount.accountId);
       this.accounts.splice(accountIndex, 1, updatedAccount);
     },
@@ -73,22 +92,20 @@ export class BotAccountsModalComponent extends AccountListBase<BotAccount> imple
   protected handleDeleteAccountAction(accountToDelete: BotAccount) {
     this.botAccountService.deleteAccount(accountToDelete.accountId).subscribe(() => {
       this.notificationService.showSuccessToastr('Account has been successfully deleted', '');
-      let accountIndex = this.accounts.findIndex(account => account.accountId == accountToDelete.accountId);
-      this.accounts.splice(accountIndex, 1);
+      this.removeAccountFromArray(accountToDelete.accountId);
     },
       (error: HttpErrorResponse) =>
-        this.notificationService.showErrorToastr('Account deletion failed. Is the API running', 'Whoop !'));
+        this.notificationService.showErrorToastr('Account deletion failed. Is the API running ?', 'Whoop !'));
   }
 
   private handleAssignAccountToDifferentBot(accountToAssign: BotAccount) {
     // 1. Update the botId in the database
     this.botAccountService.updateAccount(accountToAssign).subscribe(() => {
       // 2. Remove the account object from array of current accounts for bot
-      let accountIndex = this.accounts.findIndex(account => account.accountId == accountToAssign.accountId);
-      this.accounts.splice(accountIndex, 1);
+      this.removeAccountFromArray(accountToAssign.accountId);
       // 3. Assign the account to different bot card
       this.botAccountService.assignAccountToBot(accountToAssign);
-      this.notificationService.showSuccessToastr(`Account has been successfully assigned to bot with ID:${accountToAssign.botId} !`, '');
+      this.notificationService.showSuccessToastr(`Account has been successfully assigned to bot with ID:${accountToAssign.botId}`, '');
     },
       (error: HttpErrorResponse) =>
         this.notificationService.showErrorToastr("Account hasn't been updated. Is the API running ?", 'Whoop !'));

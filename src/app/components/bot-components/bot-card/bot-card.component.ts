@@ -120,7 +120,7 @@ export class BotCardComponent implements OnInit {
 
     this.botService.updateBotData(newBot)
       .subscribe(acceptedBotOrder => {
-        this.notificationService.showSuccessToastr('Action executed successfully !', '');
+        this.notificationService.showSuccessToastr('Action executed successfully', '');
         this.submitted = false;
         this.updateStatusForm.reset();
         this.bot.botOrder = acceptedBotOrder;
@@ -163,12 +163,14 @@ export class BotCardComponent implements OnInit {
 
     modalReference.componentInstance.modalBody = `Are you sure you want to delete selected bot with ID:${this.bot.botId} ? Accounts assigned to bot will be returned to fresh accounts list.`;
 
+    modalReference.componentInstance.modalWarning = 'This operation can not be undone.';
+
     modalReference.result.then(() => {
       this.botService.deleteBot(this.bot.botId).subscribe(() => {
         this.botService.notifyBotToDelete(this.bot.botId);
         this.notificationService.showSuccessToastr('Bot has been deleted', '')
       },
-        (error: HttpErrorResponse) => this.notificationService.showErrorToastr(`Bot couldn't be deleted`, ''));
+        (error: HttpErrorResponse) => this.notificationService.showErrorToastr(`Bot couldn't be deleted. Is the API running ?`, 'Whoop !'));
     }, (rejectedReason) => { });
   }
 }

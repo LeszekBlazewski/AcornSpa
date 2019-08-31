@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
       }, (error: HttpErrorResponse) => {
         this.ngxService.stopLoader('loader-get-accounts');
         setTimeout(() => this.isDataLoading = false, 1100);
-        this.notificationService.showErrorToastr(error.toString(), '');
+        this.notificationService.showErrorToastr(error.toString(), 'Whoop !');
       });
 
     this.deleteBotFromArraySubscription = this.botService.getBotToDelete().subscribe(botId =>

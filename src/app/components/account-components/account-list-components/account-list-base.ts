@@ -15,6 +15,9 @@ export abstract class AccountListBase<T extends BaseAccount> {
 
     Regions = Region;
 
+    constructor(protected iconService: IconService,
+        protected modalService: NgbModal) { }
+
     public abstract openSpecificAccountModal(account: T): void;
 
     protected abstract handleAddNewAccountAction(newAccount: T): void;
@@ -23,12 +26,14 @@ export abstract class AccountListBase<T extends BaseAccount> {
 
     protected abstract handleDeleteAccountAction(accountToDelete: T): void;
 
+    protected removeAccountFromArray(accountId: number): void {
+        const accountIndex = this.accounts.findIndex(account => account.accountId == accountId);
+        this.accounts.splice(accountIndex, 1);
+    }
+
     public getRegionIcon(accountRegion: Region): String {
         return this.iconService.getRegionIconUrl(accountRegion);
     }
-
-    constructor(protected iconService: IconService,
-        protected modalService: NgbModal) { }
 
     public openDeleteAccountModal(account: T) {
 
@@ -37,6 +42,8 @@ export abstract class AccountListBase<T extends BaseAccount> {
         modalReference.componentInstance.modalHeader = "Account deletion";
 
         modalReference.componentInstance.modalBody = 'Are you sure you want to delete selected account ?';
+
+        modalReference.componentInstance.modalWarning = 'This operation can not be undone.';
 
         modalReference.result.then(() => {
 

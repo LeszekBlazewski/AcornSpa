@@ -12,6 +12,8 @@ export class DeleteModalComponent implements OnInit {
 
   @Input() modalBody: string;
 
+  @Input() modalWarning: string = '';
+
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {

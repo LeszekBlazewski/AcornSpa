@@ -38,6 +38,8 @@
                     <td class="text-center"><i class="tim-icons icon-pencil tim-icons-md pr-2" placement="top"
                             ngbTooltip="Edit account" (click)="openSpecificAccountModal(account)"
                             style="cursor: pointer"></i>
+                        <i class="tim-icons icon-double-right tim-icons-md" placement="top" ngbTooltip="Detach account"
+                            (click)="openDetachAccountModal(account.accountId)" style="cursor: pointer"></i>
                         <i class="tim-icons icon-simple-remove tim-icons-md" placement="top" ngbTooltip="Remove account"
                             (click)="openDeleteAccountModal(account)" style="cursor: pointer"></i>
                     </td>
