@@ -24,7 +24,6 @@ export class RegisterComponent extends AuthenticationBase implements OnInit {
     protected notificationSerice: NotificationService,
     protected router: Router,
   ) {
-
     super(ngxService, authenticationService, userService, notificationSerice, router);
     // redirect to home if already logged in
     this.redirectLoggedInUser();
@@ -35,9 +34,7 @@ export class RegisterComponent extends AuthenticationBase implements OnInit {
   }
 
   onSubmit() {
-
     this.submitForm(UsertAuthenticationAction.REGISTER, 'Registration successful', '/login');
-
   }
 
   protected createForm(): void {

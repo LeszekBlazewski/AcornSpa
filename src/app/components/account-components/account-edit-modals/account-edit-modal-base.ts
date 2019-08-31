@@ -21,6 +21,11 @@ export abstract class AccountEditModalBase<T extends BaseAccount> {
 
   public submitted: Boolean = false;
 
+  constructor() {
+    this.todayDate = new Date();
+    this.accountOperationHelper = <AccountOperationHelper<T>>{};
+  }
+
   protected abstract createEmptyAccount(): void;
 
   protected abstract submitForm(): void;
@@ -28,11 +33,6 @@ export abstract class AccountEditModalBase<T extends BaseAccount> {
   protected abstract initializeAccountEditForm(): void;
 
   public get form() { return this.accountEditForm.controls; }
-
-  constructor() {
-    this.todayDate = new Date();
-    this.accountOperationHelper = <AccountOperationHelper<T>>{};
-  }
 
   public setTodayDate() {
     this.accountEditForm.patchValue({

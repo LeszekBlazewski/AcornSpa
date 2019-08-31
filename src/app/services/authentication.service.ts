@@ -10,6 +10,7 @@ import { BaseService } from './base.service';
 export class AuthenticationService {
 
     private currentUserSubject: BehaviorSubject<User>;
+
     public currentUser: Observable<User>;
 
     constructor(private baseService: BaseService) {

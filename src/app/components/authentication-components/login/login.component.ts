@@ -26,20 +26,16 @@ export class LoginComponent extends AuthenticationBase implements OnInit {
     protected notificationSerice: NotificationService,
     protected router: Router,
   ) {
-
     super(ngxService, authenticationService, userService, notificationSerice, router);
     // redirect to home if already logged in
     this.redirectLoggedInUser();
   }
 
   ngOnInit() {
-
     this.createForm();
-
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
-
 
   onSubmit() {
 

@@ -12,18 +12,21 @@ import { UsertAuthenticationAction } from 'src/app/enums/user-authentication-act
 
 export abstract class AuthenticationBase {
 
+    public form: FormGroup;
+
+    public submitted = false;
+
     constructor(
         protected ngxService: NgxUiLoaderService,
         protected authenticationService: AuthenticationService,
         protected userService: UserService,
         protected notificationSerice: NotificationService,
         protected router: Router,
-    ) {
-    }
+    ) { }
 
-    public form: FormGroup;
-    public submitted = false;
+    public abstract onSubmit(): void;
 
+    protected abstract createForm(): void;
 
     public get f() { return this.form.controls; }
 
@@ -32,7 +35,6 @@ export abstract class AuthenticationBase {
             this.router.navigate(['/']);
         }
     }
-
 
     public submitForm(operation: UsertAuthenticationAction, successMessage: string, successNavigationUrl: string) {
 
@@ -68,8 +70,4 @@ export abstract class AuthenticationBase {
                 this.notificationSerice.showErrorToastr(error.toString(), '');
             });
     }
-
-    public abstract onSubmit(): void;
-
-    protected abstract createForm(): void;
 }

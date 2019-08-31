@@ -10,11 +10,11 @@ export class UserService {
     constructor(private baseService: BaseService) { }
 
 
-    register(user: User) {
+    public register(user: User) {
         return this.baseService.post(environment.registrationUrl, user);
     }
 
-    delete(userToDeleteId: number) {
+    public delete(userToDeleteId: number) {
         this.baseService.delete(environment.usersUrl + userToDeleteId.toString());
     }
 }

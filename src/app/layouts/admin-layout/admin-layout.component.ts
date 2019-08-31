@@ -10,6 +10,11 @@ export class AdminLayoutComponent implements OnInit {
   public sidebarColor: string = "primary";
 
   constructor() { }
+
+  ngOnInit() {
+    this.changeSidebarColor("primary");
+  }
+
   changeSidebarColor(color) {
     var sidebar = document.getElementsByClassName('sidebar')[0];
     var mainPanel = document.getElementsByClassName('main-panel')[0];
@@ -32,7 +37,5 @@ export class AdminLayoutComponent implements OnInit {
       body.classList.remove('white-content');
     }
   }
-  ngOnInit() {
-    this.changeSidebarColor("primary");
-  }
+
 }

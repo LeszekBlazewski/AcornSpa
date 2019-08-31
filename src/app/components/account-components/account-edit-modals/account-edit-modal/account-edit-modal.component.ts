@@ -18,9 +18,9 @@ export class AccountEditModalComponent extends AccountEditModalBase<BaseAccount>
   }
 
   ngOnInit() {
-
     this.checkIfShouldCreateNewAccount();
   }
+
 
   public submitForm(): void {
 

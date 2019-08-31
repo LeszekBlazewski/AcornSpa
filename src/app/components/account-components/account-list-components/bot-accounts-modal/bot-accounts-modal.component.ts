@@ -31,7 +31,6 @@ export class BotAccountsModalComponent extends AccountListBase<BotAccount> imple
   }
 
   ngOnInit() {
-
   }
 
   public openSpecificAccountModal(account: BotAccount) {

@@ -21,9 +21,7 @@ export class BotAccountEditModalComponent extends AccountEditModalBase<BotAccoun
   }
 
   ngOnInit() {
-
     this.checkIfShouldCreateNewAccount();
-
   }
 
   submitForm() {
