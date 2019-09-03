@@ -1,6 +1,6 @@
 # AcornFront
 
-[![Build Status](https://dev.azure.com/blazewskileszek/Acorn/_apis/build/status/LeszekBlazewski.AcornFront?branchName=master)](https://dev.azure.com/blazewskileszek/Acorn/_build/latest?definitionId=6&branchName=master)
+[![Build Status](https://dev.azure.com/blazewskileszek/Acorn/_apis/build/status/LeszekBlazewski.AcornSpa?branchName=master)](https://dev.azure.com/blazewskileszek/Acorn/_build/latest?definitionId=7&branchName=master)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
