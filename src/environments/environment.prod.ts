@@ -8,7 +8,7 @@ export const environment = {
   configsUrl: 'configs/',
   logsUrl: 'logs/',
   loginUrl: '/login',
-  authenticationUrl: '/users/authenticate',
-  registrationUrl: '/users/register',
+  authenticationUrl: 'users/authenticate',
+  registrationUrl: 'users/register',
   usersUrl: 'users/',
 };

@@ -1,7 +1,7 @@
 import { BaseAccount } from './baseAccount';
 
 export interface BotAccount extends BaseAccount {
-    botId: Number;
-    level: Number;
-    expPercentage: Number;
+    botId: number;
+    level: number;
+    expPercentage: number;
 }
