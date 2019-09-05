@@ -54,8 +54,6 @@ export class BotCardComponent implements OnInit {
 
     this.createSubscriptions();
 
-    this.botService.getBot(this.bot.botId).subscribe(bot => this.bot = bot);
-
     this.botAccountService.getAccountsForBot(this.bot.botId)
       .subscribe(accountsForBot => setTimeout(() =>
         this.accountsForBot = accountsForBot, 400),

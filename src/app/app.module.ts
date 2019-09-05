@@ -21,6 +21,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxUiLoaderModule, NgxUiLoaderConfig } from "ngx-ui-loader";
+import { FakeBackendAuthentication } from './fake-backend-providers/fake-backend-authentication';
+import { FakeBackendBots } from './fake-backend-providers/fake-backend-bot';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: "#ba54f5",
@@ -87,6 +89,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // fake backend providers register
+    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendAuthentication, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendBots, multi: true }
   ],
 
   bootstrap: [AppComponent]

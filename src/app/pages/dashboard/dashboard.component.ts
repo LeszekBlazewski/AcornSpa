@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
         this.notificationService.showSuccessToastr('Bot has been successfully created', '');
         this.bots.push(createdBot);
       }, (error: HttpErrorResponse) =>
-          this.notificationService.showErrorToastr(error.error, 'Whoop !'))
+        this.notificationService.showErrorToastr(error.toString(), 'Whoop !'))
       , (rejectedReason) => { });
   }
 }
