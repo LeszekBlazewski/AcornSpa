@@ -47,10 +47,10 @@ export class ConfigModalComponent implements OnInit {
     this.configForm = this.formBuilder.group({
       botId: [{ value: this.config.botId, disabled: true }],
       queueType: [this.QueueTypes[this.config.queueType], Validators.required],
-      aiConfiguration: [this.AiConfigs[this.config.aiConfig], Validators.required],
+      aiConfig: [this.AiConfigs[this.config.aiConfig], Validators.required],
       path: [this.config.path, Validators.required],
       closeBrowser: [this.config.closeBrowser],
-      overWriteConfig: [this.config.overwriteConfig],
+      overwriteConfig: [this.config.overwriteConfig],
       noActionTimeout: [this.config.noActionTimeout, Validators.required]
     })
   }

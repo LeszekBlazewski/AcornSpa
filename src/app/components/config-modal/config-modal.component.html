@@ -19,7 +19,7 @@
                 </div>
                 <div class="form-group col-md-5 pl-md-1">
                     <label> AI configuration</label>
-                    <ng-select [searchable]="false" formControlName="aiConfiguration" [clearable]="false"
+                    <ng-select [searchable]="false" formControlName="aiConfig" [clearable]="false"
                         [items]="aiConfigurationKeys">
                     </ng-select>
                 </div>
@@ -48,9 +48,9 @@
                         <label class="custom-control-label" for="closeBrowser">Close Browser</label>
                     </div>
                     <div class="custom-control custom-checkbox mt-2">
-                        <input type="checkbox" class="custom-control-input" id="overWriteConfig"
-                            formControlName="overWriteConfig" />
-                        <label class="custom-control-label" for="overWriteConfig">Overwrite config</label>
+                        <input type="checkbox" class="custom-control-input" id="overwriteConfig"
+                            formControlName="overwriteConfig" />
+                        <label class="custom-control-label" for="overwriteConfig">Overwrite config</label>
                     </div>
                 </div>
                 <div class="col-md-5 mt-3">
