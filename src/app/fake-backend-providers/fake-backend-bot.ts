@@ -59,6 +59,8 @@ export class FakeBackendBots extends FakeBackendProviderBase {
                 return this.addNewBot(request.body);
             case request.url.match(new RegExp(`${environment.botsUrl}[0-9]+`)) && request.method === 'PUT':
                 return this.updateBotData(request.body);
+            case request.url.match(new RegExp(`${environment.botsUrl}[0-9]+`)) && request.method === 'DELETE':
+                return this.deleteBot();
             default:
                 return next.handle(request);
         }
@@ -79,5 +81,9 @@ export class FakeBackendBots extends FakeBackendProviderBase {
     private updateBotData(body) {
         const updatedBot: Bot = JSON.parse(body);
         return this.httpOk(BotOrder[updatedBot.botOrder]);
+    }
+
+    private deleteBot() {
+        return this.httpOk();
     }
 }

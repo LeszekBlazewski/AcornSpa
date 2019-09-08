@@ -71,9 +71,9 @@ export class BotCardComponent implements OnInit {
 
   private createSubscriptions() {
 
-    this.componenetSubscriptions.push(timer(0, 1000).pipe(
+    setTimeout(() => this.componenetSubscriptions.push(timer(0, 5000).pipe(
       switchMap(() => this.logService.getLatestLogForBot(this.bot.botId))
-    ).subscribe(log => this.currentLog = log));
+    ).subscribe(log => this.currentLog = log)), 400);
 
     this.componenetSubscriptions.push(this.emptyBotStatusSubject.pipe(
       debounceTime(3000)
