@@ -125,17 +125,6 @@ export class BotCardComponent implements OnInit {
     modalRef.componentInstance.componentHeader = 'Account list for BotID';
   }
 
-  private formatLog(receivedLog: Log): void {
-
-    if (receivedLog)
-      this.currentLog = receivedLog;
-    else {
-      this.currentLog = <Log>{
-        status: 'No recent log'
-      }
-    }
-  }
-
   openDeleteBotModal() {
 
     const modalReference = this.modalService.open(DeleteModalComponent, { size: 'sm' });

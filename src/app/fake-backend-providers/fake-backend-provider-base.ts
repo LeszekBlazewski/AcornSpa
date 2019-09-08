@@ -25,6 +25,10 @@ export abstract class FakeBackendProviderBase implements HttpInterceptor {
         return throwError({ error: { message } });
     }
 
+    protected extractNumberFromUrl(url: string): number {
+        return Number(url.match(new RegExp('\\/(\\d+)'))[1]);
+    }
+
     private delayObservable(request: HttpRequest<any>, next: HttpHandler) {
         // wrap in delayed observable to simulate server api call
         return of(null)

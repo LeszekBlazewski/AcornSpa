@@ -24,6 +24,7 @@ import { NgxUiLoaderModule, NgxUiLoaderConfig } from "ngx-ui-loader";
 import { FakeBackendAuthentication } from './fake-backend-providers/fake-backend-authentication';
 import { FakeBackendBots } from './fake-backend-providers/fake-backend-bot';
 import { FakeBackendLogs } from './fake-backend-providers/fake-backend-logs';
+import { FakeBackendBotAccounts } from './fake-backend-providers/fake-backend-bot-accounts';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: "#ba54f5",
@@ -93,7 +94,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     // fake backend providers register
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendAuthentication, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendBots, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendLogs, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendLogs, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendBotAccounts, multi: true }
   ],
 
   bootstrap: [AppComponent]

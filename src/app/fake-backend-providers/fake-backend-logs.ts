@@ -78,11 +78,17 @@ export class FakeBackendLogs extends FakeBackendProviderBase {
         return this.httpOk(logs);
     }
 
-    private getLatestLogForBot(url) {
-        const botId = url.match(new RegExp('\\/(\\d+)'))[1];
+    private getLatestLogForBot(url: string) {
+        const botId = this.extractNumberFromUrl(url);
         const logForBot = logs.find(l => l.botId == botId);
-        const logCopy = { ...logForBot };// create a copy of log in order to change the reference status value and not display it immediately on the view
-        logForBot.status = statuses[Math.floor(Math.random() * statuses.length)];
+        let logCopy: Log;
+        if (logForBot != undefined) {
+            // create a copy of log when it exists in order to change the reference status value and not display it immediately on the view
+            logCopy = { ...logForBot }
+            logForBot.status = statuses[Math.floor(Math.random() * statuses.length)];
+        } else
+            logCopy = null;
+
         return this.httpOk(logCopy);
     }
 }
