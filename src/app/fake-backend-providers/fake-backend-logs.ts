@@ -80,7 +80,7 @@ export class FakeBackendLogs extends FakeBackendProviderBase {
 
     private getLatestLogForBot(url: string) {
         const botId = this.extractNumberFromUrl(url);
-        const logForBot = logs.find(l => l.botId == botId);
+        const logForBot = logs.find(l => l.botId === botId);
         let logCopy: Log;
         if (logForBot != undefined) {
             // create a copy of log when it exists in order to change the reference status value and not display it immediately on the view

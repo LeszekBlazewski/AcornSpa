@@ -2,6 +2,9 @@
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+import { QueueType } from '../enums/queue-type.enum';
+import { AiConfig } from '../enums/ai-config.enum';
+import { Region } from '../enums/region.enum';
 
 
 export abstract class FakeBackendProviderBase implements HttpInterceptor {
@@ -36,5 +39,28 @@ export abstract class FakeBackendProviderBase implements HttpInterceptor {
             .pipe(materialize()) // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
             .pipe(delay(500))
             .pipe(dematerialize());
+    }
+
+    protected convertStringToEnum(stringValue) {
+        switch (stringValue) {
+            case QueueType[QueueType.Beginner]:
+                return QueueType.Beginner;
+            case QueueType[QueueType.Intermediate]:
+                return QueueType.Intermediate;
+            case QueueType[QueueType.Intro]:
+                return QueueType.Intro;
+            case AiConfig[AiConfig.Follow]:
+                return AiConfig.Follow;
+            case AiConfig[AiConfig.Laner]:
+                return AiConfig.Laner;
+            case AiConfig[AiConfig.LanerLite]:
+                return AiConfig.LanerLite;
+            case Region[Region.Eune]:
+                return Region.Eune;
+            case Region[Region.Euw]:
+                return Region.Euw;
+            case Region[Region.Na]:
+                return Region.Na;
+        }
     }
 }

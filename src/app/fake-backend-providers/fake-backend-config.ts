@@ -115,7 +115,7 @@ export class FakeBackendConfig extends FakeBackendProviderBase {
 
     private getConfig(url: string) {
         const botId = this.extractNumberFromUrl(url);
-        const config: Config = configs.find(config => config.botId == botId);
+        const config: Config = configs.find(config => config.botId === botId);
         return this.httpOk(config);
     }
 
@@ -124,26 +124,8 @@ export class FakeBackendConfig extends FakeBackendProviderBase {
         const updatedConfig: Config = JSON.parse(body);
         updatedConfig.queueType = <QueueType>this.convertStringToEnum(updatedConfig.queueType);
         updatedConfig.aiConfig = <AiConfig>this.convertStringToEnum(updatedConfig.aiConfig);
-        let accountIndex = configs.findIndex(config => config.botId == updatedConfig.botId);
+        let accountIndex = configs.findIndex(config => config.botId === updatedConfig.botId);
         configs.splice(accountIndex, 1, updatedConfig);
         return this.httpOk(updatedConfig);
-    }
-
-
-    private convertStringToEnum(stringValue) {
-        switch (stringValue) {
-            case QueueType[QueueType.Beginner]:
-                return QueueType.Beginner;
-            case QueueType[QueueType.Intermediate]:
-                return QueueType.Intermediate;
-            case QueueType[QueueType.Intro]:
-                return QueueType.Intro;
-            case AiConfig[AiConfig.Follow]:
-                return AiConfig.Follow;
-            case AiConfig[AiConfig.Laner]:
-                return AiConfig.Laner;
-            case AiConfig[AiConfig.LanerLite]:
-                return AiConfig.LanerLite;
-        }
     }
 }

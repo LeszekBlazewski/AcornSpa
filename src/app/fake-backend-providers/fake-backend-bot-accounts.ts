@@ -10,7 +10,7 @@ const botAccounts: BotAccount[] = [
         accountId: 1,
         botId: 1,
         region: Region.Eune,
-        login: 'snake',
+        login: 'snake12',
         password: 'jonatan',
         birthDate: new Date('1998-02-13'),
         level: 12,
@@ -20,7 +20,7 @@ const botAccounts: BotAccount[] = [
         accountId: 2,
         botId: 1,
         region: Region.Euw,
-        login: 'r3hab',
+        login: 'r3hab321',
         password: 'supreme',
         birthDate: new Date('1997-02-13'),
         level: 25,
@@ -200,7 +200,7 @@ export class FakeBackendBotAccounts extends FakeBackendProviderBase {
 
     private getAccountsForBot(url: string) {
         const botId = this.extractNumberFromUrl(url);
-        const accountsForBot = botAccounts.map((account) => account.botId == botId ? account : null)
+        const accountsForBot = botAccounts.map((account) => account.botId === botId ? account : null)
             .filter(account => account !== null);
 
         return this.httpOk(accountsForBot);
@@ -215,7 +215,7 @@ export class FakeBackendBotAccounts extends FakeBackendProviderBase {
 
     private editAccount(body) {
         const updatedAccount: BotAccount = JSON.parse(body);
-        let accountIndex = botAccounts.findIndex(account => account.accountId == updatedAccount.accountId);
+        let accountIndex = botAccounts.findIndex(account => account.accountId === updatedAccount.accountId);
         botAccounts.splice(accountIndex, 1, updatedAccount);
         return this.httpOk(updatedAccount);
     }
@@ -233,7 +233,7 @@ export class FakeBackendBotAccounts extends FakeBackendProviderBase {
     }
 
     private removeAccountFromArray(accountId: number): void {
-        const accountIndex = botAccounts.findIndex(account => account.accountId == accountId);
+        const accountIndex = botAccounts.findIndex(account => account.accountId === accountId);
         botAccounts.splice(accountIndex, 1);
     }
 }

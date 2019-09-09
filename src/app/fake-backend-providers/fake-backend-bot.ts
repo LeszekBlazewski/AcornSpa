@@ -72,7 +72,7 @@ export class FakeBackendBots extends FakeBackendProviderBase {
 
     private addNewBot(body) {
         const newBot: Bot = JSON.parse(body);
-        if (bots.some(b => b.botId == newBot.botId))
+        if (bots.some(b => b.botId === newBot.botId))
             return this.httpError('Bot ID is already taken !');
         newBot.botOrder = BotOrder.Start;
         return this.httpOk(newBot);
