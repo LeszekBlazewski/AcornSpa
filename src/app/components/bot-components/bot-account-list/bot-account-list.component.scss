@@ -55,5 +55,15 @@ td:last-child {
 .progress-text {
     position: absolute;
     display: block;
-    left: calc(88% - 0.75rem);
+    left: calc(86% - 0.75rem);
+}
+
+// Firefox >= 30v styling
+
+@supports (-moz-appearance:meterbar) and (background-blend-mode:difference,normal) {
+    .progress-text {
+        position: absolute;
+        display: block;
+        left: calc(88% - 0.75rem);
+    }
 }

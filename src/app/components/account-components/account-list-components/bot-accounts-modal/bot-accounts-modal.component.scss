@@ -44,5 +44,15 @@ $mobileColumHideBound: 610px;
 .progress-text {
     position: absolute;
     display: block;
-    left: calc(88% - 3.8rem);
+    left: calc(85% - 3.8rem);
+}
+
+// Firefox >= 30v styling
+
+@supports (-moz-appearance:meterbar) and (background-blend-mode:difference,normal) {
+    .progress-text {
+        position: absolute;
+        display: block;
+        left: calc(88% - 3.8rem);
+    }
 }
