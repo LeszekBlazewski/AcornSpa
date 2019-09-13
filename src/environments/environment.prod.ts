@@ -1,7 +1,19 @@
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+
 export const environment = {
   production: true,
+  firebaseConfig: {
+    apiKey: "AIzaSyAWMt0oNJMM_uuuyAJnRCZhzVYIqX3VAWo",
+    authDomain: "acornspa-6af0b.firebaseapp.com",
+    databaseURL: "https://acornspa-6af0b.firebaseio.com",
+    projectId: "acornspa-6af0b",
+    storageBucket: "acornspa-6af0b.appspot.com",
+    messagingSenderId: "392289962600",
+    appId: "1:392289962600:web:8cb363fb8684a6f74189dd"
+  },
   baseApiUrl: 'http://localhost:4201/api/',
-  botsUrl: 'bots/',
   botAccountsUrl: 'accounts/',
   readyAccountsUrl: 'readyAccounts/',
   freshAccountsUrl: 'freshAccounts/',
@@ -11,4 +23,6 @@ export const environment = {
   authenticationUrl: 'users/authenticate',
   registrationUrl: 'users/register',
   usersUrl: 'users/',
+  // Firebase collections 
+  botsCollection: 'Bots',
 };

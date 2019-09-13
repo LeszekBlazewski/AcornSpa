@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
 
     this.isDataLoading = true;
     this.ngxService.startLoader('loader-bots');
-    this.botService.getAllBots()
+    this.botService.getAllFromCollection()
       .subscribe(bots => {
         this.ngxService.stopLoader('loader-bots');
         setTimeout(() => {
@@ -52,12 +52,12 @@ export class DashboardComponent implements OnInit {
   }
 
   public openCreateNewBotModal() {
-    this.modalService.open(BotAddModalComponent).result.then((newBot) =>
-      this.botService.addNewBot(newBot).subscribe(createdBot => {
+    this.modalService.open(BotAddModalComponent).result.then(newBot =>
+      this.botService.addToCollection(newBot).subscribe(createdBot => {
         this.notificationService.showSuccessToastr('Bot has been successfully created', '');
         this.bots.push(createdBot);
       }, (error: HttpErrorResponse) =>
-          this.notificationService.showErrorToastr(error.error, 'Whoop !'))
+        this.notificationService.showErrorToastr(error.error, 'Whoop !'))
       , (rejectedReason) => { });
   }
 }

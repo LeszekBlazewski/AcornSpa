@@ -95,16 +95,17 @@ export class BotCardComponent implements OnInit {
       return;
 
     let newBot = <Bot>{
+      clientId: this.bot.clientId,
       botId: this.bot.botId,
-      botOrder: this.form.botStatus.value
+      botOrder: BotOrder[<string>this.form.botStatus.value]
     };
 
-    this.botService.updateBotData(newBot)
-      .subscribe(acceptedBotOrder => {
+    this.botService.updateObjectInCollection(newBot)
+      .subscribe(updatedBot => {
         this.notificationService.showSuccessToastr('Action executed successfully', '');
         this.submitted = false;
         this.updateStatusForm.reset();
-        this.bot.botOrder = acceptedBotOrder;
+        this.bot = updatedBot;
       },
         (error: HttpErrorResponse) =>
           this.notificationService.showErrorToastr("Action not executed. Is the API running ?", 'Whoop !'));
@@ -147,7 +148,7 @@ export class BotCardComponent implements OnInit {
     modalReference.componentInstance.modalWarning = 'This operation can not be undone.';
 
     modalReference.result.then(() => {
-      this.botService.deleteBot(this.bot.botId).subscribe(() => {
+      this.botService.deleteObjectFromCollection(this.bot.clientId).subscribe(() => {
         this.botService.notifyBotToDelete(this.bot.botId);
         this.notificationService.showSuccessToastr('Bot has been deleted', '')
       },

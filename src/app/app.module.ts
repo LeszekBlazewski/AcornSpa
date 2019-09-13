@@ -22,6 +22,10 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxUiLoaderModule, NgxUiLoaderConfig } from "ngx-ui-loader";
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: "#ba54f5",
   bgsOpacity: 0.7,
@@ -68,7 +72,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     ToastrModule.forRoot({
       maxOpened: 10,
-    })
+    }),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule, // firestore
   ],
 
   declarations: [

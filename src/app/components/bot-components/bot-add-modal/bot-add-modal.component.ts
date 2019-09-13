@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Bot } from 'src/app/models/bot';
+import { BotOrder } from 'src/app/enums/bot-order.enum';
 
 @Component({
   selector: 'app-bot-add-modal',
@@ -33,6 +34,8 @@ export class BotAddModalComponent implements OnInit {
       return;
 
     const bot: Bot = this.addNewBotForm.value;
+
+    bot.botOrder = BotOrder.Start;
 
     this.activeModal.close(bot);
   }

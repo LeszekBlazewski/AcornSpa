@@ -4,8 +4,16 @@
 
 export const environment = {
   production: false,
+  firebaseConfig: {
+    apiKey: "AIzaSyAWMt0oNJMM_uuuyAJnRCZhzVYIqX3VAWo",
+    authDomain: "acornspa-6af0b.firebaseapp.com",
+    databaseURL: "https://acornspa-6af0b.firebaseio.com",
+    projectId: "acornspa-6af0b",
+    storageBucket: "acornspa-6af0b.appspot.com",
+    messagingSenderId: "392289962600",
+    appId: "1:392289962600:web:8cb363fb8684a6f74189dd"
+  },
   baseApiUrl: 'http://localhost:4201/api/',
-  botsUrl: 'bots/',
   botAccountsUrl: 'accounts/',
   readyAccountsUrl: 'readyAccounts/',
   freshAccountsUrl: 'freshAccounts/',
@@ -15,13 +23,6 @@ export const environment = {
   authenticationUrl: 'users/authenticate',
   registrationUrl: 'users/register',
   usersUrl: 'users/',
+  // Firebase collections 
+  botsCollection: 'Bots',
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
