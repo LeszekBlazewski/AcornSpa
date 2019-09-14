@@ -10,3 +10,13 @@
 .card form label + .form-control {
     margin-bottom: 0px;
 }
+
+.ng-select-disabled {
+    .ng-select-container {
+        cursor: not-allowed;
+        opacity: 0.8;
+        .ng-arrow-wrapper {
+            cursor: not-allowed;
+        }
+    }
+}

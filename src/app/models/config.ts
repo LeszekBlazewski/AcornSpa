@@ -1,6 +1,7 @@
 import { QueueType } from '../enums/queue-type.enum';
 import { AiConfig } from '../enums/ai-config.enum';
 import { BaseFirebaseModel } from './base-firebase-model';
+import { LevelingModel } from '../enums/leveling-model.enum';
 
 export interface Config extends BaseFirebaseModel {
     botId: number;
@@ -10,4 +11,7 @@ export interface Config extends BaseFirebaseModel {
     overwriteConfig: boolean;
     closeBrowser: boolean;
     noActionTimeout: number;
+    disableWindowsUpdate: boolean;
+    desiredLevel: number;
+    levelingModel: LevelingModel;
 }
