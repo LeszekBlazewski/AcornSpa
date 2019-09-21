@@ -45,6 +45,7 @@ export class FirebaseService<T extends BaseFirebaseModel> {
     }
 
     addToCollection(object: T): Observable<T> {
+        delete object.clientId; // remove client id from object to not save it in database (it is always null)
         const promise = new Promise<T>((resolve, reject) => {
             this.dataBaseCollection.add(object).then(ref => {
                 const newData = object;

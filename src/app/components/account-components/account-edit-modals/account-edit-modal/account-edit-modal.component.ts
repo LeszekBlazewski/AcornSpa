@@ -32,12 +32,14 @@ export class AccountEditModalComponent extends AccountEditModalBase<BaseAccount>
 
   protected createEmptyAccount(): void {
     this.account = <BaseAccount>{
+      accountId: Math.floor(Math.random() * 100) + 1,
       region: this.Regions.Eune,
     }
   }
 
   protected initializeAccountEditForm(): void {
     this.accountEditForm = this.formBuilder.group({
+      clientId: [this.account.clientId],
       accountId: [{ value: this.account.accountId, disabled: true }],
       login: [this.account.login, Validators.required],
       password: [this.account.password, Validators.required],

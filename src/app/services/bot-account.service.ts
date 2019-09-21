@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject, of } from "rxjs";
-import { BotAccount } from '../../models/botAccount';
+import { Observable, Subject, from, forkJoin } from "rxjs";
+import { BotAccount } from '../models/botAccount';
 import { environment } from 'src/environments/environment';
-import { FirebaseService } from '../firebase.service';
+import { FirebaseService } from './firebase.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
+import { BaseAccount } from '../models/baseAccount';
 
 
 @Injectable({
@@ -33,10 +34,29 @@ export class BotAccountService extends FirebaseService<BotAccount> {
             );
     }
 
-    public detachAccountFromBot(accountId: number): Observable<any> {
-        // const url = this.ACCOUNT_API_URL + accountId.toString() + '/detach';
-        // return this.baseService.post(url, undefined);
-        return of(null);
+    public detachAccountFromBot(account: BotAccount): Observable<any> {
+
+        const deleteBotAccount$ = this.deleteObjectFromCollection(account.clientId);
+
+        const addNewFreshAccount$ = new Promise<BaseAccount>((resolve, reject) => {
+
+            const baseAccount: BaseAccount = <BaseAccount>{
+                accountId: account.accountId,
+                birthDate: account.birthDate,
+                login: account.login,
+                password: account.password,
+                region: account.region
+            }
+
+            this.database.collection<BaseAccount>(environment.freshAccountsCollection).add(baseAccount).then(
+                ref => {
+                    const newData = account;
+                    newData.clientId = ref.id
+                    resolve(newData);
+                })
+        });
+
+        return forkJoin([deleteBotAccount$, from(addNewFreshAccount$)]);
     }
 
 

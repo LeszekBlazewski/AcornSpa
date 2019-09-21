@@ -23,7 +23,7 @@ export class NotificationService {
 
     public showErrorToastr(message: string, title: string) {
         const modalRef = this.toastrService.show(message, title, {
-            timeOut: 3000,
+            timeOut: 30000,
             toastClass: 'alert',
             tapToDismiss: true,
             positionClass: 'toast-bottom-right',

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { BotAccountService } from 'src/app/services/account-services/bot-account.service';
+import { BotAccountService } from 'src/app/services/bot-account.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BotAccountEditModalComponent } from "../../account-edit-modals/bot-account-edit-modal/bot-account-edit-modal.component";
@@ -51,17 +51,17 @@ export class BotAccountsModalComponent extends AccountListBase<BotAccount> imple
     );
   }
 
-  public openDetachAccountModal(accountId: number) {
+  public openDetachAccountModal(account: BotAccount) {
     const modalReference = this.modalService.open(DeleteModalComponent, { size: 'sm' });
 
     modalReference.componentInstance.modalHeader = "Detach account";
 
-    modalReference.componentInstance.modalBody = `Are you sure you want to detach account with ID:${accountId} ?
+    modalReference.componentInstance.modalBody = `Are you sure you want to detach account with ID:${account.accountId} ?
     Selected account will be returned to fresh account list.`;
 
     modalReference.result.then(() => {
-      this.botAccountService.detachAccountFromBot(accountId).subscribe(() => {
-        this.removeAccountFromArray(accountId);
+      this.botAccountService.detachAccountFromBot(account).subscribe(() => {
+        this.removeAccountFromArray(account.accountId);
         this.notificationService.showSuccessToastr('Accunt has been successfully detached', '');
       },
         (error: HttpErrorResponse) => this.notificationService.showErrorToastr(error.error, 'Whoop !'))

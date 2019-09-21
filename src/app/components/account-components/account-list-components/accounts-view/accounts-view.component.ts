@@ -26,10 +26,10 @@ export class AccountsViewComponent extends AccountListBase<BaseAccount> implemen
     private notificationService: NotificationService,
     private firebaseServiceFactory: FirebaseServiceFactory) {
     super(iconService, modalService);
-    this.accountService = this.firebaseServiceFactory.createSpecificFirebaseService<BaseAccount>(this.documentLibraryPath);
   }
 
   ngOnInit() {
+    this.accountService = this.firebaseServiceFactory.createSpecificFirebaseService<BaseAccount>(this.documentLibraryPath);
   }
 
   public openSpecificAccountModal(account: BaseAccount): void {

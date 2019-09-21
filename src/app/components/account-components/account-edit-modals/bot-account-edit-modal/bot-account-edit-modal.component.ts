@@ -47,6 +47,7 @@ export class BotAccountEditModalComponent extends AccountEditModalBase<BotAccoun
 
   initializeAccountEditForm() {
     this.accountEditForm = this.formBuilder.group({
+      clientId: [this.account.clientId],
       accountId: [{ value: this.account.accountId, disabled: true }],
       botId: [{ value: this.account.botId, disabled: this.accountOperationHelper.AccountOperation == AccountOperation.AddNewAccount ? true : false }],
       login: [this.account.login, Validators.required],

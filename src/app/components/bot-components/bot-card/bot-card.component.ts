@@ -2,12 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Bot } from 'src/app/models/bot';
 import { BotService } from 'src/app/services/bot.service';
 import { LogService } from 'src/app/services/log.service';
-import { BotAccountService } from 'src/app/services/account-services/bot-account.service';
+import { BotAccountService } from 'src/app/services/bot-account.service';
 import { BotOrder } from 'src/app/enums/bot-order.enum';
 import { Log } from 'src/app/models/log';
 
-import { timer, Subscription, Subject } from 'rxjs';
-import { switchMap, debounceTime } from "rxjs/operators";
+import { Subscription, Subject } from 'rxjs';
+import { debounceTime } from "rxjs/operators";
 import { BotAccount } from 'src/app/models/botAccount';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
