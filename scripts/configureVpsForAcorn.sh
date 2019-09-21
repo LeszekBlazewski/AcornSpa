@@ -6,7 +6,7 @@ shouldInstallNginx=true
 
 shouldConfigureFrontend=true
 
-shouldConfigureBackend=false
+shouldConfigureBackend=true
 
 # CONSTANS
 
@@ -61,6 +61,7 @@ EOF
     echo "start vsftpd and enable on system boot"
     sudo systemctl start vsftpd
     sudo systemctl enable vsftpd
+    sudo systemctl restart vsftpd
     # Configure nginx to serve frontend page
     echo Configure nginx to serve frontend page
     cat > $nginxAcornFrontPath<<EOF
