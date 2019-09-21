@@ -4,7 +4,7 @@
             [overlayColor]="'rgba(39,41,61,.3)'">
         </ngx-ui-loader>
     </div>
-    <app-accounts-view [accountApiUrl]="apiUrl" [componentHeader]="componentHeader" [accounts]="accounts"
-        *ngIf="!isDataLoading">
+    <app-accounts-view [documentLibraryPath]="documentLibraryPath" [componentHeader]="componentHeader"
+        [accounts]="accounts" *ngIf="!isDataLoading">
     </app-accounts-view>
 </div>

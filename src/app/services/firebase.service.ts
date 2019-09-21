@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { BaseFirebaseModel } from '../models/base-firebase-model';
 
 
-export abstract class FirebaseService<T extends BaseFirebaseModel> {
+export class FirebaseService<T extends BaseFirebaseModel> {
 
     protected documentLibraryPath: string;
 

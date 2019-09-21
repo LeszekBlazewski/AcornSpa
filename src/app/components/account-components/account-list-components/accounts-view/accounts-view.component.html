@@ -23,7 +23,7 @@
                             </td>
                             <td>{{ account.login}}</td>
                             <td class="column-hide">{{ account.password}}</td>
-                            <td class="column-hide">{{ account.birthDate | date:'dd-MM-y'}}</td>
+                            <td class="column-hide">{{ account.birthDate.toDate() | date:'dd-MM-y'}}</td>
                             <td><img [src]="getRegionIcon(account.region)"
                                     class="icon-align icon-hide">{{Regions[account.region]}}</td>
                             <td class="text-center"><i class="tim-icons icon-pencil tim-icons-md pr-2" placement="top"

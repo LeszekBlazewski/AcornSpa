@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseAccountPage } from '../base-account-page';
 import { environment } from 'src/environments/environment';
-import { BaseAccountService } from 'src/app/services/account-services/base-account.service';
-import { BaseAccount } from 'src/app/models/baseAccount';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { NotificationService } from 'src/app/services/notification.service';
+import { FirebaseServiceFactory } from 'src/app/providers/firebase.service.factory';
 
 @Component({
   selector: 'app-ready-accounts',
@@ -13,12 +12,12 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class ReadyAccountsComponent extends BaseAccountPage implements OnInit {
 
-  constructor(protected accountService: BaseAccountService<BaseAccount>,
+  constructor(protected firebaseServiceFactory: FirebaseServiceFactory,
     protected ngxService: NgxUiLoaderService,
     protected notificationService: NotificationService) {
-    super(environment.readyAccountsUrl,
+    super(environment.readyAccountsCollection,
       "Ready account list",
-      accountService,
+      firebaseServiceFactory,
       ngxService,
       notificationService
     );

@@ -28,7 +28,7 @@
                 </ng-container>
                 <ng-template #displayDate>
                     <h4>
-                        Log date: {{currentLog.date | date:'dd-MM-y: H:mm'}}
+                        Log date: {{currentLog.date.toDate() | date:'dd-MM-y: H:mm'}}
                     </h4>
                 </ng-template>
                 <ng-template #displayNoRecentLog>

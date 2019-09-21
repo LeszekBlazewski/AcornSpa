@@ -25,7 +25,7 @@
                     </td>
                     <td>{{ account.login}}</td>
                     <td class="mobile-column-hide">{{ account.password}}</td>
-                    <td class="mobile-column-hide">{{ account.birthDate | date:'dd-MM-y'}}</td>
+                    <td class="mobile-column-hide">{{ account.birthDate.toDate() | date:'dd-MM-y'}}</td>
                     <td><img [src]="getRegionIcon(account.region)" class="pull-left mb-1 icon-hide "
                             style="width: 20px">{{Regions[account.region]}}</td>
                     <td class="text-center">{{account.level}}</td>

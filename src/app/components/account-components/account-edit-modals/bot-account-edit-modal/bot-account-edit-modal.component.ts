@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { BotAccount } from 'src/app/models/account';
+import { BotAccount } from 'src/app/models/botAccount';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountOperation } from 'src/app/enums/account-operation.enum';
@@ -37,6 +37,7 @@ export class BotAccountEditModalComponent extends AccountEditModalBase<BotAccoun
 
   createEmptyAccount() {
     this.account = <BotAccount>{
+      accountId: Math.floor(Math.random() * 10) + 1,
       botId: this.referencedBotId,
       region: this.Regions.Eune,
       level: 1,
@@ -50,7 +51,7 @@ export class BotAccountEditModalComponent extends AccountEditModalBase<BotAccoun
       botId: [{ value: this.account.botId, disabled: this.accountOperationHelper.AccountOperation == AccountOperation.AddNewAccount ? true : false }],
       login: [this.account.login, Validators.required],
       password: [this.account.password, Validators.required],
-      birthDate: [this.account.birthDate ? new Date(this.account.birthDate) : null, Validators.required],
+      birthDate: [this.account.birthDate ? this.account.birthDate.toDate() : null, Validators.required],
       region: [this.Regions[this.account.region], Validators.required],
       level: [{ value: this.account.level, disabled: true }],
       expPercentage: [{ value: this.account.expPercentage, disabled: true }]

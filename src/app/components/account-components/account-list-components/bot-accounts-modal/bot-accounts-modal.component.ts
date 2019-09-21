@@ -3,7 +3,7 @@ import { BotAccountService } from 'src/app/services/account-services/bot-account
 import { NotificationService } from 'src/app/services/notification.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BotAccountEditModalComponent } from "../../account-edit-modals/bot-account-edit-modal/bot-account-edit-modal.component";
-import { BotAccount } from 'src/app/models/account';
+import { BotAccount } from 'src/app/models/botAccount';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AccountOperationHelper } from 'src/app/helpers/account-operation.helper';
 import { AccountListBase } from '../account-list-base';
@@ -70,7 +70,7 @@ export class BotAccountsModalComponent extends AccountListBase<BotAccount> imple
   }
 
   protected handleAddNewAccountAction(newAccount: BotAccount) {
-    this.botAccountService.addAccount(newAccount).subscribe((insertedAccount) => {
+    this.botAccountService.addToCollection(newAccount).subscribe((insertedAccount) => {
       this.notificationService.showSuccessToastr('Account has been successfully added', '');
       this.accounts.push(insertedAccount);
     },
@@ -79,7 +79,7 @@ export class BotAccountsModalComponent extends AccountListBase<BotAccount> imple
   }
 
   protected handleUpdateAccountAction(updatedAccount: BotAccount) {
-    this.botAccountService.updateAccount(updatedAccount).subscribe(() => {
+    this.botAccountService.updateObjectInCollection(updatedAccount).subscribe(() => {
       this.notificationService.showSuccessToastr('Account has been successfully updated', '');
       let accountIndex = this.accounts.findIndex(account => account.accountId == updatedAccount.accountId);
       this.accounts.splice(accountIndex, 1, updatedAccount);
@@ -89,7 +89,7 @@ export class BotAccountsModalComponent extends AccountListBase<BotAccount> imple
   }
 
   protected handleDeleteAccountAction(accountToDelete: BotAccount) {
-    this.botAccountService.deleteAccount(accountToDelete.accountId).subscribe(() => {
+    this.botAccountService.deleteObjectFromCollection(accountToDelete.clientId).subscribe(() => {
       this.notificationService.showSuccessToastr('Account has been successfully deleted', '');
       this.removeAccountFromArray(accountToDelete.accountId);
     },
@@ -99,7 +99,7 @@ export class BotAccountsModalComponent extends AccountListBase<BotAccount> imple
 
   private handleAssignAccountToDifferentBot(accountToAssign: BotAccount) {
     // 1. Update the botId in the database
-    this.botAccountService.updateAccount(accountToAssign).subscribe(() => {
+    this.botAccountService.updateObjectInCollection(accountToAssign).subscribe(() => {
       // 2. Remove the account object from array of current accounts for bot
       this.removeAccountFromArray(accountToAssign.accountId);
       // 3. Assign the account to different bot card

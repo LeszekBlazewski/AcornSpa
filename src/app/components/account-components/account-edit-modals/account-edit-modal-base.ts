@@ -4,6 +4,7 @@ import { Region } from 'src/app/enums/region.enum';
 import { Input } from '@angular/core';
 import { BaseAccount } from 'src/app/models/baseAccount';
 import { AccountOperationHelper } from 'src/app/helpers/account-operation.helper';
+import { firestore } from 'firebase/app';
 
 export abstract class AccountEditModalBase<T extends BaseAccount> {
 
@@ -64,6 +65,8 @@ export abstract class AccountEditModalBase<T extends BaseAccount> {
     let newAccount: T = this.accountEditForm.getRawValue();
 
     newAccount.region = Region[newAccount.region.toString()]; // convert ,,string" enum to numeric value
+
+    newAccount.birthDate = firestore.Timestamp.fromDate(this.accountEditForm.get('birthDate').value);   // convert Date object to firestore Timestamp
 
     this.accountOperationHelper.Account = newAccount;
 

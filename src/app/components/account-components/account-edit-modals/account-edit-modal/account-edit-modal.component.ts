@@ -41,7 +41,7 @@ export class AccountEditModalComponent extends AccountEditModalBase<BaseAccount>
       accountId: [{ value: this.account.accountId, disabled: true }],
       login: [this.account.login, Validators.required],
       password: [this.account.password, Validators.required],
-      birthDate: [this.account.birthDate ? new Date(this.account.birthDate) : null, Validators.required],
+      birthDate: [this.account.birthDate ? this.account.birthDate.toDate() : null, Validators.required],
       region: [this.Regions[this.account.region], Validators.required]
     })
   }

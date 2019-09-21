@@ -25,6 +25,7 @@ import { NgxUiLoaderModule, NgxUiLoaderConfig } from "ngx-ui-loader";
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import { FirebaseServiceFactory } from './providers/firebase.service.factory';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: "#ba54f5",
@@ -90,6 +91,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NotificationService,
     IconService,
     BaseAccountService,
+    FirebaseServiceFactory,
     { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

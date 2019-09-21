@@ -8,7 +8,7 @@ import { Log } from 'src/app/models/log';
 
 import { timer, Subscription, Subject } from 'rxjs';
 import { switchMap, debounceTime } from "rxjs/operators";
-import { BotAccount } from 'src/app/models/account';
+import { BotAccount } from 'src/app/models/botAccount';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -52,6 +52,9 @@ export class BotCardComponent implements OnInit {
 
   ngOnInit() {
 
+    this.logService.getLatestLogForBot(this.bot.botId)
+      .subscribe(log => log != undefined ? this.currentLog = log : this.currentLog = null);
+
     this.createSubscriptions();
 
     this.botAccountService.getAccountsForBot(this.bot.botId)
@@ -71,9 +74,10 @@ export class BotCardComponent implements OnInit {
 
   private createSubscriptions() {
 
-    this.componenetSubscriptions.push(timer(0, 1000).pipe(
-      switchMap(() => this.logService.getLatestLogForBot(this.bot.botId))
-    ).subscribe(log => this.currentLog = log));
+    // this.componenetSubscriptions.push(timer(0, 1000).pipe(
+    //   switchMap(() => this.logService.getLatestLogForBot(this.bot.botId))
+    // ).subscribe(log => this.currentLog = log));
+
 
     this.componenetSubscriptions.push(this.emptyBotStatusSubject.pipe(
       debounceTime(3000)

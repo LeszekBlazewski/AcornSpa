@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { BotAccount } from 'src/app/models/account';
+import { BotAccount } from 'src/app/models/botAccount';
 import { Region } from 'src/app/enums/region.enum';
 import { IconService } from 'src/app/services/icon.service';
 

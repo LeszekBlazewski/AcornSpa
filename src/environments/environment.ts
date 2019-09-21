@@ -24,5 +24,10 @@ export const environment = {
   registrationUrl: 'users/register',
   usersUrl: 'users/',
   // Firebase collections 
+  botsAccountsCollection: 'BotAccounts',
   botsCollection: 'Bots',
+  configsCollection: 'Configs',
+  freshAccountsCollection: 'FreshAccounts',
+  logsCollection: 'Logs',
+  readyAccountsCollection: 'ReadyAccounts',
 };

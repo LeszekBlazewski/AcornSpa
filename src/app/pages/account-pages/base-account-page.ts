@@ -1,12 +1,13 @@
 import { BaseAccount } from 'src/app/models/baseAccount';
-import { BaseAccountService } from 'src/app/services/account-services/base-account.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from 'src/app/services/notification.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { FirebaseServiceFactory } from 'src/app/providers/firebase.service.factory';
 
 export abstract class BaseAccountPage {
 
-    public apiUrl: string;
+    public documentLibraryPath: string;
 
     public accounts: BaseAccount[];
 
@@ -14,19 +15,22 @@ export abstract class BaseAccountPage {
 
     public isDataLoading: boolean;
 
-    constructor(apiUrlForPage: string,
+    private accountService: FirebaseService<BaseAccount>;
+
+    constructor(documentLibraryPath: string,
         componentHeader: string,
-        protected accountService: BaseAccountService<BaseAccount>,
+        protected firebaseServiceFactory: FirebaseServiceFactory,
         protected ngxService: NgxUiLoaderService,
         protected notificationService: NotificationService) {
-        this.apiUrl = apiUrlForPage;
+        this.documentLibraryPath = documentLibraryPath;
         this.componentHeader = componentHeader;
+        this.accountService = this.firebaseServiceFactory.createSpecificFirebaseService<BaseAccount>(documentLibraryPath);
     }
 
     protected fetchAccounts(): void {
         this.isDataLoading = true;
         this.ngxService.startLoader('loader-get-accounts');
-        this.accountService.getAccounts(this.apiUrl).subscribe(fetchedAccounts => {
+        this.accountService.getAllFromCollection().subscribe(fetchedAccounts => {
             this.ngxService.stopLoader('loader-get-accounts');
             setTimeout(() => {
                 this.accounts = fetchedAccounts;

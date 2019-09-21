@@ -3,11 +3,12 @@ import { AccountListBase } from '../account-list-base';
 import { BaseAccount } from 'src/app/models/baseAccount';
 import { IconService } from 'src/app/services/icon.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BaseAccountService } from 'src/app/services/account-services/base-account.service';
 import { AccountEditModalComponent } from '../../account-edit-modals/account-edit-modal/account-edit-modal.component';
 import { AccountOperationHelper } from 'src/app/helpers/account-operation.helper';
 import { NotificationService } from 'src/app/services/notification.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FirebaseServiceFactory } from 'src/app/providers/firebase.service.factory';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-accounts-view',
@@ -16,13 +17,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AccountsViewComponent extends AccountListBase<BaseAccount> implements OnInit {
 
-  @Input() accountApiUrl: string;
+  @Input() documentLibraryPath: string;
+
+  private accountService: FirebaseService<BaseAccount>;
 
   constructor(protected iconService: IconService,
     protected modalService: NgbModal,
     private notificationService: NotificationService,
-    private baseAccountService: BaseAccountService<BaseAccount>) {
+    private firebaseServiceFactory: FirebaseServiceFactory) {
     super(iconService, modalService);
+    this.accountService = this.firebaseServiceFactory.createSpecificFirebaseService<BaseAccount>(this.documentLibraryPath);
   }
 
   ngOnInit() {
@@ -41,7 +45,7 @@ export class AccountsViewComponent extends AccountListBase<BaseAccount> implemen
     );
   }
   protected handleAddNewAccountAction(newAccount: BaseAccount): void {
-    this.baseAccountService.addAccount(newAccount, this.accountApiUrl).subscribe((insertedAccount) => {
+    this.accountService.addToCollection(newAccount).subscribe((insertedAccount) => {
       this.notificationService.showSuccessToastr('Account has been successfully added', '');
       this.accounts.push(insertedAccount);
     },
@@ -49,7 +53,7 @@ export class AccountsViewComponent extends AccountListBase<BaseAccount> implemen
         this.notificationService.showErrorToastr("Account hasn't been saved. Is the API running ?", 'Whoop !'));
   }
   protected handleUpdateAccountAction(updatedAccount: BaseAccount): void {
-    this.baseAccountService.updateAccount(updatedAccount, this.accountApiUrl).subscribe(() => {
+    this.accountService.updateObjectInCollection(updatedAccount).subscribe(() => {
       this.notificationService.showSuccessToastr('Account has been successfully updated', '');
       let accountIndex = this.accounts.findIndex(account => account.accountId == updatedAccount.accountId);
       this.accounts.splice(accountIndex, 1, updatedAccount);
@@ -58,7 +62,7 @@ export class AccountsViewComponent extends AccountListBase<BaseAccount> implemen
         this.notificationService.showErrorToastr("Account hasn't been updated. Is the API running ?", 'Whoop !'));
   }
   protected handleDeleteAccountAction(accountToDelete: BaseAccount): void {
-    this.baseAccountService.deleteAccount(accountToDelete.accountId, this.accountApiUrl).subscribe(() => {
+    this.accountService.deleteObjectFromCollection(accountToDelete.clientId).subscribe(() => {
       this.notificationService.showSuccessToastr('Account has been successfully deleted', '');
       this.removeAccountFromArray(accountToDelete.accountId);
     },

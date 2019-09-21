@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import { Bot } from '../models/bot';
 import { environment } from 'src/environments/environment';
-import { FirebaseService } from './firebase-base.service';
+import { FirebaseService } from './firebase.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 

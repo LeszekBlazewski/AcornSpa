@@ -1,34 +1,30 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { BaseService } from "./base.service";
 import { Log } from '../models/log';
 import { environment } from 'src/environments/environment';
+import { FirebaseService } from './firebase.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class LogService {
+export class LogService extends FirebaseService<Log> {
 
-    private readonly LOG_API_URL = environment.logsUrl;
-
-    constructor(private baseService: BaseService) { }
+    constructor(protected database: AngularFirestore) {
+        super(environment.logsCollection, database);
+    }
 
     public getLatestLogForBot(botId: number): Observable<Log> {
-        const url = this.LOG_API_URL + botId.toString() + '/latest';
-        return this.baseService.get(url);
-    }
-
-    public getAllLogsForBot(botId: number): Observable<Log[]> {
-        return this.baseService.get(this.LOG_API_URL + botId.toString());
-    }
-
-    public deleteLog(botId: number): Observable<any> {
-        const url = this.LOG_API_URL + botId.toString();
-        return this.baseService.delete(url);
-    }
-
-    public addNewLog(log: Log): Observable<any> {
-        return this.baseService.post(this.LOG_API_URL, log);
+        const log$ = this.database.collection<Log>(environment.logsCollection, ref =>
+            ref.where('botId', '==', botId).orderBy('date', 'desc').limit(1))
+            .valueChanges()
+            .pipe(
+                map(log => {
+                    return log[0];
+                })
+            );
+        return log$;
     }
 }

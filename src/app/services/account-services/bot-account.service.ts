@@ -1,32 +1,42 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { BaseService } from "../base.service";
-import { BaseAccountService } from './base-account.service';
-import { BotAccount } from '../../models/account';
+import { Observable, Subject, of } from "rxjs";
+import { BotAccount } from '../../models/botAccount';
 import { environment } from 'src/environments/environment';
+import { FirebaseService } from '../firebase.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class BotAccountService extends BaseAccountService<BotAccount> {
-
-    private ACCOUNT_API_URL: string = environment.botAccountsUrl;
+export class BotAccountService extends FirebaseService<BotAccount> {
 
     private assignAccountSubject = new Subject<BotAccount>();
 
-    constructor(protected baseService: BaseService) {
-        super(baseService);
+    constructor(protected database: AngularFirestore) {
+        super(environment.botsAccountsCollection, database);
     }
 
     public getAccountsForBot(botId: number): Observable<BotAccount[]> {
-        const url = this.ACCOUNT_API_URL + 'bot/' + botId.toString();
-        return this.baseService.get(url);
+        return this.database.collection<BotAccount>(environment.botsAccountsCollection, ref =>
+            ref.where('botId', '==', botId))
+            .snapshotChanges()
+            .pipe(
+                map(botAccounts => {
+                    return botAccounts.map(doc => {
+                        const data = doc.payload.doc.data() as BotAccount;
+                        data.clientId = doc.payload.doc.id;
+                        return data;
+                    });
+                })
+            );
     }
 
     public detachAccountFromBot(accountId: number): Observable<any> {
-        const url = this.ACCOUNT_API_URL + accountId.toString() + '/detach';
-        return this.baseService.post(url, undefined);
+        // const url = this.ACCOUNT_API_URL + accountId.toString() + '/detach';
+        // return this.baseService.post(url, undefined);
+        return of(null);
     }
 
 
@@ -36,19 +46,5 @@ export class BotAccountService extends BaseAccountService<BotAccount> {
 
     public getAssignedAccount(): Observable<BotAccount> {
         return this.assignAccountSubject.asObservable();
-    }
-
-    /* overrides */
-
-    public updateAccount(account: BotAccount): Observable<any> {
-        return super.updateAccount(account, this.ACCOUNT_API_URL);
-    }
-
-    public deleteAccount(accountId: Number): Observable<any> {
-        return super.deleteAccount(accountId, this.ACCOUNT_API_URL);
-    }
-
-    public addAccount(account: BotAccount): Observable<BotAccount> {
-        return super.addAccount(account, this.ACCOUNT_API_URL);
     }
 }
