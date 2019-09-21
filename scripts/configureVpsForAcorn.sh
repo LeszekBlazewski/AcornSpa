@@ -27,10 +27,13 @@ if $shouldInstallNginx; then
     sudo apt update
     sudo apt install nginx
     sudo ufw allow 'Nginx HTTP'
+    # remove default site from sites-enable
+    sudo rm /etc/nginx/sites-enabled/default
     # Start nginx and enable process on boot startup
     echo "start nginx and enable process on boot startup"
     sudo systemctl start nginx
     sudo systemctl enable nginx
+    sudo systemctl restart nginx
 fi
 
 # ACORN FRONT SETUP
