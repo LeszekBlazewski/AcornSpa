@@ -1,25 +1,33 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { BaseService } from "./base.service";
+import { Observable, config } from "rxjs";
 import { Config } from '../models/config';
 import { environment } from 'src/environments/environment';
+import { FirebaseService } from './firebase.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class ConfigService {
+export class ConfigService extends FirebaseService<Config> {
 
-    private readonly CONFIG_API_URL = environment.configsUrl;
-
-    constructor(private baseService: BaseService) { }
-
-    public getConfig(botId: number): Observable<Config> {
-        const url = this.CONFIG_API_URL + botId.toString();
-        return this.baseService.get(url);
+    constructor(protected database: AngularFirestore) {
+        super(environment.configsCollection, database);
     }
 
-    public updateConfig(config: Config): Observable<any> {
-        return this.baseService.put(this.CONFIG_API_URL, config);
+    public getConfigByBotId(botId: number): Observable<Config[]> {
+        return this.database.collection<Config>(environment.configsCollection, ref =>
+            ref.where('botId', '==', botId))
+            .snapshotChanges()
+            .pipe(
+                map(actions => {
+                    return actions.map(a => {
+                        const config = a.payload.doc.data() as Config;
+                        config.clientId = a.payload.doc.id;
+                        return config;
+                    })
+                })
+            );
     }
 }

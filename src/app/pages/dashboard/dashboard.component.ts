@@ -5,8 +5,13 @@ import { Bot } from 'src/app/models/bot';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BotAddModalComponent } from 'src/app/components/bot-components/bot-add-modal/bot-add-modal.component';
 import { NotificationService } from 'src/app/services/notification.service';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ConfigService } from 'src/app/services/config.service';
+import { Config } from 'src/app/models/config';
+import { AiConfig } from 'src/app/enums/ai-config.enum';
+import { QueueType } from 'src/app/enums/queue-type.enum';
+import { LevelingModel } from 'src/app/enums/leveling-model.enum';
 
 @Component({
   selector: "app-dashboard",
@@ -22,6 +27,7 @@ export class DashboardComponent implements OnInit {
   public isDataLoading: boolean;
 
   constructor(private botService: BotService,
+    private configService: ConfigService,
     private modalService: NgbModal,
     private notificationService: NotificationService,
     private ngxService: NgxUiLoaderService) { }
@@ -52,12 +58,35 @@ export class DashboardComponent implements OnInit {
   }
 
   public openCreateNewBotModal() {
-    this.modalService.open(BotAddModalComponent).result.then(newBot =>
-      this.botService.addToCollection(newBot).subscribe(createdBot => {
-        this.notificationService.showSuccessToastr('Bot has been successfully created', '');
-        this.bots.push(createdBot);
-      }, (error: HttpErrorResponse) =>
+    this.modalService.open(BotAddModalComponent).result.then(newBot => {
+
+      // create default config for bot
+      const defaultConfig: Config = {
+        botId: newBot.botId,
+        aiConfig: AiConfig.Follow,
+        queueType: QueueType.Intro,
+        path: "C:\\riotgames\\leagueoflegends",
+        overwriteConfig: true,
+        closeBrowser: false,
+        noActionTimeout: 300,
+        disableWindowsUpdate: true,
+        desiredLevel: 15,
+        levelingModel: LevelingModel.Classic
+      }
+
+      // save new bot && his default config in database
+      const addBotAccount$ = this.botService.addToCollection(newBot);
+      const addBotConfig$ = this.configService.addToCollection(defaultConfig);
+
+
+
+      forkJoin(addBotAccount$, addBotConfig$).subscribe(
+        ([createdBot, config]: [Bot, Config]) => {
+          this.notificationService.showSuccessToastr('Bot has been successfully created', '');
+          this.notificationService.showSuccessToastr(`Default config for bot:${config.botId} has been created !`, '');
+          this.bots.push(createdBot);
+        }, (error: HttpErrorResponse) =>
         this.notificationService.showErrorToastr(error.error, 'Whoop !'))
-      , (rejectedReason) => { });
+    }, (rejectedReason) => { });
   }
 }

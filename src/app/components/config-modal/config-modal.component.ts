@@ -43,14 +43,17 @@ export class ConfigModalComponent implements OnInit {
 
   ngOnInit() {
 
-    this.configService.getConfig(this.inputBotId)
-      .subscribe(data => this.config = data,
-        error => { },
-        () => this.initializeConfigForm());
+    this.configService.getConfigByBotId(this.inputBotId)
+      .subscribe(data => {
+        this.config = data[0];
+        this.initializeConfigForm()
+      },
+        error => this.notificationService.showErrorToastr(error, 'Whoop!'));
   }
 
   private initializeConfigForm() {
     this.configForm = this.formBuilder.group({
+      clientId: [this.config.clientId],
       botId: [this.config.botId, Validators.required],
       queueType: [this.QueueTypes[this.config.queueType], Validators.required],
       aiConfig: [this.AiConfigs[this.config.aiConfig], Validators.required],
@@ -74,7 +77,15 @@ export class ConfigModalComponent implements OnInit {
 
     this.config = this.configForm.getRawValue();
 
-    this.configService.updateConfig(this.config)
+    // convert ,,string" enums to numeric values
+
+    this.config.queueType = QueueType[this.config.queueType.toString()];
+
+    this.config.aiConfig = AiConfig[this.config.aiConfig.toString()];
+
+    this.config.levelingModel = LevelingModel[this.config.levelingModel.toString()];
+
+    this.configService.updateObjectInCollection(this.config)
       .subscribe(() =>
         this.notificationService.showSuccessToastr('Config has been successfully updated', ''),
         (error: HttpErrorResponse) =>
