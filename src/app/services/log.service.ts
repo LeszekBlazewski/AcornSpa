@@ -17,14 +17,13 @@ export class LogService extends FirebaseService<Log> {
     }
 
     public getLatestLogForBot(botId: number): Observable<Log> {
-        const log$ = this.database.collection<Log>(environment.logsCollection, ref =>
+        return this.database.collection<Log>(environment.logsCollection, ref =>
             ref.where('botId', '==', botId).orderBy('date', 'desc').limit(1))
             .valueChanges()
             .pipe(
-                map(log => {
-                    return log[0];
+                map(logs => {
+                    return logs[0];
                 })
             );
-        return log$;
     }
 }
