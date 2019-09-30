@@ -20,7 +20,7 @@ export class BotAddModalComponent implements OnInit {
 
   ngOnInit() {
     this.addNewBotForm = this.formBuilder.group({
-      botId: ['', Validators.required]
+      botId: [null, Validators.required]
     })
   }
 
@@ -33,9 +33,10 @@ export class BotAddModalComponent implements OnInit {
     if (!this.addNewBotForm.valid)
       return;
 
-    const bot: Bot = this.addNewBotForm.value;
-
-    bot.botOrder = BotOrder.Start;
+    const bot: Bot = {
+      botId: +this.form.botId.value,
+      botOrder: BotOrder.Start
+    }
 
     this.activeModal.close(bot);
   }

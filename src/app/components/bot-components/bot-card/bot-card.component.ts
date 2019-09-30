@@ -6,7 +6,7 @@ import { BotAccountService } from 'src/app/services/bot-account.service';
 import { BotOrder } from 'src/app/enums/bot-order.enum';
 import { Log } from 'src/app/models/log';
 
-import { Subscription, Subject } from 'rxjs';
+import { Subscription, Subject, Observable } from 'rxjs';
 import { debounceTime } from "rxjs/operators";
 import { BotAccount } from 'src/app/models/botAccount';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -37,7 +37,7 @@ export class BotCardComponent implements OnInit {
 
   botOrderKeys = Object.keys(BotOrder).filter(k => typeof BotOrder[k as any] === "number");
 
-  currentLog: Log;
+  currentLog$: Observable<Log>;
 
   updateStatusForm: FormGroup;
 
@@ -52,8 +52,7 @@ export class BotCardComponent implements OnInit {
 
   ngOnInit() {
 
-    this.logService.getLatestLogForBot(this.bot.botId)
-      .subscribe(log => log != undefined ? this.currentLog = log : this.currentLog = null);
+    this.currentLog$ = this.logService.getLatestLogForBot(this.bot.botId);
 
     this.createSubscriptions();
 

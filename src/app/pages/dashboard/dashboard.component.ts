@@ -12,6 +12,9 @@ import { Config } from 'src/app/models/config';
 import { AiConfig } from 'src/app/enums/ai-config.enum';
 import { QueueType } from 'src/app/enums/queue-type.enum';
 import { LevelingModel } from 'src/app/enums/leveling-model.enum';
+import { Log } from 'src/app/models/log';
+import { firestore } from 'firebase/app';
+import { LogService } from 'src/app/services/log.service';
 
 @Component({
   selector: "app-dashboard",
@@ -28,6 +31,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private botService: BotService,
     private configService: ConfigService,
+    private logService: LogService,
     private modalService: NgbModal,
     private notificationService: NotificationService,
     private ngxService: NgxUiLoaderService) { }
@@ -74,16 +78,24 @@ export class DashboardComponent implements OnInit {
         levelingModel: LevelingModel.Classic
       }
 
+      // create default log for bot
+      const defaultLog: Log = {
+        botId: newBot.botId,
+        date: firestore.Timestamp.now(),
+        status: 'New bot created'
+      }
+
       // save new bot && his default config in database
       const addBotAccount$ = this.botService.addToCollection(newBot);
       const addBotConfig$ = this.configService.addToCollection(defaultConfig);
+      const addLog$ = this.logService.addToCollection(defaultLog);
 
 
-
-      forkJoin(addBotAccount$, addBotConfig$).subscribe(
-        ([createdBot, config]: [Bot, Config]) => {
+      forkJoin(addBotAccount$, addBotConfig$, addLog$).subscribe(
+        ([createdBot, config, log]: [Bot, Config, Log]) => {
           this.notificationService.showSuccessToastr('Bot has been successfully created', '');
           this.notificationService.showSuccessToastr(`Default config for bot:${config.botId} has been created !`, '');
+          this.notificationService.showSuccessToastr(`Default log for botId:${log.botId} has been created !`, '');
           this.bots.push(createdBot);
         }, (error: HttpErrorResponse) =>
         this.notificationService.showErrorToastr(error.error, 'Whoop !'))

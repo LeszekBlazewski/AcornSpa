@@ -20,25 +20,18 @@
             <h4>
                 Status: {{BotOrders[bot.botOrder]}}
             </h4>
-            <div *ngIf="currentLog === undefined else logFetched" class="d-flex justify-content-center">
-                <h2 class="text-center" style="color: #B24BF3">Logs loading...</h2>
-            </div>
-            <ng-template #logFetched>
-                <ng-container *ngIf="currentLog != null; then displayDate; else displayNoRecentLog">
-                </ng-container>
-                <ng-template #displayDate>
-                    <h4>
-                        Log date: {{currentLog.date.toDate() | date:'dd-MM-y: H:mm'}}
-                    </h4>
-                </ng-template>
-                <ng-template #displayNoRecentLog>
-                    <h4>
-                        Log date: No recent log
-                    </h4>
-                </ng-template>
+            <div *ngIf="(currentLog$ | async) as currentLog; else loadingLogs">
                 <h4>
-                    Latest log: {{currentLog ? currentLog.status: 'No recent log'}}
+                    Log date: {{currentLog.date.toDate() | date:'dd-MM-y: H:mm'}}
                 </h4>
+                <h4>
+                    Latest log: {{currentLog.status}}
+                </h4>
+            </div>
+            <ng-template #loadingLogs>
+                <div class="d-flex justify-content-center">
+                    <h2 class="text-center" style="color: #B24BF3">Logs loading...</h2>
+                </div>
             </ng-template>
             <div *ngIf="!accountsForBot">
                 <div class="d-flex justify-content-center">
