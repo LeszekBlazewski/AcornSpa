@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   bots: Bot[];
 
-  deleteBotFromArraySubscription = new Subscription();
+  subscriptions: Subscription[] = [];
 
   public isDataLoading: boolean;
 
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
 
     this.isDataLoading = true;
     this.ngxService.startLoader('loader-bots');
-    this.botService.getAllFromCollection()
+    this.subscriptions.push(this.botService.getAllFromCollection()
       .subscribe(bots => {
         this.ngxService.stopLoader('loader-bots');
         setTimeout(() => {
@@ -48,17 +48,17 @@ export class DashboardComponent implements OnInit {
           this.isDataLoading = false;
         }, 1100);
       }, (error: HttpErrorResponse) => {
-        this.ngxService.stopLoader('loader-get-accounts');
+        this.ngxService.stopLoader('loader-bots');
         setTimeout(() => this.isDataLoading = false, 1100);
         this.notificationService.showErrorToastr(error.toString(), 'Whoop !');
-      });
+      }));
 
-    this.deleteBotFromArraySubscription = this.botService.getBotToDelete().subscribe(botId =>
-      this.bots = this.bots.filter(bot => bot.botId != botId))
+    this.subscriptions.push(this.botService.getBotToDelete().subscribe(botId =>
+      this.bots = this.bots.filter(bot => bot.botId != botId)));
   }
 
   ngOnDestroy() {
-    this.deleteBotFromArraySubscription.unsubscribe();
+    this.subscriptions.forEach(sub => sub.unsubscribe);
   }
 
   public openCreateNewBotModal() {

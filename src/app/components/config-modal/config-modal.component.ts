@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from 'src/app/services/notification.service';
 import { LevelingModel } from 'src/app/enums/leveling-model.enum';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-config-modal',
@@ -23,6 +24,8 @@ export class ConfigModalComponent implements OnInit {
   configForm: FormGroup;
 
   config: Config;
+
+  subscriptions: Subscription[] = [];
 
   QueueTypes = QueueType;
 
@@ -43,12 +46,16 @@ export class ConfigModalComponent implements OnInit {
 
   ngOnInit() {
 
-    this.configService.getConfigByBotId(this.inputBotId)
+    this.subscriptions.push(this.configService.getConfigByBotId(this.inputBotId)
       .subscribe(data => {
         this.config = data[0];
         this.initializeConfigForm()
       },
-        error => this.notificationService.showErrorToastr(error, 'Whoop!'));
+        error => this.notificationService.showErrorToastr(error, 'Whoop!')));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe);
   }
 
   private initializeConfigForm() {
@@ -85,11 +92,11 @@ export class ConfigModalComponent implements OnInit {
 
     this.config.levelingModel = LevelingModel[this.config.levelingModel.toString()];
 
-    this.configService.updateObjectInCollection(this.config)
+    this.subscriptions.push(this.configService.updateObjectInCollection(this.config)
       .subscribe(() =>
         this.notificationService.showSuccessToastr('Config has been successfully updated', ''),
         (error: HttpErrorResponse) =>
-          this.notificationService.showErrorToastr(error.toString(), 'Whoop !'));
+          this.notificationService.showErrorToastr(error.toString(), 'Whoop !')));
 
     this.activeModal.close();
   }

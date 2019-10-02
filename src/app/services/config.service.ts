@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, config } from "rxjs";
+import { Observable } from "rxjs";
 import { Config } from '../models/config';
 import { environment } from 'src/environments/environment';
 import { FirebaseService } from './firebase.service';
