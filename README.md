@@ -38,6 +38,8 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-## Used libraries
+## Credits
 
-- Reactiv forms with validation
+All credits for the template used in this project go to [Creativ Tim](https://www.creative-tim.com/product/black-dashboard-angular)
+
+The project is customized, modified and styled to properly support all of the requirements.
