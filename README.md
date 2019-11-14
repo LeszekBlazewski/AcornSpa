@@ -2,6 +2,16 @@
 
 [![Build Status](https://dev.azure.com/blazewskileszek/AcornShowcase/_apis/build/status/LeszekBlazewski.AcornSpa?branchName=RealApi)](https://dev.azure.com/blazewskileszek/AcornShowcase/_build/latest?definitionId=8&branchName=RealApi)
 
+## Current status of branches
+
+* **RealApi** - working frontend for api which can be found here: [Acorn Api](https://github.com/LeszekBlazewski/AcornAPI)
+
+* **fakeBackend** - working frontend which uses mocks and HTTP interceptors to simulate Api calls
+
+* **observableRewrite** - partially working frontend which is being rewritten to support Firebase (Angular Fire) (**working currently**)
+
+* **master** - Version which will be merged with observableRewrite in the future (**not working currently**)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
 ## Development server
