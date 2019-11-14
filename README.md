@@ -1,6 +1,6 @@
-# AcornFront
+# AcornSpa
 
-[![Build Status](https://dev.azure.com/blazewskileszek/AcornShowcase/_apis/build/status/LeszekBlazewski.AcornSpa?branchName=master)](https://dev.azure.com/blazewskileszek/AcornShowcase/_build/latest?definitionId=8&branchName=master)
+[![Build Status](https://dev.azure.com/blazewskileszek/AcornShowcase/_apis/build/status/LeszekBlazewski.AcornSpa?branchName=observableRewrite)](https://dev.azure.com/blazewskileszek/AcornShowcase/_build/latest?definitionId=8&branchName=observableRewrite)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
