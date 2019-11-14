@@ -1,4 +1,4 @@
-# AcornFront
+# AcornSpa
 
 [![Build Status](https://dev.azure.com/blazewskileszek/AcornShowcase/_apis/build/status/LeszekBlazewski.AcornSpa?branchName=master)](https://dev.azure.com/blazewskileszek/AcornShowcase/_build/latest?definitionId=8&branchName=master)
 
