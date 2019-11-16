@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyAWMt0oNJMM_uuuyAJnRCZhzVYIqX3VAWo",
+    apiKey: "APIKEY",
     authDomain: "acornspa-6af0b.firebaseapp.com",
     databaseURL: "https://acornspa-6af0b.firebaseio.com",
     projectId: "acornspa-6af0b",
