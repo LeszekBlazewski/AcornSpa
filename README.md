@@ -8,9 +8,9 @@
 
 * **fakeBackend** - working frontend which uses mocks and HTTP interceptors to simulate Api calls
 
-* **observableRewrite** - partially working frontend which is being rewritten to support Firebase (Angular Fire) (**working currently**)
+* **observableRewrite** - partially working frontend which should be rewritten to support Firebase (Angular Fire)
 
-* **master** - Version which will be merged with observableRewrite in the future (**not working currently**)
+* **master** - Version which will be merged with observableRewrite in the future (**not working**)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
